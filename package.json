@@ -1,7 +1,7 @@
 {
-	"name": "faithful-web-app",
+	"name": "faithful-studio",
 	"version": "2.0.0",
-	"description": "The official web application for the Faithful website.",
+	"description": "Web application for managing Faithful user-created content and profiles with ease.",
 	"main": "index.js",
 	"type": "module",
 	"scripts": {

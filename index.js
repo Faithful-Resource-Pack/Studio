@@ -1,4 +1,4 @@
-// add injected methods to entire webapp
+// add injected methods to entire app
 import "@helpers/utilityMethods.js";
 
 // frameworks
@@ -54,8 +54,8 @@ const router = new VueRouter({
 
 router.beforeEach((to, _from, next) => {
 	Vue.nextTick(() => {
-		if (to.name) document.title = `${to.name} - Faithful Web Application`;
-		else document.title = "Faithful Web Application";
+		if (to.name) document.title = `${to.name} - Faithful Studio`;
+		else document.title = "Faithful Studio";
 	});
 	// redirect to dashboard if base url
 	if (to.fullPath === "/") {

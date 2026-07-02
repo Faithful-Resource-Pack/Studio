@@ -15,7 +15,7 @@
 			>&nbsp;<span v-for="(str, i) in $root.lang().global.footer.source.split('%')" :key="str">
 				<a
 					v-if="i % 2 !== 0"
-					href="https://github.com/Faithful-Resource-Pack/Web-App"
+					href="https://github.com/Faithful-Resource-Pack/Studio"
 					target="_blank"
 					rel="noopener noreferrer"
 					>{{ str }}</a

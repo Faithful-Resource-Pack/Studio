@@ -193,7 +193,7 @@ export default {
 			this.updateRoute();
 		},
 		updateRoute() {
-			// annoyingly the api endpoint and webapp route order the params differently
+			// annoyingly the api endpoint and app route order the params differently
 			const { pack, edition, version, tag, search } = this.search;
 			let route = `/gallery/${edition}/${pack}/${version}/${tag}`;
 			if (search) route += `/${search.replace(/ /g, "_")}`;

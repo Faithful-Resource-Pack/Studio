@@ -60,7 +60,7 @@ export default {
 		return {
 			snackbarShown: false,
 			reportURL:
-				"https://github.com/Faithful-Resource-Pack/Web-App/issues/new?template=bug_report.yml",
+				"https://github.com/Faithful-Resource-Pack/Studio/issues/new?template=bug_report.yml",
 			copyIcon: "mdi-content-copy",
 		};
 	},
