@@ -91,7 +91,6 @@ export default {
 	},
 	dashboard: {
 		welcome_user: "Bem-vindo, %USER%!",
-		welcome: "Bem-vindo!",
 		totals: {
 			authors: "autores",
 			contributions: "contribuições",

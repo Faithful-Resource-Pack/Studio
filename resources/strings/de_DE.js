@@ -135,7 +135,6 @@ export default {
 	},
 	dashboard: {
 		welcome_user: "Willkommen, %USER%!",
-		welcome: "Willkommen!",
 		totals: {
 			authors: "Autoren",
 			contributions: "Beiträge",

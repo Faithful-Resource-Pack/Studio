@@ -527,7 +527,6 @@ export default {
 	},
 	dashboard: {
 		welcome_user: "¡Bienvenido %USER%!",
-		welcome: "¡Bienvenido!",
 		totals: {
 			authors: "autores",
 			contributions: "contribuciones",

@@ -377,7 +377,6 @@ export default {
 	},
 	dashboard: {
 		welcome_user: "Vítej, uživateli %USER%!",
-		welcome: "Vítej!",
 		totals: {
 			authors: "autorů",
 			contributions: "příspěvků",

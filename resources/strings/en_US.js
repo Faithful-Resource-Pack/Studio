@@ -147,8 +147,8 @@ export default {
 			"Try checking your spelling or going to the %main page% to find what you were looking for.",
 	},
 	dashboard: {
+		welcome: "Welcome to the Faithful Studio!",
 		welcome_user: "Welcome, %USER%!",
-		welcome: "Welcome!",
 		totals: {
 			authors: "authors",
 			contributions: "contributions",
