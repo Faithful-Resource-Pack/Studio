@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-const THEME_KEY = "THEME";
+const THEME_KEY = "theme";
 const DEFAULT_THEME_ID = "system";
 
 export default defineStore("theme", {
