@@ -160,11 +160,8 @@ export default {
 	computed: {
 		addonDeleteTitle() {
 			const count = this.transferredAddons.length + this.deletedAddons.length;
-			return this.$root
-				.lang()
-				.profile.delete.addons[
-					count === 1 ? "title_singular" : "title_plural"
-				].replace("%d", count);
+			const titleKey = count === 1 ? "title_singular" : "title_plural";
+			return this.$root.lang().profile.delete.addons[titleKey].replace("%d", count);
 		},
 	},
 	watch: {
