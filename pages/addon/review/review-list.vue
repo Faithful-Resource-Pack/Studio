@@ -2,7 +2,7 @@
 	<v-card class="main-container review-list overflow-y-auto">
 		<!-- workaround to prevent the navigation list styles incorrectly applying -->
 		<router-link v-for="(item, i) in items" :key="item.key" :to="addonURL(item.key)">
-			<v-list-item two-line :class="classes[i]" @click="$emit('input', item.key)">
+			<v-list-item tabindex="-1" two-line :class="classes[i]" @click="$emit('input', item.key)">
 				<v-list-item-content>
 					<v-list-item-title>{{ item.primary }}</v-list-item-title>
 					<v-list-item-subtitle>{{ item.secondary }}</v-list-item-subtitle>
