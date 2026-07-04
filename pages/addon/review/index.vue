@@ -20,7 +20,7 @@
 			:style="$vuetify.breakpoint.mdAndUp && 'height: 70vh'"
 		>
 			<!-- empty layout is shared across both mobile and desktop -->
-			<v-card v-if="selectedListItems.length === 0" class="main-container text-center px-4 py-8">
+			<v-card v-if="!selectedListItems.length" class="main-container text-center px-4 py-8">
 				<loading-page v-if="loading" />
 				<ascii-error v-else :subtitle="$root.lang().review.labels[status]" />
 			</v-card>
@@ -32,7 +32,7 @@
 				/>
 				<!-- no v-model since you can't change the active addon from the preview alone -->
 				<review-preview
-					:addonId="selectedAddonId"
+					:addon="selectedAddon"
 					:status="status"
 					:authors="authors"
 					@review="changeStatus"
@@ -40,8 +40,8 @@
 			</div>
 			<mobile-reviewer
 				v-else
-				v-model="selectedAddonId"
-				:addons="selectedListItems"
+				:addon="selectedAddon"
+				:items="selectedListItems"
 				:status="status"
 				:authors="authors"
 				@review="changeStatus"
@@ -232,6 +232,9 @@ export default {
 		},
 		selectedListItems() {
 			return this.allListItems[this.status];
+		},
+		selectedAddon() {
+			return this.addons[this.status].find((a) => a.id === this.selectedAddonId);
 		},
 	},
 	watch: {

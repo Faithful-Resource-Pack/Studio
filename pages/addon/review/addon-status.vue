@@ -1,43 +1,32 @@
 <template>
-	<div>
-		<v-card-text v-if="loading" class="d-flex align-center ga-4">
-			<div class="flex-grow-1 mr-auto">
-				<v-skeleton-loader type="heading" />
-			</div>
-			<v-skeleton-loader v-for="i in 3" :key="i" type="button" />
-		</v-card-text>
-		<v-card-text
-			v-else
-			class="d-flex flex-column align-center justify-space-between flex-sm-row ga-4"
+	<v-card-text class="d-flex flex-column align-center justify-space-between flex-sm-row ga-4">
+		<div class="align-self-start align-self-sm-center">
+			<span class="uppercase text--primary">
+				{{ title.replace("%s", username) }}
+			</span>
+			<p v-if="status !== 'approved'" class="text--secondary mb-0">
+				<template v-if="reason">{{ reason }}</template>
+				<i v-else>{{ $root.lang().review.addon.labels.no_reason }}</i>
+			</p>
+		</div>
+		<!-- switch to columns if the reason is too long to fit nicely on the left -->
+		<div
+			class="d-flex flex-wrap flex-sm-nowrap justify-end align-self-end align-self-sm-center ga-2"
+			:class="longReason && 'flex-sm-column'"
 		>
-			<div class="align-self-start align-self-sm-center">
-				<span class="uppercase-unsized">
-					{{ title.replace("%s", username) }}
-				</span>
-				<p v-if="status !== 'approved'" class="text--secondary mb-0">
-					<template v-if="reason">{{ reason }}</template>
-					<i v-else>{{ $root.lang().review.addon.labels.no_reason }}</i>
-				</p>
-			</div>
-			<!-- switch to columns if the reason is too long to fit nicely on the left -->
-			<div
-				class="d-flex flex-wrap flex-sm-nowrap justify-end align-self-end align-self-sm-center ga-2"
-				:class="longReason && 'flex-sm-column'"
+			<v-btn
+				v-for="button in buttons"
+				:key="button.status"
+				text
+				:color="button.color"
+				:disabled="status === button.status"
+				@click="$emit('review', addon.id, button.status)"
 			>
-				<v-btn
-					v-for="button in buttons"
-					:key="button.status"
-					text
-					:color="button.color"
-					:disabled="status === button.status"
-					@click="$emit('review', addon.id, button.status)"
-				>
-					<v-icon left>{{ button.icon }}</v-icon>
-					{{ $root.lang().global.btn[button.label] }}
-				</v-btn>
-			</div>
-		</v-card-text>
-	</div>
+				<v-icon left>{{ button.icon }}</v-icon>
+				{{ $root.lang().global.btn[button.label] }}
+			</v-btn>
+		</div>
+	</v-card-text>
 </template>
 
 <script>
@@ -47,11 +36,6 @@ export default {
 		addon: {
 			type: Object,
 			required: true,
-		},
-		loading: {
-			type: Boolean,
-			required: false,
-			default: false,
 		},
 		authors: {
 			type: Array,
@@ -86,10 +70,10 @@ export default {
 	},
 	computed: {
 		status() {
-			return this.addon.approval.status;
+			return this.addon.approval?.status;
 		},
 		reason() {
-			return this.addon.approval.reason;
+			return this.addon.approval?.reason;
 		},
 		username() {
 			// straight up doesn't exist

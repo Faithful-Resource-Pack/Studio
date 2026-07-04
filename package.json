@@ -21,7 +21,7 @@
 		"prettier": "^3.9.4",
 		"prismjs": "^1.30.0",
 		"sass": "^1.101.0",
-		"vite": "^7.3.5",
+		"vite": "^7.3.6",
 		"vue": "^2.7.16",
 		"vue-calendar-heatmap": "0.8.4",
 		"vue-graph": "0.8.7",

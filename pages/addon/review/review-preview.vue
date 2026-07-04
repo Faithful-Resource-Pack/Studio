@@ -1,12 +1,11 @@
 <template>
 	<div class="review-preview d-flex flex-column">
 		<v-card class="main-container flex-grow-1 overflow-y-auto overflow-x-hidden">
-			<addon-panel :addon="addonInPanel" :loading="loading" :authors="authors" />
+			<addon-panel :addon="addon" :files="files" :authors="authors" />
 		</v-card>
 		<v-card class="main-container mt-2">
 			<addon-status
-				:addon="addonInPanel"
-				:loading="loading"
+				:addon="addon"
 				:authors="authors"
 				@review="(id, status) => $emit('review', id, status)"
 			/>
@@ -27,10 +26,10 @@ export default {
 		AddonStatus,
 	},
 	props: {
-		addonId: {
-			type: String,
+		addon: {
+			type: Object,
 			required: false,
-			default: undefined,
+			default: () => ({}),
 		},
 		authors: {
 			type: Array,
@@ -44,24 +43,21 @@ export default {
 	emits: ["review"],
 	data() {
 		return {
-			addonInPanel: {},
-			loading: true,
+			files: [],
 		};
 	},
 	methods: {
-		getAddon(id) {
-			this.loading = true;
-			axios.get(`${this.$root.apiURL}/addons/${id}/all`, this.$root.apiOptions).then((res) => {
-				this.addonInPanel = res.data;
-				this.loading = false;
+		getFiles(id) {
+			this.files = [];
+			axios.get(`${this.$root.apiURL}/addons/${id}/files`, this.$root.apiOptions).then((res) => {
+				this.files = res.data;
 			});
 		},
 	},
 	watch: {
-		addonId: {
+		addon: {
 			handler(n) {
-				if (n === undefined) return;
-				this.getAddon(n);
+				if (Object.keys(n || {}).length) this.getFiles(n.id);
 			},
 			immediate: true,
 		},
