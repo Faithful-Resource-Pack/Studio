@@ -23,7 +23,7 @@ export default {
 			default: undefined,
 		},
 		items: {
-			type: Array, // { primary: String, secondary: String, key: Number }[]
+			type: Array, // { primary: string, secondary: string, key: number }[]
 			required: true,
 		},
 		activeColor: {

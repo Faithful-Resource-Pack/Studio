@@ -69,7 +69,7 @@ export default {
 					// fix to stabilize upload and make one request then another...
 					let err;
 					let successful = true;
-					for (const screen of screenshots) {
+					for (const screen of this.screenshots) {
 						const form = new FormData();
 						form.set("file", screen, screen.name);
 

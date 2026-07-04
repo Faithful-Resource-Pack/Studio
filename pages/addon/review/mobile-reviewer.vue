@@ -50,7 +50,7 @@ export default {
 			default: () => ({}),
 		},
 		items: {
-			type: Array,
+			type: Array, // { primary: string, secondary: string, key: number }[]
 			required: true,
 		},
 		authors: {
@@ -75,6 +75,7 @@ export default {
 			if (this.$route.query.id === id)
 				return this.$router.push({ query: { ...this.$route.query, id: undefined } });
 
+			// opened panel, switch param and get files
 			this.$router.push({ query: { ...this.$route.query, id } });
 			this.getFiles(id);
 		},
