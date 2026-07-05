@@ -7,7 +7,7 @@
 			<addon-status
 				:addon="addon"
 				:authors="authors"
-				@review="(id, status) => $emit('review', id, status)"
+				@review="(status) => $emit('review', addon.id, status)"
 			/>
 		</v-card>
 	</div>

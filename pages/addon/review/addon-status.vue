@@ -20,7 +20,7 @@
 				text
 				:color="button.color"
 				:disabled="status === button.status"
-				@click="$emit('review', addon.id, button.status)"
+				@click="$emit('review', button.status)"
 			>
 				<v-icon left>{{ button.icon }}</v-icon>
 				{{ $root.lang().global.btn[button.label] }}

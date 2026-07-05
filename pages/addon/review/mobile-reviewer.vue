@@ -24,7 +24,7 @@
 					class="ma-n4"
 					:addon="addon"
 					:authors="authors"
-					@review="(id, status) => $emit('review', id, status)"
+					@review="(status) => $emit('review', addon.id, status)"
 				/>
 			</v-expansion-panel-content>
 		</v-expansion-panel>
