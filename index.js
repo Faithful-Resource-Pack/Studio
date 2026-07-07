@@ -164,7 +164,7 @@ const app = new Vue({
 				return this.showSnackBar(...allArgs);
 			};
 		},
-		showSnackBar(message, color = "", timeout = 4000, json = undefined) {
+		showSnackBar(message, color = "", timeout = undefined, json = undefined) {
 			this.snackbar.show = true;
 			this.snackbar.message = message;
 			this.snackbar.color = color;

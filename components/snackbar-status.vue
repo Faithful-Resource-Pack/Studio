@@ -3,7 +3,7 @@
 		v-model="snackbarShown"
 		class="snackbar-status"
 		:class="(split.submessage || json) && 'extended-snackbar'"
-		:timeout="snackbar.timeout"
+		:timeout="timeout"
 		:color="snackbar.color"
 		text
 		bottom
@@ -137,6 +137,14 @@ export default {
 			if (message.response?.data && message.response.data.details)
 				return message.response.data.details;
 			return null;
+		},
+		timeout() {
+			if (this.snackbar.timeout) return this.snackbar.timeout;
+			// success status lasts for less time since there's nothing useful there
+			if (this.snackbar.color === "success") return 2500;
+
+			// anything else takes longer to go away so you can copy it
+			return 5000;
 		},
 	},
 	watch: {
