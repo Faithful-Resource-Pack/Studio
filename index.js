@@ -97,8 +97,8 @@ router.addRoute({ path: "*", name: "404", component: MissingPage });
 // needed for some pages to not completely die
 window.settings = {};
 
-const DARK_SIDEBAR_KEY = "dark_sidebar";
-const MENU_KEY = "menu_key";
+const DARK_SIDEBAR_KEY = "sidebar_dark";
+const DRAWER_OPEN_KEY = "sidebar_open";
 
 /**
  * VUE INITIALIZATION
@@ -119,8 +119,8 @@ const app = new Vue({
 			translation: translationStore(),
 			theme: themeStore(),
 			darkSidebar: localStorage.getItem(DARK_SIDEBAR_KEY) === "true" || false,
-			drawerOpen: localStorage.getItem(MENU_KEY)
-				? localStorage.getItem(MENU_KEY) === "true"
+			drawerOpen: localStorage.getItem(DRAWER_OPEN_KEY)
+				? localStorage.getItem(DRAWER_OPEN_KEY) === "true"
 				: !this.$vuetify.breakpoint.mobile,
 			badgeData: {},
 			settingsLoaded: false,
@@ -314,7 +314,7 @@ const app = new Vue({
 		drawerOpen(n) {
 			// don't set preference on small screens (pointless)
 			if (this.$vuetify.breakpoint.mobile) return;
-			localStorage.setItem(MENU_KEY, String(n));
+			localStorage.setItem(DRAWER_OPEN_KEY, String(n));
 		},
 		userRoles(n) {
 			if (!Array.isArray(n)) return;

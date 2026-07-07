@@ -33,7 +33,7 @@
 <script>
 import SidebarCategory from "./sidebar-category.vue";
 
-const OPEN_CATEGORY_KEY = "open_sidebar_categories";
+const OPEN_CATEGORY_KEY = "sidebar_open_categories";
 
 export default {
 	name: "nav-sidebar",
