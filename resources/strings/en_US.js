@@ -657,6 +657,7 @@ export default {
 				tagless: "No tags added",
 				copy_button: "Copy texture data as JSON",
 				json_button: "Import JSON data",
+				persist_button: "Persist on save",
 				copy_json_data: "Copied JSON data to clipboard",
 				id_hint: "Changing the texture ID can break everything!",
 				id: "Texture ID",

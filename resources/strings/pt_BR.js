@@ -483,7 +483,6 @@ export default {
 				subtitle: "Usos e Caminhos",
 				tagless: "Nenhuma tag adicionada",
 				copy_json_data: "Dados JSON copiados para área de transferência",
-				clear_on_save: "Limpar ao salvar",
 				id_hint: "Alterar o ID da textura pode quebrar tudo!",
 				id: "ID da textura",
 				name: "Nome da textura",

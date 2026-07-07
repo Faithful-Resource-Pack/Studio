@@ -12,6 +12,15 @@
 			<v-btn icon :title="$root.lang().database.textures.modal.json_button" @click="openJSONModal">
 				<v-icon>mdi-code-json</v-icon>
 			</v-btn>
+			<!-- v-btn-toggle is really weird so we just force-apply the css classes when needed -->
+			<v-btn
+				icon
+				:title="$root.lang().database.textures.modal.persist_button"
+				:class="persistOnSave ? 'v-item--active v-btn--active' : ''"
+				@click="persistOnSave = !persistOnSave"
+			>
+				<v-icon>{{ persistOnSave ? "mdi-content-save" : "mdi-content-save-off" }}</v-icon>
+			</v-btn>
 		</template>
 		<json-modal v-model="jsonModalOpened" :color="color" initialValue="[]" @data="parseJSON" />
 		<div class="px-10 py-5">
@@ -97,6 +106,8 @@ import JsonModal from "@components/json-modal.vue";
 import TexturePanel from "./texture-panel.vue";
 import SummaryItem from "./summary-item.vue";
 
+const PERSIST_ON_SAVE_KEY = "new_textures_persist_on_save";
+
 export default {
 	name: "new-texture-modal",
 	components: {
@@ -129,6 +140,7 @@ export default {
 			textures: [emptyTexture()],
 			loading: false,
 			jsonModalOpened: false,
+			persistOnSave: localStorage.getItem(PERSIST_ON_SAVE_KEY) === "true",
 		};
 	},
 	methods: {
@@ -186,6 +198,7 @@ export default {
 				.post(`${this.$root.apiURL}/textures/multiple`, this.cleanedData, this.$root.apiOptions)
 				.then(() => {
 					this.$root.showSnackBar(this.$root.lang().database.textures.add_success, "success");
+					if (!this.persistOnSave) this.resetModal();
 				})
 				.catch((err) => {
 					console.error(err);
@@ -220,6 +233,9 @@ export default {
 		},
 		modalOpened(n) {
 			this.$emit("input", n);
+		},
+		persistOnSave(n) {
+			localStorage.setItem(PERSIST_ON_SAVE_KEY, n);
 		},
 	},
 };

@@ -139,7 +139,6 @@ export default {
 			ask_deletion: "¿Desea eliminar %s (%d)?",
 			ask_submission_deletion: "¿Desea eliminar la información de envío para %s (%d)?",
 			close_on_submit: "Cerrar al enviar",
-			clear_on_save: "Eliminar al guardar",
 			user_role: "Roles de usuario",
 			discord_id: "ID de Discord",
 			pack_id: "ID del pack",
