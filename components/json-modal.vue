@@ -3,7 +3,7 @@
 		v-model="modalOpened"
 		max-width="800"
 		:title="$root.lang().global.json_editor.import_data"
-		hide-actions
+		basic
 	>
 		<prism-editor
 			v-model="jsonData"

@@ -7,10 +7,11 @@
 					<v-icon>mdi-close</v-icon>
 				</v-btn>
 			</v-card-title>
-			<v-card-text>
+			<slot v-if="basic" />
+			<v-card-text v-else>
 				<slot />
 			</v-card-text>
-			<v-card-actions v-if="!hideActions" class="form-actions">
+			<v-card-actions v-if="!hideActions && !basic" class="form-actions">
 				<v-btn :color="danger ? normalColor : dangerColor" text @click="closeModal">
 					{{ $root.lang().global.btn.cancel }}
 				</v-btn>
@@ -57,6 +58,11 @@ export default {
 			default: null,
 		},
 		disabled: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
+		basic: {
 			type: Boolean,
 			required: false,
 			default: false,
