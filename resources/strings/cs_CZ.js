@@ -3,7 +3,7 @@ export default {
 	global: {
 		name: "Faithful",
 		logout: "Odhlásit se",
-		ends_success: "Povedlo se!",
+		success_message: "Povedlo se!",
 		loading: "Načítám, prosím vyčkejte…",
 		no_results: "Žádné výsledky",
 		nyi: "Zatím neimplementováno",

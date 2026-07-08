@@ -6,7 +6,7 @@ export default {
 		name: "Faithful",
 		login: "Log in",
 		logout: "Log out",
-		ends_success: "Completed successfully",
+		success_message: "Completed successfully",
 		loading: "Loading, please wait…",
 		no_results: "No results found",
 		nyi: "Not yet implemented",

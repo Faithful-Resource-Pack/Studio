@@ -175,7 +175,7 @@ const app = new Vue({
 		async wrapSnackBar(promise, successMessage = "") {
 			try {
 				const result = await promise;
-				this.showSnackBar(successMessage || this.lang().global.ends_success, "success");
+				this.showSnackBar(successMessage || this.lang().global.success_message, "success");
 				// so it can still be used
 				return result;
 			} catch (err) {

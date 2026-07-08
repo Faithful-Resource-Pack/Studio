@@ -92,7 +92,7 @@ export default {
 				}
 
 				await Promise.all(promises);
-				this.$root.showSnackBar(this.$root.lang().global.ends_success, "success");
+				this.$root.showSnackBar(this.$root.lang().global.success_message, "success");
 				this.$router.push("/addons/submissions");
 			} catch (err) {
 				console.error(err);

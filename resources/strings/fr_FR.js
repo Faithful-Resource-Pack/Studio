@@ -3,7 +3,7 @@ export default {
 	global: {
 		name: "Faithful",
 		logout: "Déconnexion",
-		ends_success: "Terminé avec succès",
+		success_message: "Terminé avec succès",
 		loading: "Chargement, veuillez patienter…",
 		no_results: "Aucun résultat n'a été trouvé",
 		nyi: "N'a pas encore été implémenté.",

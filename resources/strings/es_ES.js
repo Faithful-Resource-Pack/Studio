@@ -4,7 +4,7 @@ export default {
 		name: "Faithful",
 		login: "Iniciar sesión",
 		logout: "Cerrar Sesión",
-		ends_success: "Completado con éxito",
+		success_message: "Completado con éxito",
 		loading: "Cargando, por favor espere…",
 		no_results: "No se han encontrado resultados",
 		nyi: "Aún no implementado.",

@@ -189,7 +189,7 @@ export default {
 			const formatted = this.categorizeAndFormat(allContributions, Object.values(finalData));
 			this.outputData = JSON.stringify(formatted, null, 2);
 			this.loading = false;
-			this.$root.showSnackBar(this.$root.lang().global.ends_success, "success");
+			this.$root.showSnackBar(this.$root.lang().global.success_message, "success");
 		},
 	},
 	computed: {
