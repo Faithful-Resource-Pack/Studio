@@ -98,7 +98,7 @@ router.addRoute({ path: "*", name: "404", component: MissingPage });
 window.settings = {};
 
 const DARK_SIDEBAR_KEY = "sidebar_dark";
-const DRAWER_OPEN_KEY = "sidebar_open";
+const SIDEBAR_OPEN_KEY = "sidebar_open";
 
 /**
  * VUE INITIALIZATION
@@ -119,8 +119,8 @@ const app = new Vue({
 			translation: translationStore(),
 			theme: themeStore(),
 			darkSidebar: localStorage.getItem(DARK_SIDEBAR_KEY) === "true" || false,
-			drawerOpen: localStorage.getItem(DRAWER_OPEN_KEY)
-				? localStorage.getItem(DRAWER_OPEN_KEY) === "true"
+			sidebarOpen: localStorage.getItem(SIDEBAR_OPEN_KEY)
+				? localStorage.getItem(SIDEBAR_OPEN_KEY) === "true"
 				: !this.$vuetify.breakpoint.mobile,
 			badgeData: {},
 			settingsLoaded: false,
@@ -311,10 +311,10 @@ const app = new Vue({
 		darkSidebar(n) {
 			localStorage.setItem(DARK_SIDEBAR_KEY, String(n));
 		},
-		drawerOpen(n) {
+		sidebarOpen(n) {
 			// don't set preference on small screens (pointless)
 			if (this.$vuetify.breakpoint.mobile) return;
-			localStorage.setItem(DRAWER_OPEN_KEY, String(n));
+			localStorage.setItem(SIDEBAR_OPEN_KEY, String(n));
 		},
 		userRoles(n) {
 			if (!Array.isArray(n)) return;
@@ -337,7 +337,7 @@ const app = new Vue({
 			this.showActions = true;
 		}, 5000);
 
-		if (this.$vuetify.breakpoint.mdAndDown) this.drawerOpen = false;
+		if (this.$vuetify.breakpoint.mdAndDown) this.sidebarOpen = false;
 		this.reloadSettings();
 		this.translation.setup();
 		this.theme.setup(this);

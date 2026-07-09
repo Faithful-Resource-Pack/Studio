@@ -3,7 +3,7 @@
 		<v-app-bar-nav-icon
 			class="ml-n1"
 			:title="$root.lang().global.navbar.labels.sidebar"
-			@click="$emit('drawer')"
+			@click="$emit('sidebar')"
 		/>
 
 		<v-spacer />
@@ -100,7 +100,7 @@ export default {
 			required: true,
 		},
 	},
-	emits: ["drawer", "theme", "update:darkSidebar", "lang"],
+	emits: ["sidebar", "theme", "update:darkSidebar", "lang"],
 	data() {
 		return {
 			accountManagerOpen: false,

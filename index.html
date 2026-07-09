@@ -103,13 +103,13 @@
 					:themes="Object.values(theme.availableThemes)"
 					:languages="Object.values(translation.availableLangs)"
 					:dark-sidebar.sync="darkSidebar"
-					@drawer="drawerOpen = !drawerOpen"
+					@sidebar="sidebarOpen = !sidebarOpen"
 					@theme="theme.setTheme($event)"
 					@lang="translation.setLang($event)"
 				></nav-app-bar>
 
 				<nav-sidebar
-					v-model="drawerOpen"
+					v-model="sidebarOpen"
 					:tabs="availableTabs"
 					:badges="badgeData"
 					:force-dark="darkSidebar"

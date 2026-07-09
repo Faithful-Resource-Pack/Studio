@@ -1,5 +1,10 @@
 <template>
-	<v-navigation-drawer v-model="drawerOpen" app width="300" :dark="forceDark">
+	<v-navigation-drawer
+		v-model="sidebarOpen"
+		app
+		:width="$vuetify.breakpoint.mobile ? undefined : 300"
+		:dark="forceDark"
+	>
 		<!--
 			can't have multiple open tab groups with v-list so we manually add the css classes
 			this is absolutely horrid but there's no other way to get the same behavior nicely
@@ -64,7 +69,7 @@ export default {
 	data() {
 		const openCategoryJSON = localStorage.getItem(OPEN_CATEGORY_KEY) || "{}";
 		return {
-			drawerOpen: false,
+			sidebarOpen: false,
 			// updating tabsOpen when it's assigned to a value prop causes problems
 			initialOpenCategories: JSON.parse(openCategoryJSON),
 			// JSON.parse twice to get different references for mutation later
@@ -78,7 +83,7 @@ export default {
 			localStorage.setItem(OPEN_CATEGORY_KEY, JSON.stringify(this.openCategories));
 		},
 		autoClose() {
-			if (this.$vuetify.breakpoint.mobile) this.drawerOpen = false;
+			if (this.$vuetify.breakpoint.mobile) this.sidebarOpen = false;
 		},
 		isCurrentPath(path) {
 			return this.$route.matched.some((r) => r.path === path);
@@ -165,11 +170,11 @@ export default {
 	watch: {
 		value: {
 			handler(newValue) {
-				this.drawerOpen = newValue;
+				this.sidebarOpen = newValue;
 			},
 			immediate: true,
 		},
-		drawerOpen(newValue) {
+		sidebarOpen(newValue) {
 			this.$emit("input", newValue);
 		},
 		tabs: {
