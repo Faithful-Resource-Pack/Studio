@@ -41,7 +41,6 @@ export default {
 				title: "Doplňky",
 				subtabs: {
 					submissions: "Přihlášky",
-					upload: "Nahrát",
 				},
 			},
 			database: {

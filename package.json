@@ -34,7 +34,7 @@
 		"@types/d3": "^7.4.3",
 		"@types/luxon": "^3.7.2",
 		"@types/prismjs": "^1.26.6",
-		"eslint": "^9.39.4",
+		"eslint": "^9.39.5",
 		"eslint-plugin-vue": "^10.9.2",
 		"nodemon": "^3.1.14"
 	},

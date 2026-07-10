@@ -37,7 +37,7 @@ export default [
 			},
 			{
 				id: "profile",
-				icon: "mdi-account-circle",
+				icon: "mdi-account-box",
 				routes: [
 					{
 						path: "/profile",
@@ -69,7 +69,7 @@ export default [
 		id: "addons",
 		subtabs: [
 			{
-				id: "upload",
+				id: "new",
 				icon: "mdi-plus-thick",
 				routes: [
 					{
@@ -137,7 +137,7 @@ export default [
 				],
 			},
 			{
-				id: "list",
+				id: "all",
 				icon: "mdi-newspaper-variant-multiple",
 				routes: [
 					{

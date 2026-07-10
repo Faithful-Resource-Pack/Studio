@@ -43,7 +43,6 @@ export default {
 				subtabs: {
 					dashboard: "Panel de control",
 					profile: "Perfil",
-					statistics: "Estadísticas",
 					gallery: "Galería",
 				},
 			},
@@ -51,15 +50,10 @@ export default {
 				title: "Complementos",
 				subtabs: {
 					submissions: "Envíos",
-					upload: "Subir",
 				},
 			},
 			posts: {
 				title: "Publicaciones",
-				subtabs: {
-					list: "Lista",
-					create: "Crear",
-				},
 			},
 			database: {
 				title: "Base de datos",

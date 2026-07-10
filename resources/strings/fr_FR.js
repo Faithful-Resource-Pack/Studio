@@ -36,16 +36,11 @@ export default {
 				subtabs: {
 					dashboard: "Dashboard",
 					profile: "Profil",
-					statistics: "Statistiques",
 					gallery: "Galerie",
 				},
 			},
 			addons: {
 				title: "Add-on",
-				subtabs: {
-					submissions: "Mes add-ons",
-					upload: "Upload",
-				},
 			},
 			database: {
 				title: "Database",

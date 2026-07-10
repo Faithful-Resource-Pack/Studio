@@ -6,9 +6,11 @@
 			<v-icon class="v-label">{{ subtab.icon }}</v-icon>
 		</v-list-item-icon>
 		<v-list-item-content>
-			<v-list-item-title class="body-2">{{ title }}</v-list-item-title>
+			<v-list-item-title class="body-2" :class="hasBadge && 'font-weight-bold'">
+				{{ title }}
+			</v-list-item-title>
 		</v-list-item-content>
-		<v-list-item-action v-if="subtab.badge && badges[subtab.id]" class="nav-badge">
+		<v-list-item-action v-if="hasBadge" class="nav-badge">
 			<span class="nav-badge-inner error white--text font-weight-black">
 				{{ badges[subtab.id] }}
 			</span>
@@ -41,6 +43,9 @@ export default {
 				this.$root.lang().global.tabs[this.parent]?.subtabs[this.subtab.id] ||
 				this.subtab.id.toTitleCase()
 			);
+		},
+		hasBadge() {
+			return this.subtab.badge && this.badges[this.subtab.id];
 		},
 	},
 };

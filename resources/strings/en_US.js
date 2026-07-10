@@ -84,16 +84,16 @@ export default {
 			addons: {
 				title: "Add-ons",
 				subtabs: {
+					new: "New add-on",
 					submissions: "Submissions",
-					upload: "Upload",
 					review: "Review",
 				},
 			},
 			posts: {
 				title: "Posts",
 				subtabs: {
-					list: "List",
-					create: "Create",
+					create: "Create post",
+					all: "All posts",
 				},
 			},
 			database: {

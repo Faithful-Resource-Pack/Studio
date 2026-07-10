@@ -77,16 +77,11 @@ export default {
 				title: "Add-ons",
 				subtabs: {
 					submissions: "Einsendungen",
-					upload: "Hochladen",
 					review: "Überprüfen",
 				},
 			},
 			posts: {
 				title: "Beiträge",
-				subtabs: {
-					list: "Liste",
-					create: "Erstellen",
-				},
 			},
 			database: {
 				title: "Datenbank",
