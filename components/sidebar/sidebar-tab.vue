@@ -1,8 +1,9 @@
 <template>
 	<v-list-item link :to="subtab.to" :disabled="subtab.disabled" @click="$emit('select')">
-		<!-- for some reason the icon has a morbillion pixels of right padding -->
-		<v-list-item-icon v-if="subtab.icon" class="mr-0">
-			<v-icon small>{{ subtab.icon }}</v-icon>
+		<!-- for some reason sidebar icons have a morbillion pixels of right padding -->
+		<v-list-item-icon v-if="subtab.icon" class="mr-3">
+			<!-- use secondary text and highlight primary on focus (less contrasty) -->
+			<v-icon class="v-label">{{ subtab.icon }}</v-icon>
 		</v-list-item-icon>
 		<v-list-item-content>
 			<v-list-item-title class="body-2">{{ title }}</v-list-item-title>

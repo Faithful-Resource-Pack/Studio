@@ -37,7 +37,7 @@ export default [
 			},
 			{
 				id: "profile",
-				icon: "mdi-account",
+				icon: "mdi-account-circle",
 				routes: [
 					{
 						path: "/profile",
@@ -98,7 +98,7 @@ export default [
 			{
 				id: "review",
 				roles: ["Administrator", "Art Director Council"],
-				icon: "mdi-puzzle",
+				icon: "mdi-gavel",
 				badge: (app) =>
 					axios.get(`${app.apiURL}/addons/pending`, app.apiOptions).then((r) => r.data.length || 0),
 				routes: [
@@ -138,7 +138,7 @@ export default [
 			},
 			{
 				id: "list",
-				icon: "mdi-format-list-bulleted-square",
+				icon: "mdi-newspaper-variant-multiple",
 				routes: [
 					{
 						path: "/posts/list",

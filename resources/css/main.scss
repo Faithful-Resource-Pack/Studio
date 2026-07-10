@@ -258,6 +258,10 @@ img.texture-img {
 	margin-top: 16px !important;
 }
 
+.v-list--nav .v-list-group__header {
+	min-height: 32px !important;
+}
+
 // fix v-alert icons not centering with text nicely
 .v-alert__icon.v-icon {
 	align-self: center;

@@ -5,9 +5,9 @@
 		</template>
 		<template #appendIcon>
 			<!-- regular is 24 and small is 16, both are a bit too extreme -->
-			<v-icon size="20" style="opacity: 80%">{{ collapseIcon }}</v-icon>
+			<v-icon size="20" style="opacity: 75%">{{ collapseIcon }}</v-icon>
 		</template>
-		<div class="v-list pb-4 pt-0">
+		<div class="v-list pb-5 pt-0">
 			<sidebar-tab
 				v-for="subtab in tab.subtabs"
 				:key="subtab.id"
