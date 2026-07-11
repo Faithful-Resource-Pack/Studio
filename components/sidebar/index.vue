@@ -1,10 +1,5 @@
 <template>
-	<v-navigation-drawer
-		v-model="sidebarOpen"
-		app
-		:width="$vuetify.breakpoint.mobile ? undefined : 300"
-		:dark="forceDark"
-	>
+	<v-navigation-drawer v-model="sidebarOpen" app :dark="forceDark">
 		<!--
 			can't have multiple open tab groups with v-list so we manually add the css classes
 			this is absolutely horrid but there's no other way to get the same behavior nicely
@@ -18,7 +13,7 @@
 					style="width: 100%"
 				/>
 			</router-link>
-			<v-divider class="my-2" />
+			<v-divider class="mb-2" />
 			<sidebar-category
 				v-for="tab in tabs"
 				:key="tab.id"
