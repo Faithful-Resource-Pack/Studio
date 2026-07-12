@@ -19,7 +19,7 @@
 		<template v-else-if="item.category !== undefined">
 			<v-row dense class="align-baseline ml-n12">
 				<v-col class="flex-grow-0 flex-shrink-0" :style="{ height: categoryHeight }">
-					<v-btn icon @click="toggleChildren">
+					<v-btn icon :title="togglerTitle" @click="toggleChildren">
 						<v-icon style="opacity: 75%">
 							{{ childrenVisible ? "mdi-chevron-down" : "mdi-chevron-right" }}
 						</v-icon>
@@ -55,7 +55,7 @@
 					:level="level + 1"
 					@delete="remove(i)"
 				/>
-				<!-- subtract 1 from ml-4 and readd as internal padding -->
+				<!-- align with children (looks better) -->
 				<div class="d-flex flex-wrap ga-2 my-2" :class="offsetClass">
 					<v-btn color="secondary" @click="addItem">
 						<v-icon left>mdi-plus</v-icon>
@@ -112,7 +112,7 @@ export default {
 	},
 	computed: {
 		offsetClass() {
-			return this.$vuetify.breakpoint.smAndDown ? 'pl-4' : 'pl-8';
+			return this.$vuetify.breakpoint.smAndDown ? "pl-4" : "pl-8";
 		},
 		isNested() {
 			return this.level > 5;
@@ -135,6 +135,11 @@ export default {
 				default:
 					return levels.item_category;
 			}
+		},
+		togglerTitle() {
+			return this.childrenVisible
+				? this.$root.lang().posts.changelog.close_category
+				: this.$root.lang().posts.changelog.open_category;
 		},
 	},
 	watch: {

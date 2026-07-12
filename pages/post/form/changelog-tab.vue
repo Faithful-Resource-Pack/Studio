@@ -3,9 +3,9 @@
 		<!-- root level object is an array so it must be iterated over -->
 		<post-changelog
 			v-for="(_item, i) in changelog"
-			class="pl-12"
 			:key="i"
 			v-model="changelog[i]"
+			class="pl-12"
 			@delete="remove(i)"
 		/>
 		<json-modal v-model="jsonModalOpen" initialValue="{}" @data="parseJSON" />

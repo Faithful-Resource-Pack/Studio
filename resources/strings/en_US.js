@@ -559,6 +559,8 @@ export default {
 			remove_category: "Remove changelog category",
 			remove_item: "Remove changelog item",
 			import_json: "Import JSON",
+			open_category: "Open changelog category",
+			close_category: "Collapse changelog category",
 			form_levels: {
 				primary: "Primary category",
 				secondary: "Secondary category",
