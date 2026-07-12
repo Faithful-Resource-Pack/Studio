@@ -1,5 +1,5 @@
 <template>
-	<div :class="margin ? 'ml-5' : ''">
+	<div :class="offsetClass">
 		<v-row v-if="typeof item === 'string'" dense class="align-baseline">
 			<v-col>
 				<v-text-field
@@ -11,18 +11,20 @@
 				/>
 			</v-col>
 			<v-col class="flex-grow-0 flex-shrink-0">
-				<v-btn
-					icon
-					:size="categoryHeight"
-					:title="$root.lang().posts.changelog.remove_item"
-					@click="$emit('delete')"
-				>
+				<v-btn icon :title="$root.lang().posts.changelog.remove_item" @click="$emit('delete')">
 					<v-icon color="red lighten-1">mdi-minus</v-icon>
 				</v-btn>
 			</v-col>
 		</v-row>
 		<template v-else-if="item.category !== undefined">
-			<v-row dense class="align-baseline">
+			<v-row dense class="align-baseline ml-n12">
+				<v-col class="flex-grow-0 flex-shrink-0" :style="{ height: categoryHeight }">
+					<v-btn icon @click="toggleChildren">
+						<v-icon style="opacity: 75%">
+							{{ childrenVisible ? "mdi-chevron-down" : "mdi-chevron-right" }}
+						</v-icon>
+					</v-btn>
+				</v-col>
 				<v-col>
 					<v-text-field
 						v-model="item.category"
@@ -37,7 +39,6 @@
 				<v-col class="flex-grow-0 flex-shrink-0">
 					<v-btn
 						icon
-						:size="categoryHeight"
 						:title="$root.lang().posts.changelog.remove_category"
 						@click="$emit('delete')"
 					>
@@ -45,23 +46,26 @@
 					</v-btn>
 				</v-col>
 			</v-row>
-			<post-changelog
-				v-for="(el, i) in item.items"
-				:key="i"
-				v-model="item.items[i]"
-				:level="level + 1"
-				margin
-				@delete="remove(i)"
-			/>
-			<div class="ml-4">
-				<v-btn class="my-2 mx-1" color="secondary" @click="addItem">
-					<v-icon left>mdi-plus</v-icon>
-					{{ $root.lang().posts.changelog.add_item }}
-				</v-btn>
-				<v-btn class="my-2 mx-1" color="secondary" @click="addCategory">
-					<v-icon left>mdi-playlist-plus</v-icon>
-					{{ $root.lang().posts.changelog.add_category }}
-				</v-btn>
+			<!-- use v-show so state is preserved within the children while collapsed -->
+			<div v-show="childrenVisible">
+				<post-changelog
+					v-for="(_el, i) in item.items"
+					:key="i"
+					v-model="item.items[i]"
+					:level="level + 1"
+					@delete="remove(i)"
+				/>
+				<!-- subtract 1 from ml-4 and readd as internal padding -->
+				<div class="d-flex flex-wrap ga-2 my-2" :class="offsetClass">
+					<v-btn color="secondary" @click="addItem">
+						<v-icon left>mdi-plus</v-icon>
+						{{ $root.lang().posts.changelog.add_item }}
+					</v-btn>
+					<v-btn color="secondary" @click="addCategory">
+						<v-icon left>mdi-playlist-plus</v-icon>
+						{{ $root.lang().posts.changelog.add_category }}
+					</v-btn>
+				</div>
 			</div>
 		</template>
 	</div>
@@ -81,16 +85,12 @@ export default {
 			required: false,
 			default: 4,
 		},
-		margin: {
-			type: Boolean,
-			required: false,
-			default: false,
-		},
 	},
 	emits: ["input", "delete"],
 	data() {
 		return {
 			item: undefined,
+			childrenVisible: true,
 		};
 	},
 	methods: {
@@ -106,8 +106,14 @@ export default {
 		remove(i) {
 			this.item.items.splice(i, 1);
 		},
+		toggleChildren() {
+			this.childrenVisible = !this.childrenVisible;
+		},
 	},
 	computed: {
+		offsetClass() {
+			return this.$vuetify.breakpoint.smAndDown ? 'pl-4' : 'pl-8';
+		},
 		isNested() {
 			return this.level > 5;
 		},
@@ -117,7 +123,7 @@ export default {
 		},
 		categoryHeight() {
 			if (this.isNested) return "";
-			return `${this.level * 5 + 30}px`;
+			return `${this.level * 4 + 30}px`;
 		},
 		categoryPlaceholder() {
 			const levels = this.$root.lang().posts.changelog.form_levels;

@@ -14,7 +14,7 @@
 	"dependencies": {
 		"@vitejs/plugin-vue2": "^2.3.4",
 		"axios": "^1.18.1",
-		"dompurify": "^3.4.11",
+		"dompurify": "^3.4.12",
 		"luxon": "^3.7.2",
 		"marked": "^18.0.6",
 		"pinia": "^2.3.1",
