@@ -9,8 +9,40 @@ export default {
 		no_results: "Nenhum resultado encontrado",
 		nyi: "Não implementado ainda.",
 		invalid_url: "Esta URL não é válida",
+		navbar: {
+			labels: {
+				sidebar: "Ativar/Desativar barra lateral",
+				theme: "Ativar/Desativar menu suspenso de temas",
+				translations: "Ativar/Desativar menu suspenso de traduções",
+				user: "Conectado como %s",
+			},
+			translations: {
+				title: "Traduções",
+				crowdin: "Ajude a traduzir",
+			},
+			profile: {
+				view: "Seu perfil",
+				main_site: "Site Faithful",
+				manage: "Gerenciar contas",
+				copy: "Copiar ID de usuário",
+				copied: "ID de usuário copiado para a área de transferência",
+			},
+		},
+		connection: {
+			logo: "Logo Faithful",
+			description: "Problemas com conexão?",
+			contact: "Fale conosco",
+			status: "Status Faithful",
+		},
+		footer: {
+			credits: "Este site foi feito usando o framework de componente %Vuetify%.",
+			source: "Veja o código-fonte %here%!",
+			copyright: "© %d Faithful Resource Pack",
+		},
 		themes: {
 			notification: "Tema do sistema alterado para %s",
+			dark_sidebar: "Barra lateral escura",
+			title: "Temas",
 			options: {
 				light: "Claro",
 				dark: "Escuro",
@@ -33,7 +65,7 @@ export default {
 			approve: "Aprovar",
 			archive: "Arquivar",
 			load_more: "Carregar mais",
-			discard: "Descartar",
+			reset: "Redefinir formulário",
 			confirm: "Confirmar",
 			publish: "Publicar",
 			save_draft: "Salvar como rascunho",
@@ -50,11 +82,17 @@ export default {
 			addons: {
 				title: "Addons",
 				subtabs: {
+					new: "Novo addon",
 					submissions: "Envios",
+					review: "Revisar",
 				},
 			},
 			posts: {
 				title: "Publicações",
+				subtabs: {
+					create: "Criar publicação",
+					all: "Todas as publicações",
+				},
 			},
 			database: {
 				title: "Banco de dados",
@@ -62,6 +100,7 @@ export default {
 					contributions: "Contribuições",
 					users: "Usuários",
 					textures: "Texturas",
+					versions: "Versões",
 					packs: "Pacotes",
 					settings: "Configurações",
 				},
@@ -76,6 +115,28 @@ export default {
 			month: "Mês",
 			day: "Dia",
 		},
+		tabbed_text_field: {
+			write: "Escreva",
+			preview: "Prévia",
+			empty: "Nenhuma prévia",
+		},
+		drop_zone: {
+			standby_singular: "Arraste o arquivo ou clique para selecionar",
+			standby_plural: "Arraste os arquivos ou clique para selecionar",
+			dragging_singular: "Solte para enviar o arquivo",
+			dragging_plural: "Solte para enviar os arquivos",
+		},
+		account_manager: {
+			title: "Gerenciador de contas",
+			active_account: "Ativar conta",
+			add_account: "Adicionar nova conta",
+			switch_accounts: "Trocar para a conta",
+			avatar_alt_text: "Avatar de %s",
+		},
+		emitting_image: {
+			fullscreen: "Abrir em tela cheia",
+			delete: "Remover imagem",
+		},
 	},
 	missing_page: {
 		title: "Você está perdido no Fim?",
@@ -84,29 +145,34 @@ export default {
 			"Tente verificar a ortografia ou ir para a página %main % para encontrar o que estava procurando.",
 	},
 	dashboard: {
+		welcome: "Bem-vindo ao Faithful Studio!",
 		welcome_user: "Bem-vindo, %USER%!",
 		totals: {
 			authors: "autores",
 			contributions: "contribuições",
-			last_day: "contribuições nas últimas 48 horas",
-			last_week: "contribuições na última semana",
+			last_year: "contribuições no último ano",
 			last_month: "contribuições no último mês",
+			last_week: "contribuições na última semana",
+			last_day: "contribuições nas últimas 48 horas",
 		},
 		titles: {
-			users: "Usuários",
-			addons: "Add-ons",
-			contribution_activity: "Atividade de contribuição",
-			contribution_stats: "Contribuições",
 			profile: "Perfil",
+			textures: "Texturas",
+			addons: "Add-ons",
+			contribution_stats: "Contribuições",
+			contribution_activity: "Atividade de contribuição",
+		},
+		profile: {
+			login_notice: "Faça login para acessar mais recursos!",
+			login_button: "Entrar com Discord",
 		},
 		addons: {
 			submissions: "Envios",
 			upload: "Enviar",
 		},
-		users: {
-			total: "usuários",
-			total_anonymous: "anônimo",
-			total_roles: "funções",
+		textures: {
+			total: "Texturas",
+			versions: "Versões",
 		},
 		locale: {
 			on: "ligado",
@@ -116,36 +182,81 @@ export default {
 	},
 	profile: {
 		title: "Perfil",
+		public_profile: "Ir para perfil público",
 		general: {
 			title: "Geral",
-			uuid: {
-				label: "UUID do perfil do Minecraft",
-			},
 			username: {
 				label: "Nome de usuário",
 				hint: "Seu nome de usuário será mostrado e usado no Website em contribuições, addons, etc.",
+				rules: {
+					min: "O nome de usuário deve ter mais de %d caracteres",
+					max: "O nome de usuário deve ter menos de %d caracteres",
+				},
+			},
+			uuid: {
+				label: "UUID do perfil do Minecraft",
+				hint: "Sua skin será exibida em seu perfil e nas páginas de addons",
+				skin_alt_text: "Skin do Minecraft",
+				rules: {
+					length: "UUID deve ter exatamente 36 caracteres",
+				},
+			},
+			bio: {
+				label: "Bio",
+				placeholder: "Bio",
+				hint: "Você pode usar formatação Markdown para estilizar sua bio!",
+				rules: {
+					length: "A bio deve ter menos de %d caracteres",
+				},
+			},
+			anonymous: {
+				label: "Anônimo",
+				hint: "Desativar página de perfil e ocultar nome de usuário e skin do Minecraft na galeria de texturas. Nomes de usuário ainda estarão acessíveis em envios de texturas para propósitos de crédito, mas não aparecerão em nenhum outro lugar.",
 			},
 		},
 		social: {
 			title: "Links sociais",
-			link_label: "Editar link",
-			type_label: "Selecionar tipo de mídia",
-			placeholder: "https://www.example.com",
 			add: "Adicionar rede social",
+			remove: "Remover rede social",
+			type: {
+				label: "Tipo de rede social",
+				rules: {
+					exists: "Um tipo de rede social é necessário",
+					valid: "O tipo de rede social deve ser válido",
+				},
+			},
+			link: {
+				label: "Link para o perfil de rede social",
+				placeholder: "https://www.exemplo.com",
+				rules: {
+					valid: "URL deve ser válido.",
+				},
+			},
 		},
 		save_changes: "Salvar mudanças",
 		delete: {
 			title: "Excluir conta",
 			btn: "Excluir conta",
-			description: "Tem certeza que deseja excluir sua conta?",
 			warning: "Este processo é irreversível!",
+			addons: {
+				title_singular: "Isso vai afetar %d addon",
+				title_plural: "Isso vai afetar %d addons",
+				deleted: "Deletado",
+				transferred: "Trasferido para outros autores",
+			},
 		},
 	},
 	gallery: {
-		stretched_switcher: "Visualização completa de largura",
-		share_link_copied_to_clipboard: "Link de compartilhamento copiado para a área de transferência",
-		max_items_per_row: "Máximo de itens por linha",
 		title: "Galeria",
+		max_items_per_row: "Máximo de itens por linha",
+		stretched_switcher: "Visualização completa de largura",
+		animated_switcher: "Reproduzir texturas animadas",
+		share: "Compartilhar textura",
+		to_top: "Retornar ao início da página",
+		share_link_copied_to_clipboard: "Link de compartilhamento copiado para a área de transferência",
+		authors_copied_to_clipboard:
+			"Autores do envio de textura copiados para a área de transferência",
+		loading_message: "Carregando resultados da galeria…",
 		error_message: {
 			texture_not_done: "Textura não concluída!",
 			user_anonymous: "Anônimo",
@@ -179,14 +290,21 @@ export default {
 		result_stats_plural: "Texturas %COUNT% encontradas em %SECONDS% segundos",
 		modal: {
 			no_contributions: "Nenhuma contribuição encontrada",
+			image_alt_text: "Textura %NAME% para o pacote %PACK%",
+			loading: "Carregando textura…",
+			ignored: "Esta textura foi ignorada e pode não ser ampliada para todos os projetos!",
 			tabs: {
 				information: "Informações",
 				authors: "Autores",
+				animation: "Animação",
 			},
 			info: {
 				texture: "Textura",
 				uses: "Usos",
 				paths: "Caminhos",
+			},
+			animation: {
+				texture_mcmeta: "MCMETA",
 			},
 			data: {
 				contribution_id: "ID de contribuição",
@@ -214,13 +332,12 @@ export default {
 		},
 		remove: {
 			title: "Confirmar exclusão",
-			labels: {
-				question: "Você deseja excluir %s?",
-				warning: "Não é possível reverter essa operação.",
-			},
+			description: '"%s" será deletado para sempre. Isso não pode ser desfeito.',
 		},
 		general: {
 			loading_addon: "Carregando addon",
+			no_submissions: "Você não tem nenhum addon enviado!",
+			go_to_addon: "Ver lista pública de addons",
 			rules: "Certifique-se de ler as regras sobre addons antes de enviar",
 			title: "Geral",
 			name: {
@@ -231,22 +348,6 @@ export default {
 					name_too_big: "O nome do addon deve ter menos de %s caracteres.",
 					name_too_small: "O nome do addon deve ter no mínimo %s caracteres.",
 					name_unavailable: "Este nome já está em uso!",
-				},
-			},
-			description: {
-				label: "Descrição do addon",
-				hint: "Você pode utilizar a formatação Markdown para melhorar sua descrição!",
-				rules: {
-					description_required: "A descrição é necessária.",
-					description_too_big: "A descrição deve conter menos que %s caracteres.",
-					description_too_small: "A descrição deve ter no mínimo %s caracteres.",
-				},
-			},
-			embed_description: {
-				label: "Descrição atribuída",
-				hint: "Descrição vista ao compartilhar o addon em mídias sociais",
-				rules: {
-					too_big: "A descrição atribuída deve ser menor que %s caracteres.",
 				},
 			},
 			slug: {
@@ -264,6 +365,25 @@ export default {
 				hint: "Qualquer autor pode modificar o addon após seu envio! | Se você não encontrar ninguém na lista que deveria estar nela, contate um administrador ou desenvolvedor",
 			},
 		},
+		info: {
+			title: "Informação",
+			description: {
+				placeholder: "Descrição do addon",
+				hint: "Você pode usar marcação HTML para melhorar sua descrição!",
+				rules: {
+					description_required: "A descrição é necessária",
+					description_too_big: "A descrição deve ter menos de %s caracteres",
+					description_too_small: "A descrição deve ter ao menos %s caracteres",
+				},
+			},
+			embed_description: {
+				label: "Descrição atribuída",
+				hint: "Descrição vista ao compartilhar o addon em mídias sociais",
+				rules: {
+					too_big: "A descrição atribuída deve ter menos de %s caracteres",
+				},
+			},
+		},
 		images: {
 			title: "Capturas de tela",
 			header: {
@@ -279,6 +399,11 @@ export default {
 						"Proporção errada: a imagem fornecida não tem uma proporção lateral de 16:9.",
 					image_required: "Uma imagem de cabeçalho é necessária.",
 					jpeg: "A imagem deve ser um JPEG com perdas.",
+					compress: "Você pode compactar imagens usando https://compressor.io/",
+				},
+				status: {
+					upload: "Imagem de cabeçalho carregada com sucesso",
+					remove: "Imagem de cabeçalho removida com sucesso",
 				},
 			},
 			screenshots: {
@@ -288,24 +413,30 @@ export default {
 					replace: "Substituir imagem(ns) adicional(is)",
 				},
 				rule: "Proporção errada: Imagem(ns) sem uma proporção lateral de 16:9 foram removidas.",
+				status: {
+					upload: "Captura de tela carregada com sucesso",
+					remove: "Captura de tela removida com sucesso",
+				},
 			},
 		},
-		options: {
-			title: "Configurações",
+		compatibility: {
+			title: "Compatibilidade",
 			optifine: {
 				label: "Requer OptiFine",
 			},
 			editions: {
-				label: "Edição(ões) com suporte",
-				rule: "Você precisa selecionar pelo menos 1 edição.",
+				label: "Edições com suporte",
 			},
-			resolutions: {
-				label: "Resolução(ões) com suporte",
-				rule: "Você precisa selecionar pelo menos 1 resolução.",
+			packs: {
+				label: "Pacotes com suporte",
 			},
 		},
 		downloads: {
 			title: "Downloads",
+			add_group: "Adicionar grupo de downloads",
+			add_item: "Adicionar download ao grupo",
+			remove_group: "Remover grupo de downloads e itens",
+			remove_item: "Remover download do grupo",
 			name: {
 				placeholder: "CurseForge, GitHub…",
 				label: "Nome",
@@ -350,15 +481,23 @@ export default {
 		},
 		addon: {
 			titles: {
+				last_updated: "Última atualização %s",
+				unknown_date: "Última atualização do addon desconhecida",
+				compatibility: "Compatibilidade",
 				author_singular: "Autor",
-				author_plural: "Autores",
+				author_plural: "Autor(es)",
 				description: "Descrição",
+				download_singular: "Download",
+				download_plural: "Downloads",
 			},
 			labels: {
 				optifine: "OptiFine",
 				approved_by: "Aprovado por %s",
 				denied_by: "Negado por %s",
+				archived_by: "Arquivado por %s",
+				unknown_status: "Estado de revisão desconhecido (%s)",
 				reason: "Motivo",
+				no_reason: "Nenhum motivo fornecido",
 			},
 		},
 	},
@@ -370,9 +509,10 @@ export default {
 		},
 		status: {
 			published: "Publicado em %s",
-			pending: "Pendente",
+			draft: "Rascunho",
 		},
 		loading: "Carregando publicação…",
+		go_to_post: "Ver publicação divulgada",
 		general: {
 			heading: "Geral",
 			title: {
@@ -390,17 +530,24 @@ export default {
 			},
 			date: {
 				label: "Publicar data de lançamento",
-				placeholder: "AAAA-MM-DD",
+			},
+			discontinued: {
+				label: "Descontinuada",
+				hint: "Se marcada, a publicação será registrada com descontinuada",
 			},
 			description: {
-				label: "Descrição da publicação",
+				placeholder: "Descrição da publicação",
 				hint: "Você pode usar marcação HTML para melhorar sua descrição!",
 			},
 		},
 		download: {
 			heading: "Downloads",
 			add_category: "Adicionar categoria de download",
+			add_item_to_category: "Adicionar download à categoria",
 			add_single_item: "Adicionar download único",
+			remove_category: "Remover categoria de download e itens",
+			remove_item_in_category: "Remover download da categoria",
+			remove_single_item: "Remover download individual",
 			category: "Baixar nome da categoria",
 			name: "Nome do download",
 			link: "Link de download",
@@ -410,12 +557,26 @@ export default {
 			heading: "Histórico de mudanças",
 			add_category: "Adicionar categoria de histórico de mudanças",
 			add_item: "Adicionar item do histórico de mudanças",
+			remove_category: "Remover categoria de histórico de mudanças",
+			remove_item: "Remover item do histórico de mudanças",
+			import_json: "Importar JSON",
 			form_levels: {
 				primary: "Categoria primária",
 				secondary: "Categoria secundária",
 				item_category: "Categoria do Item (Autores)",
 				item: "Item (Autores)",
 			},
+		},
+		changelog_generator: {
+			heading: "Gerar histórico de mudanças",
+			date: "Data desde o último histórico de mudanças",
+			pack: "Pacote de histórico de mudanças",
+			copy: "Copiar para a área de transferência",
+			categorize: "Categorizar automaticamente o histórico de mudanças por tipo (experimental)",
+			categorize_warning:
+				"Categorização por tipo pode ser imprecisa devido a como as contribuições são monitoradas!",
+			download: "Baixar histórico de mudanças",
+			warning: "Pedimos que revise manualmente o histórico de mudanças antes de importá-lo!",
 		},
 	},
 	database: {
@@ -428,17 +589,29 @@ export default {
 		contributions: {
 			title: "Contribuições",
 			contributors: "Contribuidores",
+			add_contributions: "Adicionar novar contribuições",
+			edit_contribution: "Editar contribuição",
+			delete_contribution: "Deletar contribuição",
 			pack_filter: "Filtrar por pacote",
 			user_filter: "Usuários",
 			texture_filter: "Texturas",
 			select_user: "Selecionar usuário(s)",
+			contribution_count_singular: "%d contribuição",
+			contribution_count_plural: "%d contribuições",
+			authorless: "Nenhum autor adicionado",
 			contribution_result: "Resultados da contribuição",
 			search_contributions: "Buscar contribuições",
 			modal: {
 				add_new_contribution: "Adicionar nova contribuição",
 				clone_contribution: "Clonar a contribuição",
 				one_contributor: "Por favor escolha pelo menos um contribuidor",
+				id: "ID de contribuição",
+				id_hint: "Mudar o ID da contribuição pode quebrar tudo!",
 				pack: "Pacote de recursos",
+				texture_id: "ID da textura",
+				texture_ids: "IDs de textura",
+				increment_texture: "ID da textura incrementada",
+				decrement_texture: "Diminuir ID da textura",
 				id_field_errors: {
 					one_required: "Pelo menos um ID de textura ou um intervalo de identificação é necessário",
 					incorrect_value: "ID ou ID do %value% de textura incorretos",
@@ -453,7 +626,9 @@ export default {
 			modal: {
 				add_user: "Adicionar novo usuário",
 				edit_user: "Editar usuário",
+				delete_user: "Excluir conta",
 				id: "ID do Discord",
+				id_hint: "Mudar o ID do Discord vai atualizar todas as contribuições e addons relacionados",
 				username: "Nome de usuário",
 				uuid: "UUID do perfil do Minecraft",
 				roles: "Função do usuário",
@@ -470,12 +645,20 @@ export default {
 			search_texture: "Buscar nome de textura",
 			add_success: "Textura(s) adicionada(s) com sucesso",
 			delete_modal: {
-				deleting_use_will_delete_paths: "Excluindo o uso também irá apagar todos os seus caminhos.",
+				title_texture: "Deletar textura",
+				title_use: "Deletar uso",
+				title_path: "Deletar caminho",
+				affected_uses: "Usos afetados",
+				affected_paths: "Caminhos afetados",
+				affected_contributions: "Contribuições afetadas",
 			},
 			modal: {
 				title: "Texturas",
 				subtitle: "Usos e Caminhos",
 				tagless: "Nenhuma tag adicionada",
+				copy_button: "Copiar dados da textura como JSON",
+				json_button: "Importar dados em JSON",
+				persist_button: "Persistir em salvar",
 				copy_json_data: "Dados JSON copiados para área de transferência",
 				id_hint: "Alterar o ID da textura pode quebrar tudo!",
 				id: "ID da textura",
@@ -510,21 +693,41 @@ export default {
 				versions: "Versões",
 				mcmeta: "Animado",
 			},
-			add_version: {
+			merge_textures: {
+				title: "Mesclar texturas",
+				warning: "Isto vai deletar a textura fonte e não poderá ser desfeito!",
+				source: "ID da textura fonte",
+				destination: "Destinação da ID da textura",
+				invalid_id: "ID da textura inválida",
+			},
+		},
+		versions: {
+			title: "Versões",
+			edition_filter: "Filtrar por edição",
+			version_result: "Resultados da versão",
+			exists: "O nome da versão já existe",
+			path_count_singular: "caminho %d",
+			path_count_plural: "caminhos %d",
+			no_paths: "Sem caminhos associados",
+			modal: {
+				title: "Editar versão do Minecraft",
+				name: "Nome da versão do Minecraft",
+				edition: "Versão do Minecraft",
+				warning: "Por favor não se esqueça de atualizar todos o nomes das ramificações do GitHub!",
+			},
+			add: {
 				title: "Adicionar nova versão do Minecraft",
 				success: "Versão adicionada com sucesso",
 				new_edition: "Edição da nova versão",
-				template_version: "Clonar uma versão existente como um modelo",
+				template_version: "Versão modelo",
 				new_version: "Nome da nova versão",
 			},
-			modify_version: {
-				title: "Modificar uma versão do Minecraft",
-				current_version: "Versão atual do Minecraft",
-				new_version: "Nova versão do Minecraft",
-				example:
-					"Altera todas as instâncias de uma versão do Minecraft no banco de dados para uma diferente. (ex. 1.17 → 1.17.1)",
-				warning:
-					"Por favor não se esqueça de atualizar todos os nomes das ramificações no GitHub também!",
+			delete: {
+				title: "Deletar versão do Minecraft",
+				description: "Você quer deletar a versão %VERSION% da edição %EDITION%?",
+				no_affected_paths: "Nenhum caminho será afetado",
+				affected_paths_singular: "%d caminho será afetado.",
+				affected_paths_plural: "%d caminhos serão afetados.",
 			},
 		},
 		packs: {
@@ -534,6 +737,7 @@ export default {
 			modal: {
 				add_pack: "Adicionar novo pacote",
 				edit_pack: "Editar pacote",
+				delete_pack: "Deletar pacote",
 				id: "ID do pacote",
 				id_creation_hint:
 					"Um ID de Pacote pode ser especificado manualmente ou ser gerado automaticamente.",
@@ -541,6 +745,7 @@ export default {
 				name: "Nome do pacote",
 				tags: "Tags do pacote",
 				resolution: "Resolução do pacote",
+				color: "Cor do pacote",
 				logo: "URL do logotipo do pacote",
 				github: {
 					title: "GitHub",
@@ -549,9 +754,12 @@ export default {
 					organization: "Organização",
 					repository: "Repositório",
 				},
+				delete_hint:
+					"Deletar um pacote vai removê-lo da galeria de texturas e dos bots do Discord, mas não vai afetar seus repositórios no GitHub.",
 			},
 			submissions: {
 				title: "Informações de envio",
+				delete_submission: "Deletar informações de envio",
 				add_submission: "Adicionar informações de envio",
 				edit_submission: "Editar informações de envio",
 				reference_pack: "Pacote de referência",
@@ -566,15 +774,11 @@ export default {
 					submit: "Canal de envio",
 					results: "Canal de resultados",
 				},
-				ask_submission_deletion: "Deseja excluir informações de envio para %s (%d)?",
+				delete_warning: "Isto irá remover %d contribuições!",
 			},
 		},
 		settings: {
 			title: "Configurações",
-			label: {
-				edit_raw: "Editar JSON bruto",
-				edit_editor: "Edite com editor visual",
-			},
 		},
 	},
 };
