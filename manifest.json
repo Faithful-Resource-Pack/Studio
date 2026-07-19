@@ -16,5 +16,6 @@
 			"type": "image/png",
 			"purpose": "maskable"
 		}
-	]
+	],
+	"background_color": "#191919"
 }
