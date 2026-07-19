@@ -5,17 +5,12 @@
 	"display": "standalone",
 	"icons": [
 		{
-			"src": "https://faithfulpack.net/image/pwa/app-192x192.png",
-			"sizes": "192x192",
-			"type": "image/png",
-			"purpose": "maskable"
-		},
-		{
-			"src": "https://faithfulpack.net/image/pwa/app-512x512.png",
+			"src": "https://database.faithfulpack.net/images/branding/logos/background/hd/main_logo.png",
 			"sizes": "512x512",
 			"type": "image/png",
 			"purpose": "maskable"
 		}
 	],
-	"background_color": "#191919"
+	"background_color": "#191919",
+	"theme_color": "#272727"
 }
