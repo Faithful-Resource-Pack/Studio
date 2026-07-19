@@ -133,7 +133,10 @@ export default {
 				.then((res) => {
 					this.packs = res.data;
 				})
-				.catch((err) => console.error(err));
+				.catch((err) => {
+					console.error(err);
+					this.$root.showSnackBar(err, "error");
+				});
 		},
 		packURL(tag) {
 			return `/packs/${tag || "all"}`;
@@ -169,7 +172,15 @@ export default {
 		},
 	},
 	mounted() {
-		axios.get(`${this.$root.apiURL}/packs/tags`).then((res) => (this.tags = res.data));
+		axios
+			.get(`${this.$root.apiURL}/packs/tags`)
+			.then((res) => {
+				this.tags = res.data;
+			})
+			.catch((err) => {
+				console.error(err);
+				this.$root.showSnackBar(err, "error");
+			});
 		this.startSearch();
 		this.pageStyles = generatePageStyles(this.pageColor);
 	},

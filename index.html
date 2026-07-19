@@ -59,9 +59,8 @@
 	<!-- HTML parsing rules apply here; no auto-closing tags -->
 	<body>
 		<v-app id="app" ref="app">
-			<!-- placement looks kinda stupid but it needs to be reactive -->
+			<!-- the placement looks kinda stupid but it needs to be reactive -->
 			<link rel="stylesheet" :href="theme.prismURL" />
-			<meta name="theme-color" :content="theme.isDark ? '#272727' : 'white'" />
 
 			<loading-page v-if="appLoading">
 				<template #logo>

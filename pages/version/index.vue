@@ -179,15 +179,21 @@ export default {
 		},
 	},
 	created() {
-		axios.get(`${this.$root.apiURL}/paths/raw`).then((res) => {
-			this.paths = Object.values(res.data)
-				.flatMap((path) => path.versions)
-				.reduce((acc, cur) => {
-					acc[cur] ||= 0;
-					++acc[cur];
-					return acc;
-				}, {});
-		});
+		axios
+			.get(`${this.$root.apiURL}/paths/raw`)
+			.then((res) => {
+				this.paths = Object.values(res.data)
+					.flatMap((path) => path.versions)
+					.reduce((acc, cur) => {
+						acc[cur] ||= 0;
+						++acc[cur];
+						return acc;
+					}, {});
+			})
+			.catch((err) => {
+				console.error(err);
+				this.$root.showSnackBar(err, "error");
+			});
 	},
 	mounted() {
 		this.pageStyles = generatePageStyles(this.pageColor);

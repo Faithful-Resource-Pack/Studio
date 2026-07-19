@@ -1,6 +1,6 @@
 {
 	"name": "Faithful Studio",
-	"short_name": "Faithful",
+	"short_name": "Studio",
 	"start_url": "/",
 	"display": "standalone",
 	"icons": [
