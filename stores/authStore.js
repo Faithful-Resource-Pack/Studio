@@ -2,9 +2,18 @@ import { defineStore } from "pinia";
 import discordTokenStore, { AUTH_STORAGE_KEY, CURRENT_USER_KEY } from "./discordTokenStore.js";
 import axios from "axios";
 
+/**
+ * @callback Listener Auth listener type
+ * @param {ReturnType<defineStore>} store Entire store instance with latest updates
+ * @returns {void}
+ */
+
+/** handles user login, logout, and account switching */
 export default defineStore("auth", {
 	state: () => ({
+		/** @type {import("vue/types/vue").Vue} keep app reference for snackbar access etc */
 		app: null,
+		/** @type {Listener[]} callbacks to fire whenever an auth change occurs */
 		authListeners: [],
 
 		// user information
@@ -21,7 +30,11 @@ export default defineStore("auth", {
 		anonymous: false,
 	}),
 	actions: {
-		// need app/dev for snackbars and logging
+		/**
+		 * Log into the application
+		 * @param {import("vue/types/vue").Vue} app used for snackbar access etc
+		 * @param {*} isDev used for good dev logging when diagnosing login issues
+		 */
 		async login(app, isDev) {
 			this.app = app;
 			const discordToken = discordTokenStore();
@@ -60,6 +73,10 @@ export default defineStore("auth", {
 			if (new URLSearchParams(location.search).has("access_token"))
 				history.replaceState(null, "", window.location.pathname);
 		},
+		/**
+		 * Switch to a new account from an existing one
+		 * @param {string} id Discord ID of account to switch to
+		 */
 		async switchAccount(id) {
 			// fetch auth immediately from localstorage since it has the access/refresh tokens already
 			const auth = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY))[id];
@@ -70,6 +87,10 @@ export default defineStore("auth", {
 				console.error(err);
 			}
 		},
+		/**
+		 * Log out of current account or a specific account if provided
+		 * @param {string} [logoutId] log out of another account that isn't the current one
+		 */
 		logout(logoutId) {
 			const currentId = this.id;
 			// not logged into account being logged out of; remove it from localStorage and update
@@ -92,10 +113,19 @@ export default defineStore("auth", {
 			localStorage.removeItem(CURRENT_USER_KEY);
 			this.$reset();
 		},
+		/**
+		 * Register a new change listener
+		 * @param {Listener} cb
+		 */
 		addChangeListener(cb) {
 			this.authListeners.push(cb);
 		},
-		// write account to localstorage without affecting existing ones
+		/**
+		 * Write account information to localstorage safely (doesn't affect other accounts)
+		 * @private
+		 * @param {string} id user ID to write to
+		 * @param {unknown} payload payload to write
+		 */
 		updateAccounts(id, payload) {
 			const cur = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY) || "{}") || {};
 			if (payload) cur[id] = payload;
@@ -105,6 +135,11 @@ export default defineStore("auth", {
 			// only emit once localStorage is updated
 			this.authListeners.forEach((cb) => cb(this));
 		},
+		/**
+		 * Load full Discord profile from access token
+		 * @private
+		 * @param {string} accessToken token to get data for
+		 */
 		async loadDiscordProfile(accessToken) {
 			if (accessToken === undefined) return this.$reset();
 			const res = await axios.get("https://discord.com/api/users/@me", {
@@ -128,6 +163,11 @@ export default defineStore("auth", {
 
 			this.updateAccounts(id, discordTokenStore().$state);
 		},
+		/**
+		 * Load full Faithful profile from access token
+		 * @private
+		 * @param {string} accessToken token to get data for
+		 */
 		async loadFaithfulProfile(accessToken) {
 			const res = await axios.get(`${window.apiURL}/users/account`, {
 				headers: {

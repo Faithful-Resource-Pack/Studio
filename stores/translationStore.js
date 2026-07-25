@@ -6,8 +6,10 @@ const DEFAULT_LANG_ID = "en_US";
 // used for fallback translation
 const { default: defaultLang } = await import(`../resources/strings/${DEFAULT_LANG_ID}.js`);
 
+/** manages available/loaded/selected languages, guessing user language, and safe string getters */
 export default defineStore("translation", {
 	state: () => ({
+		/** @type {Record<string, import("../resources/types").LangMetadata>} all languages */
 		availableLangs: Object.entries(import.meta.glob("/resources/strings/*.js"))
 			.map(([path, loadAsImport]) => {
 				const name = path.split("/").pop().split(".")[0];
@@ -29,15 +31,17 @@ export default defineStore("translation", {
 		selectedLang: DEFAULT_LANG_ID,
 	}),
 	actions: {
+		/**
+		 * Set up translations based on browser context/localstorage
+		 */
 		setup() {
 			// incredible code
 			this.setLang(this.getLang());
 		},
-		async setLang(id) {
-			localStorage.setItem(LANG_KEY, id);
-			if (!Object.keys(this.loadedLangs).includes(id)) await this.loadLanguage(id);
-			this.$patch({ selectedLang: id });
-		},
+		/**
+		 * Get current lang based on browser language or overridden localstorage value
+		 * @returns {string} current lang id
+		 */
 		getLang() {
 			// localstorage overrides any automatic language detection (already visited site)
 			const savedLangId = localStorage.getItem(LANG_KEY);
@@ -55,12 +59,24 @@ export default defineStore("translation", {
 			// language isn't supported at all, just use english
 			return DEFAULT_LANG_ID;
 		},
-		async loadLanguage(langName) {
-			const langObj = this.availableLangs[langName];
-			if (!langObj) return;
+		/**
+		 * Set a new theme
+		 * @param {string} id language id to set
+		 */
+		async setLang(id) {
+			localStorage.setItem(LANG_KEY, id);
+			if (!Object.keys(this.loadedLangs).includes(id)) await this.loadLanguage(id);
+			this.$patch({ selectedLang: id });
+		},
+		/**
+		 * Load a new language object into memory from JSON
+		 * @param {string} id language id to load
+		 */
+		async loadLanguage(id) {
+			const langObj = this.availableLangs[id];
 
-			// already cached, no need to load
-			if (this.loadedLangs[langObj.id]) return;
+			// already cached or doesn't exist, no need to try loading
+			if (!langObj || this.loadedLangs[id]) return;
 
 			const strings = await langObj.load();
 
@@ -68,12 +84,20 @@ export default defineStore("translation", {
 				store.loadedLangs[langObj.id] = Object.merge({}, defaultLang, strings || {});
 			});
 		},
-		supportedLang(lang) {
-			return Object.keys(this.availableLangs).includes(lang);
+		/**
+		 * Check whether a language is supported
+		 * @param {string} id language id to check
+		 * @returns {boolean} whether the language is support
+		 */
+		supportedLang(id) {
+			return Object.keys(this.availableLangs).includes(id);
 		},
 	},
 	getters: {
-		// returns callback to support both lang("my.path.here") and lang().my.path.here
+		/**
+		 * Type information in {@link ../resources/types.d.ts} (there's several overloads)
+		 * Returns callback to support both lang("my.path.here") and lang().my.path.here
+		 */
 		lang() {
 			const allStrings = this.loadedLangs[this.selectedLang] || Object.values(this.loadedLangs)[0];
 			return (path, raw = false) => {
@@ -94,6 +118,10 @@ export default defineStore("translation", {
 				return String(selectedData);
 			};
 		},
+		/**
+		 * Get current language object with all fields
+		 * @returns {import("../resources/types").LangMetadata} language object
+		 */
 		current() {
 			return this.availableLangs[this.selectedLang];
 		},

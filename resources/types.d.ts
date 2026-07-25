@@ -48,7 +48,8 @@ declare module "vue/types/vue" {
 
 		log(...objs: any[]): void;
 		lang(): Readonly<typeof strings>;
-		lang(key: string): string;
+		lang(key: string, raw?: false): string;
+		lang(key: string, raw: true): any;
 		makeJsonSnackBar(json: unknown): SnackBarCallback;
 		showSnackBar: SnackBarCallback;
 		wrapSnackBar<T>(prom: T | Awaited<T>, successMessage?: string): Promise<Awaited<T>>;
@@ -111,4 +112,14 @@ interface SidebarSubtab {
 	// not done with `this` binding so arrow functions can be used
 	badge?: (app: Vue) => any;
 	roles?: string[];
+}
+
+interface LangMetadata {
+	id: string;
+	display: string;
+	// automatically fetch default import
+	load: () => Readonly<Partial<typeof strings>>;
+	bcp47: string;
+	file: string;
+	iso3166: string;
 }

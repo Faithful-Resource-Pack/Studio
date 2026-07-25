@@ -20,7 +20,6 @@ const colorToHex = (color) => {
 
 /**
  * Generate page style CSS for a given color
- * @param {import("vue").Vue} page
  * @param {string} pageColor - Vuetify or hex color
  * @returns {string} CSS style tag to apply
  */

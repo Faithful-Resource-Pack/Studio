@@ -3,6 +3,10 @@ import { defineStore } from "pinia";
 const THEME_KEY = "theme";
 const DEFAULT_THEME_ID = "system";
 
+/**
+ * manages current theme, watches for system changes, and provides useful data
+ * NOTE: does not handle vuetify class switching, needs isDark watcher in index.js
+ */
 export default defineStore("theme", {
 	state: () => ({
 		availableThemes: {
@@ -24,7 +28,10 @@ export default defineStore("theme", {
 		isDark: true,
 	}),
 	actions: {
-		// need vue instance for snackbars
+		/**
+		 * Set up themes based on browser context/localstorage
+		 * @param {import("vue/types/vue").Vue} app used for notification/snackbar access
+		 */
 		setup(app) {
 			this.setTheme(this.getTheme());
 
@@ -36,24 +43,44 @@ export default defineStore("theme", {
 				.matchMedia("(prefers-color-scheme: light)")
 				.addEventListener("change", (ev) => ev.matches && this.onSystemThemeChange(app, "light"));
 		},
+		/**
+		 * Get current theme
+		 * @returns {string} current theme
+		 */
 		getTheme() {
 			const savedTheme = localStorage.getItem(THEME_KEY);
 			if (savedTheme !== null && Object.keys(this.availableThemes).includes(savedTheme))
 				return savedTheme;
 			return DEFAULT_THEME_ID;
 		},
-		setTheme(id) {
-			localStorage.setItem(THEME_KEY, id);
+		/**
+		 * Set a new theme
+		 * @param {keyof typeof this.availableThemes} theme theme to set
+		 */
+		setTheme(theme) {
+			localStorage.setItem(THEME_KEY, theme);
 			this.$patch({
-				selectedTheme: id,
-				isDark: this.getDark(id),
+				selectedTheme: theme,
+				isDark: this.getDark(theme),
 			});
 		},
-		// can't be a getter since system theme changes need to force a rerender
+		/**
+		 * Get whether the provided theme counts as "dark"
+		 * - Basically if the theme is always dark or the user's system theme is set to prefer dark
+		 * @private prefer the isDark getter
+		 * @param {keyof typeof this.availableThemes} theme theme to check
+		 * @returns {boolean} whether the theme counts as "dark"
+		 */
 		getDark(theme) {
 			if (theme === "light") return false;
 			return theme === "dark" || window.matchMedia("(prefers-color-scheme: dark)").matches;
 		},
+		/**
+		 * What to do when the system theme changes (only matters when theme is system)
+		 * @private
+		 * @param {import("vue/types/vue").Vue} app used for notification snackbar message
+		 * @param {keyof typeof this.availableThemes} theme theme to use
+		 */
 		onSystemThemeChange(app, theme) {
 			// only if system theme
 			if (this.selectedTheme !== "system") return;

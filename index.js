@@ -301,8 +301,6 @@ const app = new Vue({
 		// bit more granular than subscribing to the whole store
 		"theme.isDark": {
 			handler(n) {
-				const arr = ["theme--light", "theme--dark"];
-				if (n) arr.reverse();
 				this.$vuetify.theme.dark = n;
 			},
 			immediate: true,
