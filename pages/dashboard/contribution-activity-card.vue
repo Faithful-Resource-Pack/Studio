@@ -11,7 +11,8 @@
 					v-for="(values, activity) in data.activity"
 					:key="activity"
 					cols="12"
-					sm="6"
+					md="6"
+					xl="4"
 					class="pr-sm-2 d-flex flex-column justify-space-around pb-0"
 				>
 					<span class="uppercase text--secondary my-2">
