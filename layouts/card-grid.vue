@@ -64,7 +64,7 @@ export default {
 			return this.items.slice(0, this.displayedResults);
 		},
 		columnCount() {
-			// if (this.$vuetify.breakpoint.xl) return 4;
+			if (this.$vuetify.breakpoint.xl) return 4;
 			if (this.$vuetify.breakpoint.mdAndUp) return 3;
 			if (this.$vuetify.breakpoint.smAndUp) return 2;
 			return 1;

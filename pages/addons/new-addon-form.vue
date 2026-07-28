@@ -1,5 +1,5 @@
 <template>
-	<v-container>
+	<v-container class="form-container">
 		<h1 class="text-h4 py-4">{{ $root.lang().addons.titles.submit }}</h1>
 		<addon-form
 			addon-new

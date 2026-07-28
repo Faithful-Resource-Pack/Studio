@@ -1,5 +1,5 @@
 <template>
-	<v-container>
+	<v-container class="form-container">
 		<div class="d-flex align-center py-4">
 			<v-btn
 				large

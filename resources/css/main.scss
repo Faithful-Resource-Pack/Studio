@@ -181,10 +181,14 @@ a {
 	outline: none;
 }
 
-// fixes 1080p screens
-// todo: figure out how to make breakpoints not suck
-.container {
+// override god-awful default vuetify container breakpoints with something more sensible
+.container, .form-container {
 	max-width: 1080px;
+}
+@media (min-width: 1904px) {
+	.container:not(.form-container), .dashboard-container {
+		max-width: 1440px;
+	}
 }
 
 // clears space under hint text (creates some nasty text clipping otherwise)

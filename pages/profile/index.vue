@@ -1,5 +1,5 @@
 <template>
-	<v-container>
+	<v-container class="form-container">
 		<div class="d-flex flex-wrap align-center justify-space-between my-4 ga-4">
 			<h1 class="text-h4">{{ $root.lang().profile.title }}</h1>
 			<v-btn
