@@ -29,6 +29,7 @@
 					v-model="selectedAddonId"
 					:items="selectedListItems"
 					:activeColor="pageColor"
+					style="max-width: 256px"
 				/>
 				<!-- no v-model since you can't change the active addon from the preview alone -->
 				<review-preview
@@ -270,20 +271,10 @@ export default {
 </script>
 
 <style lang="scss">
-$list-width: calc(100% * 1 / 3);
-$preview-width: calc(100% * 2 / 3);
-
 // make sure all children take up the same space
 .review-content-container > * {
 	width: 100%;
 	height: 100%;
-}
-
-.review-list {
-	width: $list-width;
-}
-.review-preview {
-	width: $preview-width;
 }
 
 // white text on yellow background is completely illegible
