@@ -2,18 +2,20 @@
 	<modal-form
 		v-model="modalOpened"
 		:title="title"
-		:disabled="!reason || (reason && reason.length == 0)"
+		:disabled="!reason || !reason.length"
 		danger
 		@close="interacted(false)"
 		@submit="interacted(true)"
 	>
+		<v-alert type="warning" outlined dense>
+			{{ $root.lang().review.reason_modal.warning }}
+		</v-alert>
 		<v-text-field
 			v-model="reason"
 			:autofocus="!$vuetify.breakpoint.mobile"
 			:color="color"
 			required
 			:label="$root.lang().review.reason_modal.label"
-			:rules="reasonRules"
 		/>
 	</modal-form>
 </template>
@@ -46,7 +48,6 @@ export default {
 		return {
 			modalOpened: false,
 			reason: "",
-			reasonRules: [(u) => !u || u?.length > 0 || this.$root.lang().review.reason_modal.rule],
 		};
 	},
 	methods: {

@@ -357,7 +357,7 @@ export default {
 			},
 			reason: {
 				title: "Update reason",
-				text: "Please tell us what you updated to make reviewing your add-on easier!",
+				text: "Please be as specific as possible to make reviewing your add-on easier!",
 				required: "An update reason is required",
 				bounds: "Update reason must be between %s and %s characters long",
 			},
@@ -468,8 +468,8 @@ export default {
 		reason_modal: {
 			deny_title: "Deny add-on",
 			archive_title: "Archive add-on",
+			warning: "All add-on authors can see this reason!",
 			label: "Write a reason…",
-			rule: "Any reason can be given",
 		},
 		labels: {
 			pending: "There are currently no pending add-ons!",
