@@ -95,10 +95,21 @@ export default defineStore("theme", {
 		},
 	},
 	getters: {
+		/**
+		 * Get the correct Prism.js CSS stylesheet for the current theme
+		 * @returns {string}
+		 */
 		prismURL() {
 			return this.isDark
 				? "https://cdn.jsdelivr.net/gh/PrismJS/prism-themes/themes/prism-vsc-dark-plus.css"
 				: "https://cdn.jsdelivr.net/gh/PrismJS/prism-themes/themes/prism-ghcolors.css";
+		},
+		/**
+		 * Get the correct transparency image for the current theme
+		 * @returns {string}
+		 */
+		transparencyImage() {
+			return this.isDark ? "/resources/transparency.png" : "/resources/transparency-light.png";
 		},
 	},
 });

@@ -105,7 +105,11 @@
 			<template #default="contrib">
 				<v-list-item-avatar tile class="database-list-sprite">
 					<a :href="`/gallery?show=${contrib.texture}`" target="_blank" rel="noopener noreferrer">
-						<v-img class="texture-img" :src="contrib.url" :lazy-src="packs[contrib.pack]?.logo" />
+						<v-img
+							class="texture-img"
+							:src="contrib.url"
+							:lazy-src="$root.theme.transparencyImage"
+						/>
 					</a>
 				</v-list-item-avatar>
 

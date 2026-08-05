@@ -12,7 +12,7 @@
 			<v-list-item class="mx-0">
 				<a :href="data.url" target="_blank" rel="noopener noreferrer">
 					<v-list-item-avatar tile class="database-list-sprite">
-						<v-img class="texture-img" :src="data.url" lazy-src="/resources/transparency.png" />
+						<v-img class="texture-img" :src="data.url" :lazy-src="$root.theme.transparencyImage" />
 					</v-list-item-avatar>
 				</a>
 				<v-list-item-content>
