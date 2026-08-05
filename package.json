@@ -16,7 +16,7 @@
 		"axios": "^1.19.0",
 		"dompurify": "^3.4.13",
 		"luxon": "^3.7.2",
-		"marked": "^18.0.7",
+		"marked": "^18.0.9",
 		"pinia": "^2.3.1",
 		"prettier": "^3.9.6",
 		"prismjs": "^1.30.0",

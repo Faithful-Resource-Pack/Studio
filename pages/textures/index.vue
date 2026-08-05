@@ -70,16 +70,20 @@
 			{{ $root.lang().database.textures.texture_result }} ({{ Object.keys(textures).length }})
 		</h2>
 
-		<smart-grid :loading="loading" :items="Object.values(textures)" track="id">
+		<smart-grid :loading="loading" :items="Object.values(textures)" wide track="id">
 			<template #default="texture">
-				<a :href="`/gallery?show=${texture.id}`" target="_blank" rel="noopener noreferrer">
-					<v-list-item-avatar class="database-list-avatar text--primary">
-						#{{ texture.id }}
-					</v-list-item-avatar>
-				</a>
+				<v-list-item-avatar tile class="database-list-sprite">
+					<a :href="`/gallery?show=${texture.id}`" target="_blank" rel="noopener noreferrer">
+						<v-img
+							class="texture-img"
+							:src="`${$root.apiURL}/textures/${texture.id}/url/default/latest`"
+							:lazy-src="$root.theme.transparencyImage"
+						/>
+					</a>
+				</v-list-item-avatar>
 
 				<v-list-item-content>
-					<v-list-item-title>{{ texture.name }}</v-list-item-title>
+					<v-list-item-title>[#{{ texture.id }}] {{ texture.name }}</v-list-item-title>
 					<v-list-item-subtitle>{{ (texture.tags || []).join(", ") }}</v-list-item-subtitle>
 				</v-list-item-content>
 
