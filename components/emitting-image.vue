@@ -2,7 +2,7 @@
 	<div style="position: relative">
 		<v-img
 			class="rounded"
-			:class="$listeners.fullscreen && 'cursor-pointer'"
+			:class="{ 'cursor-pointer': $listeners.fullscreen }"
 			:src="src"
 			v-bind="$attrs"
 			@click.stop="$emit('fullscreen')"

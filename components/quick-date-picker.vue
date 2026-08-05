@@ -2,7 +2,8 @@
 	<v-card
 		:disabled="disabled"
 		:flat="flat"
-		:class="['qd-datepicker', flat ? '' : 'main-container pa-4']"
+		class="qd-datepicker"
+		:class="{ 'main-container pa-4': !flat }"
 		:style="style"
 		v-bind="$attrs"
 	>
@@ -22,9 +23,9 @@
 				<v-btn
 					:key="`qd-month-${i}`"
 					class="qd-month pa-0"
-					block
+					:class="{ 'white--text': i - 1 === month }"
 					:color="i - 1 === month ? color : ''"
-					:class="i - 1 === month ? 'white--text' : ''"
+					block
 					:disabled="disabled"
 					elevation="0"
 					small
@@ -40,8 +41,8 @@
 				v-for="i in 31"
 				:key="`qd-day-${i}`"
 				class="qd-day px-0"
+				:class="{ 'white--text': i === day }"
 				:color="i === day ? color : ''"
-				:class="i === day ? 'white--text' : ''"
 				:text="i !== day"
 				:elevation="i === day ? 2 : 0"
 				:disabled="disabled || i > daysInCurMonth"

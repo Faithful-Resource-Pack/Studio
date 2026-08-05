@@ -1,5 +1,5 @@
 <template>
-	<v-container :style="display.stretched ? 'max-width: 100% !important' : ''">
+	<v-container :style="display.stretched && 'max-width: 100%'">
 		<v-row no-gutters>
 			<v-col cols="12" sm="6">
 				<h1 class="text-h4 my-4">

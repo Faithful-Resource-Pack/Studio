@@ -5,7 +5,7 @@
 			<v-col class="flex-grow-0 flex-shrink-0">
 				<quick-date-picker
 					v-model="contrib.date"
-					:class="$vuetify.breakpoint.mdAndDown && 'mx-auto'"
+					:class="{ 'mx-auto': $vuetify.breakpoint.mdAndDown }"
 					:color="color"
 					flat
 					:months="months"

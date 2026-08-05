@@ -33,7 +33,7 @@
 				</div>
 				<v-list
 					class="mb-5"
-					:class="$vuetify.breakpoint.mdAndUp ? 'contribution-form-list' : ''"
+					:class="{ 'contribution-form-list': $vuetify.breakpoint.mdAndUp }"
 					two-line
 				>
 					<v-list-item-group v-model="selectedContrib" mandatory :color="color">

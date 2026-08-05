@@ -12,7 +12,7 @@
 		<!-- switch to columns if the reason is too long to fit nicely on the left -->
 		<div
 			class="d-flex flex-wrap flex-sm-nowrap justify-end align-self-end align-self-sm-center ga-2"
-			:class="longReason && 'flex-sm-column'"
+			:class="{ 'flex-sm-column': longReason }"
 		>
 			<v-btn
 				v-for="button in buttons"

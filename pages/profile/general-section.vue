@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="d-flex flex-row justify-center align-start mb-5"
-		:class="$vuetify.breakpoint.xs && 'flex-wrap'"
+		:class="{ 'flex-wrap': $vuetify.breakpoint.xs }"
 	>
 		<img class="mx-5" :src="avatar" :alt="$root.lang().profile.general.uuid.skin_alt_text" />
 		<div class="flex-grow-1">

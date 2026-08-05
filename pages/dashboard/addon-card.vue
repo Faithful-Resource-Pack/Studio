@@ -14,7 +14,7 @@
 							v-if="data[status] !== undefined"
 							:key="status"
 							cols="12"
-							:sm="$root.isAdmin && '3'"
+							:sm="{ 3: $root.isAdmin }"
 						>
 							<dashboard-stat
 								:label="$root.lang().review.titles[status]"
@@ -42,7 +42,7 @@
 						v-for="i in skeletonCount"
 						:key="`skeleton-status-${i}`"
 						cols="12"
-						:sm="$root.isAdmin && '3'"
+						:sm="{ 3: $root.isAdmin }"
 					>
 						<div
 							class="dashboard-stat mb-0 flex-grow-1 rounded-lg pa-2 d-flex align-center paragraph-loader"

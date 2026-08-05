@@ -6,7 +6,7 @@
 			<v-icon class="v-label">{{ subtab.icon }}</v-icon>
 		</v-list-item-icon>
 		<v-list-item-content>
-			<v-list-item-title class="body-2" :class="hasBadge && 'font-weight-bold'">
+			<v-list-item-title class="body-2" :class="{ 'font-weight-bold': hasBadge }">
 				{{ title }}
 			</v-list-item-title>
 		</v-list-item-content>

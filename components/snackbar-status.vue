@@ -2,7 +2,7 @@
 	<v-snackbar
 		v-model="snackbarShown"
 		class="snackbar-status"
-		:class="(split.submessage || json) && 'extended-snackbar'"
+		:class="{ 'extended-snackbar': split.submessage || json }"
 		:timeout="timeout"
 		:color="snackbar.color"
 		text

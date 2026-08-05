@@ -20,7 +20,7 @@
 			<h2 class="text-h5">{{ $root.lang().addons.general.title }}</h2>
 			<v-row>
 				<!-- LEFT PART : INPUT -->
-				<v-col :class="$vuetify.breakpoint.smAndDown && 'pb-0'">
+				<v-col :class="{ 'pb-0': $vuetify.breakpoint.smAndDown }">
 					<!-- Addon name -->
 					<v-text-field
 						v-model="submittedForm.name"
@@ -45,7 +45,7 @@
 					cols="12"
 					sm="3"
 					class="d-flex align-center"
-					:class="$vuetify.breakpoint.smAndDown && 'pt-0 pb-7'"
+					:class="{ 'pt-0 pb-7': $vuetify.breakpoint.smAndDown }"
 				>
 					<v-responsive
 						:aspect-ratio="$vuetify.breakpoint.smAndDown ? undefined : 16 / 9"

@@ -3,7 +3,7 @@
 		<fullscreen-preview v-model="previewOpen" :src="formData.header_img" />
 
 		<v-row>
-			<v-col :class="$vuetify.breakpoint.smAndDown && 'pb-0'">
+			<v-col :class="{ 'pb-0': $vuetify.breakpoint.smAndDown }">
 				<v-text-field
 					v-model="formData.title"
 					required
@@ -27,7 +27,7 @@
 				cols="12"
 				sm="3"
 				class="d-flex align-center"
-				:class="$vuetify.breakpoint.smAndDown && 'pt-0 pb-7'"
+				:class="{ 'pt-0 pb-7': $vuetify.breakpoint.smAndDown }"
 			>
 				<v-responsive
 					:aspect-ratio="$vuetify.breakpoint.smAndDown ? undefined : 16 / 9"

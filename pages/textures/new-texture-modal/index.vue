@@ -16,7 +16,7 @@
 			<v-btn
 				icon
 				:title="$root.lang().database.textures.modal.persist_button"
-				:class="persistOnSave ? 'v-item--active v-btn--active' : ''"
+				:class="{ 'v-item--active v-btn--active': persistOnSave }"
 				@click="persistOnSave = !persistOnSave"
 			>
 				<v-icon>{{ persistOnSave ? "mdi-content-save" : "mdi-content-save-off" }}</v-icon>
