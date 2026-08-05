@@ -73,6 +73,7 @@
 									v-if="contrib.url"
 									class="texture-img"
 									:src="contrib.url"
+									:lazy-src="$root.theme.transparencyImage"
 									@error="imageNotFound(i)"
 								/>
 							</v-list-item-avatar>
