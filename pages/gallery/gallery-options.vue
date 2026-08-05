@@ -56,15 +56,23 @@
 			<v-col cols="12" sm="6">
 				<v-slider
 					v-model="currentDisplay.columns"
-					:label="$root.lang().gallery.max_items_per_row"
+					:title="$root.lang().gallery.max_items_per_row"
 					step="1"
-					thumb-label
-					ticks="always"
-					tick-size="3"
-					hide-details
 					min="1"
 					:max="maxColumns"
-				/>
+					ticks="always"
+					tick-size="3"
+					thumb-label
+					hide-details
+				>
+					<!-- need to apply label colors so we manually add icons -->
+					<template #prepend>
+						<v-icon class="v-label">mdi-grid-large</v-icon>
+					</template>
+					<template #append>
+						<v-icon class="v-label">mdi-grid</v-icon>
+					</template>
+				</v-slider>
 			</v-col>
 			<v-col v-if="stretchable" cols="12" sm="3">
 				<v-switch
