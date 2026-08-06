@@ -27,18 +27,24 @@
 	-moz-osx-font-something: grayscale;
 }
 
+// hide native number spin buttons (ugly)
 input[type=number] {
 	-moz-appearance: textfield;
 	-webkit-appearance: textfield;
 	appearance: textfield;
-	margin: 0;
+	&::-webkit-inner-spin-button,
+	&::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+	}
 }
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button,
-input[type="date"]::-webkit-calendar-picker-indicator {
-	-webkit-appearance: none;
-	margin: 0;
-	display: none;
+
+// improve native calendar icon colors
+// https://stackoverflow.com/a/62162805/20327257
+.theme--dark ::-webkit-calendar-picker-indicator {
+	filter: invert(0.7);
+}
+.theme--light ::-webkit-calendar-picker-indicator {
+	filter: invert(0.4);
 }
 
 code {

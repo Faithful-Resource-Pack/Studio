@@ -50,6 +50,7 @@
 				<div v-else class="d-flex align-center">
 					<v-text-field
 						v-model.number="contrib.texture"
+						type="number"
 						:color="color"
 						:label="$root.lang().database.contributions.modal.texture_id"
 						required
