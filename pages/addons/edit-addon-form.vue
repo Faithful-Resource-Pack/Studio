@@ -17,6 +17,7 @@
 		</div>
 		<addon-form
 			:loading="loading"
+			:submitting="submitting"
 			:addon-data="addonData"
 			:disabled-header-input="headerDisabled"
 			:screen-sources="screenSources"
@@ -86,6 +87,7 @@ export default {
 			headerSource: "",
 			screenSources: [],
 			screenIds: [],
+			submitting: false,
 		};
 	},
 	computed: {
@@ -111,27 +113,32 @@ export default {
 			this.reasonModalOpen = true;
 		},
 		async confirmSubmit(data, approve) {
+			this.submitting = true;
 			if (approve) data.reason = "Manager edit";
 			else {
 				data.reason = this.reason.trim();
 				this.reason = "";
 			}
 
-			// update no matter what then approve if manager selected
-			await this.$root.wrapSnackBar(
-				axios.patch(`${this.$root.apiURL}/addons/${this.id}`, data, this.$root.apiOptions),
-			);
-			if (approve === true)
+			try {
+				// update no matter what then approve if manager selected
 				await this.$root.wrapSnackBar(
-					axios.put(
-						`${this.$root.apiURL}/addons/${this.id}/review`,
-						{ status: "approved", reason: "Manager edit" },
-						this.$root.apiOptions,
-					),
+					axios.patch(`${this.$root.apiURL}/addons/${this.id}`, data, this.$root.apiOptions),
 				);
+				if (approve === true)
+					await this.$root.wrapSnackBar(
+						axios.put(
+							`${this.$root.apiURL}/addons/${this.id}/review`,
+							{ status: "approved", reason: "Manager edit" },
+							this.$root.apiOptions,
+						),
+					);
 
-			// send you back after everything goes well (staying on the form feels weird)
-			this.$router.push("/addons/submissions");
+				// send you back after everything goes well (staying on the form feels weird)
+				this.$router.push("/addons/submissions");
+			} finally {
+				this.submitting = false;
+			}
 		},
 		handleHeader(file, remove = false) {
 			this.headerDisabled = true;

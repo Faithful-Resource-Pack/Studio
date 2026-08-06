@@ -248,12 +248,19 @@
 			</v-btn>
 
 			<v-card-actions class="form-actions mt-5">
-				<v-btn :disabled="!validForm" color="darken-1" text @click="onSubmit(false)">
+				<v-btn
+					:disabled="!validForm"
+					:loading="submitting"
+					color="darken-1"
+					text
+					@click="onSubmit(false)"
+				>
 					{{ $root.lang().global.btn.submit_for_review }}
 				</v-btn>
 				<v-btn
 					v-if="$root.isAdmin"
 					:disabled="!validForm"
+					:loading="submitting"
 					color="primary"
 					text
 					@click="onSubmit(true)"
@@ -322,6 +329,11 @@ export default {
 			default: undefined,
 		},
 		disabledHeaderInput: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
+		submitting: {
 			type: Boolean,
 			required: false,
 			default: false,

@@ -3,6 +3,7 @@
 		<h1 class="text-h4 py-4">{{ $root.lang().addons.titles.submit }}</h1>
 		<addon-form
 			addon-new
+			:submitting="submitting"
 			:screen-sources="screenSources"
 			:screen-ids="screenshotIds"
 			@submit="handleSubmit"
@@ -27,7 +28,8 @@ export default {
 			header: undefined,
 			screenshots: [],
 			screenshotIds: [],
-			screenshotId: 0,
+			latestScreenId: 0,
+			submitting: false,
 		};
 	},
 	computed: {
@@ -37,9 +39,9 @@ export default {
 	},
 	methods: {
 		async handleSubmit(data) {
-			// 1. Upload
-			let addonId;
+			this.submitting = true;
 			try {
+				// 1. Upload json information
 				const response = await axios.post(
 					`${this.$root.apiURL}/addons`,
 					data,
@@ -47,63 +49,41 @@ export default {
 				);
 
 				const addon = response.data;
-				addonId = addon.id;
 
-				const promises = [];
-				// 2. Upload header
+				// 2. Upload header image
 				if (this.header) {
 					const headerForm = new FormData();
 					headerForm.set("file", this.header, this.header.name);
-					promises.push(
-						axios.post(
-							`${this.$root.apiURL}/addons/${addon.id}/header`,
-							headerForm,
-							this.$root.apiOptions,
-						),
+					await axios.post(
+						`${this.$root.apiURL}/addons/${addon.id}/header`,
+						headerForm,
+						this.$root.apiOptions,
 					);
 				}
 
-				// 3. Upload screenshots
+				// 3. Upload add-on screenshots
 				if (this.screenshots.length) {
-					// add all of them
-					// fix to stabilize upload and make one request then another...
-					let err;
-					let successful = true;
+					// don't ddos the api by uploading one by one
+					// todo: look into uploading multiple images at once
 					for (const screen of this.screenshots) {
 						const form = new FormData();
 						form.set("file", screen, screen.name);
 
-						successful = await axios
-							.post(
-								`${this.$root.apiURL}/addons/${addonId}/screenshots`,
-								form,
-								this.$root.apiOptions,
-							)
-							.then(() => true)
-							.catch((error) => {
-								err = error;
-								return false;
-							});
-
-						if (!successful) break;
+						await axios.post(
+							`${this.$root.apiURL}/addons/${addon.id}/screenshots`,
+							form,
+							this.$root.apiOptions,
+						);
 					}
-
-					promises.push(successful ? Promise.resolve() : Promise.reject(err));
 				}
 
-				await Promise.all(promises);
 				this.$root.showSnackBar(this.$root.lang().global.success_message, "success");
 				this.$router.push("/addons/submissions");
 			} catch (err) {
 				console.error(err);
 				this.$root.showSnackBar(err, "error");
-
-				// created malformed addon, delete the whole thing to try again
-				// if we have id then we at least successfully created the file
-				if (addonId)
-					axios
-						.delete(`${this.$root.apiURL}/addons/${addonId}`, this.$root.apiOptions)
-						.catch((err) => this.$root.showSnackBar(err, "error"));
+			} finally {
+				this.submitting = false;
 			}
 		},
 		handleHeader(file, remove = false) {
@@ -133,10 +113,10 @@ export default {
 				// Then add the same amount of ids
 				this.screenshotIds = [
 					...this.screenshotIds,
-					...Array.from({ length: number }).map((_, i) => this.screenshotId + i),
+					...Array.from({ length: number }).map((_, i) => this.latestScreenId + i),
 				];
 
-				this.screenshotId += number; // increase top id
+				this.latestScreenId += number; // increase top id
 			}
 		},
 	},
