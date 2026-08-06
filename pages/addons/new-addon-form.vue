@@ -75,7 +75,7 @@ export default {
 
 						successful = await axios
 							.post(
-								`${this.$root.apiURL}/addons/${this.id}/screenshots`,
+								`${this.$root.apiURL}/addons/${addonId}/screenshots`,
 								form,
 								this.$root.apiOptions,
 							)
