@@ -39,6 +39,12 @@ export default {
 	},
 	methods: {
 		async handleSubmit(data) {
+			if (!this.header)
+				return this.$root.showSnackBar(
+					this.$root.lang().addons.images.header.rules.image_required,
+					"error",
+				);
+
 			this.submitting = true;
 			try {
 				// 1. Upload json information
@@ -51,30 +57,25 @@ export default {
 				const addon = response.data;
 
 				// 2. Upload header image
-				if (this.header) {
-					const headerForm = new FormData();
-					headerForm.set("file", this.header, this.header.name);
-					await axios.post(
-						`${this.$root.apiURL}/addons/${addon.id}/header`,
-						headerForm,
-						this.$root.apiOptions,
-					);
-				}
+				const headerForm = new FormData();
+				headerForm.set("file", this.header, this.header.name);
+				await axios.post(
+					`${this.$root.apiURL}/addons/${addon.id}/header`,
+					headerForm,
+					this.$root.apiOptions,
+				);
 
 				// 3. Upload add-on screenshots
-				if (this.screenshots.length) {
+				for (const screen of this.screenshots) {
 					// don't ddos the api by uploading one by one
 					// todo: look into uploading multiple images at once
-					for (const screen of this.screenshots) {
-						const form = new FormData();
-						form.set("file", screen, screen.name);
-
-						await axios.post(
-							`${this.$root.apiURL}/addons/${addon.id}/screenshots`,
-							form,
-							this.$root.apiOptions,
-						);
-					}
+					const form = new FormData();
+					form.set("file", screen, screen.name);
+					await axios.post(
+						`${this.$root.apiURL}/addons/${addon.id}/screenshots`,
+						form,
+						this.$root.apiOptions,
+					);
 				}
 
 				this.$root.showSnackBar(this.$root.lang().global.success_message, "success");
