@@ -29,11 +29,11 @@
 					v-model="selectedAddonId"
 					:items="selectedListItems"
 					:activeColor="pageColor"
-					style="min-width: 256px; width: 256px"
+					style="width: 256px"
 				/>
 				<!-- no v-model since you can't change the active addon from the preview alone -->
 				<review-preview
-					class="flex-grow-1"
+					style="width: calc(100% - 256px)"
 					:addon="selectedAddon"
 					:status="status"
 					:authors="authors"
