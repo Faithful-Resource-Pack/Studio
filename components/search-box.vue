@@ -6,7 +6,7 @@
 		filled
 		hide-details
 		clearable
-		append-icon="mdi-send"
+		append-icon="mdi-magnify"
 		v-bind="$attrs"
 		@keyup.enter="$emit('search')"
 		@click:append="$emit('search')"
