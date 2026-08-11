@@ -80,26 +80,6 @@ export default defineStore("discordToken", {
 		 * @returns {typeof this.$state | null} Found auth, or null if user was never logged in
 		 */
 		parseLocalStorage() {
-			// todo: remove this once faithful studio migration is done (old localstorage is dead)
-			const legacyAuthJSON = localStorage.getItem(LEGACY_AUTH_STORAGE_KEY);
-
-			if (legacyAuthJSON !== null) {
-				// convert to new format
-				localStorage.removeItem(LEGACY_AUTH_STORAGE_KEY);
-				let auth;
-				try {
-					auth = JSON.parse(legacyAuthJSON);
-				} catch (err) {
-					console.error(err);
-					return null;
-				}
-
-				if (!this.isValidAuth(auth)) return null;
-
-				// we can't set it at this point since we have no idea what account it's for
-				return auth;
-			}
-
 			const authJSON = localStorage.getItem(AUTH_STORAGE_KEY);
 			const currentID = localStorage.getItem(CURRENT_USER_KEY);
 
