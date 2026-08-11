@@ -114,6 +114,8 @@ interface SidebarSubtab {
 	roles?: string[];
 }
 
+type AvailableTheme = "dark" | "system" | "light";
+
 interface LangMetadata {
 	id: string;
 	display: string;
@@ -122,4 +124,13 @@ interface LangMetadata {
 	bcp47: string;
 	file: string;
 	iso3166: string;
+}
+
+interface DiscordTokens {
+	// discord session token used with api, discord profile, etc
+	access_token: string;
+	// token used to auto-refresh login if the access_token expires
+	refresh_token: string;
+	// time when access_token expires
+	expires_at: Date;
 }

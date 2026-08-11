@@ -5,20 +5,20 @@ export const LEGACY_AUTH_STORAGE_KEY = "auth";
 export const AUTH_STORAGE_KEY = "available_accounts";
 export const CURRENT_USER_KEY = "current_user_id";
 
+/** @typedef {import("../resources/types").DiscordTokens} DiscordTokens */
+
 /** handles all the ugly discord stuff required to start logging in */
 export default defineStore("discordToken", {
+	/** @returns {DiscordTokens} */
 	state: () => ({
-		/** @type {string} Discord access token used with the API */
 		access_token: undefined,
-		/** @type {string} Refresh token stored when the auth runs out */
 		refresh_token: undefined,
-		/** @type {Date} Expiry date used to auto-refresh the token when needed */
 		expires_at: undefined,
 	}),
 	actions: {
 		/**
 		 * Authenticate with Discord, refreshing required tokens if needed
-		 * @param {typeof this.$state} auth Auth from localstorage
+		 * @param {DiscordTokens} auth Auth from localstorage
 		 */
 		async authenticate(auth) {
 			const lastLogin = this.isAuthExpired(auth) ? this.refreshLogin(auth) : auth;
@@ -27,7 +27,7 @@ export default defineStore("discordToken", {
 		},
 		/**
 		 * Refresh Discord login when expired
-		 * @param {typeof this.$state} auth Invalidated auth
+		 * @param {DiscordTokens} auth Invalidated auth
 		 * @returns {Promise<typeof this.$state>} New valid auth
 		 */
 		async refreshLogin(auth = undefined) {
@@ -47,7 +47,7 @@ export default defineStore("discordToken", {
 		},
 		/**
 		 * Read incoming login response or localstorage to get required tokens for logging in
-		 * @returns {Promise<typeof this.$state | null>} Found auth, or null if user was never logged in
+		 * @returns {Promise<DiscordTokens | null>} Found auth, or null if user was never logged in
 		 */
 		async getAuthMethod() {
 			// api returns tokens through search params, so prioritize those for login
@@ -64,7 +64,7 @@ export default defineStore("discordToken", {
 		 * Read incoming login response data from query parameters
 		 * @private
 		 * @param {string} search query params to read
-		 * @returns {typeof this.$state} found auth
+		 * @returns {DiscordTokens} found auth
 		 */
 		parseSearchParams(search) {
 			const params = new URLSearchParams(search);
@@ -77,12 +77,13 @@ export default defineStore("discordToken", {
 		/**
 		 * Read stored login data from localstorage safely
 		 * @private
-		 * @returns {typeof this.$state | null} Found auth, or null if user was never logged in
+		 * @returns {DiscordTokens | null} Found auth, or null if user was never logged in
 		 */
 		parseLocalStorage() {
 			const authJSON = localStorage.getItem(AUTH_STORAGE_KEY);
 			const currentID = localStorage.getItem(CURRENT_USER_KEY);
 
+			/** @type {DiscordTokens} */
 			let auth;
 			try {
 				auth = JSON.parse(authJSON)?.[currentID] ?? null;
@@ -98,7 +99,7 @@ export default defineStore("discordToken", {
 		/**
 		 * Check whether provided auth is expired based on its date
 		 * @private
-		 * @param {typeof this.$state} auth auth to check
+		 * @param {DiscordTokens} auth auth to check
 		 * @returns {boolean} whether auth is expired
 		 */
 		isAuthExpired(auth) {
@@ -107,7 +108,7 @@ export default defineStore("discordToken", {
 		/**
 		 * Check whether auth is a valid object (not necessarily valid)
 		 * @private
-		 * @param {typeof this.$state} auth auth to check
+		 * @param {DiscordTokens} auth auth to check
 		 * @returns {boolean} whether auth is valid
 		 */
 		isValidAuth(auth) {

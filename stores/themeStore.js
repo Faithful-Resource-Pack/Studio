@@ -3,12 +3,15 @@ import { defineStore } from "pinia";
 const THEME_KEY = "theme";
 const DEFAULT_THEME_ID = "system";
 
+/** @typedef {import("../resources/types").AvailableTheme} AvailableTheme */
+
 /**
  * manages current theme, watches for system changes, and provides useful data
  * NOTE: does not handle vuetify class switching, needs isDark watcher in index.js
  */
 export default defineStore("theme", {
 	state: () => ({
+		/** @type {Record<AvailableTheme, { id: string, icon: string }>} */
 		availableThemes: {
 			// this probably doesn't have to be an object but whatever
 			dark: {
@@ -55,7 +58,7 @@ export default defineStore("theme", {
 		},
 		/**
 		 * Set a new theme
-		 * @param {keyof typeof this.availableThemes} theme theme to set
+		 * @param {AvailableTheme} theme theme to set
 		 */
 		setTheme(theme) {
 			localStorage.setItem(THEME_KEY, theme);
@@ -68,7 +71,7 @@ export default defineStore("theme", {
 		 * Get whether the provided theme counts as "dark"
 		 * - Basically if the theme is always dark or the user's system theme is set to prefer dark
 		 * @private prefer the isDark getter
-		 * @param {keyof typeof this.availableThemes} theme theme to check
+		 * @param {AvailableTheme} theme theme to check
 		 * @returns {boolean} whether the theme counts as "dark"
 		 */
 		getDark(theme) {
@@ -79,7 +82,7 @@ export default defineStore("theme", {
 		 * What to do when the system theme changes (only matters when theme is system)
 		 * @private
 		 * @param {import("vue/types/vue").Vue} app used for notification snackbar message
-		 * @param {keyof typeof this.availableThemes} theme theme to use
+		 * @param {AvailableTheme} theme theme to use
 		 */
 		onSystemThemeChange(app, theme) {
 			// only if system theme
