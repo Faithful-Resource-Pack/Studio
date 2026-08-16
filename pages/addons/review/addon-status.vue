@@ -4,7 +4,7 @@
 			<span class="uppercase text--primary">
 				{{ title.replace("%s", username) }}
 			</span>
-			<p v-if="status !== 'approved'" class="text--secondary mb-0">
+			<p v-if="status !== 'approved'" class="text--secondary text-pre-line mb-0">
 				<template v-if="reason">{{ reason }}</template>
 				<i v-else>{{ $root.lang().review.addon.labels.no_reason }}</i>
 			</p>
@@ -77,7 +77,7 @@ export default {
 		},
 		username() {
 			// straight up doesn't exist
-			if (!this.addon.approval.author) return "Herobrine";
+			if (!this.addon.approval || !this.addon.approval.author) return "Herobrine";
 			const author = this.authors.find((c) => c.id === this.addon.approval.author);
 			if (author.username) return author.username;
 			return `${this.$root.lang().database.anonymous} (${this.addon.approval.author})`;

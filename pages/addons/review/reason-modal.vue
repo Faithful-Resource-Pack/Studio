@@ -10,7 +10,7 @@
 		<v-alert type="warning" outlined dense>
 			{{ $root.lang().review.reason_modal.warning }}
 		</v-alert>
-		<v-text-field
+		<v-textarea
 			v-model="reason"
 			:autofocus="!$vuetify.breakpoint.mobile"
 			:color="color"

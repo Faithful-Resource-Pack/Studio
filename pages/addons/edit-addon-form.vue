@@ -36,7 +36,7 @@
 		>
 			<v-form ref="reasonForm" v-model="validForm" lazy-validation>
 				<p>{{ $root.lang().addons.general.reason.text }}</p>
-				<v-text-field
+				<v-textarea
 					v-model="reason"
 					:autofocus="!$vuetify.breakpoint.mobile"
 					:label="$root.lang().addons.general.reason.title"
@@ -79,7 +79,7 @@ export default {
 			],
 			reasonCounter: {
 				min: 5,
-				max: 150,
+				max: 300,
 			},
 			reason: "",
 			validForm: false,

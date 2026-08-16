@@ -56,7 +56,10 @@
 							<v-list-item-title>
 								{{ $root.lang().addons.status[addon.approval.status] }}
 							</v-list-item-title>
-							<v-list-item-subtitle v-if="addon.approval.status !== 'approved'">
+							<v-list-item-subtitle
+								v-if="addon.approval.status !== 'approved'"
+								class="text-pre-line"
+							>
 								{{ addon.approval.reason }}
 							</v-list-item-subtitle>
 						</v-list-item-content>
