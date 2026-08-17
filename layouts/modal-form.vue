@@ -2,7 +2,12 @@
 	<v-dialog v-model="modalOpened" content-class="colored" :max-width="maxWidth" v-bind="$attrs">
 		<v-card>
 			<v-card-title class="justify-space-between">
-				<h1 class="text-h5">{{ title }}</h1>
+				<div>
+					<h1 v-if="title" class="text-h5">{{ title }}</h1>
+					<v-card-subtitle v-if="subtitle" class="pa-0 text--secondary">
+						{{ subtitle }}
+					</v-card-subtitle>
+				</div>
 				<v-btn icon :title="$root.lang().global.btn.close" @click="closeModal">
 					<v-icon>mdi-close</v-icon>
 				</v-btn>
@@ -33,6 +38,11 @@ export default {
 	name: "modal-form",
 	props: {
 		title: {
+			type: String,
+			required: false,
+			default: "",
+		},
+		subtitle: {
 			type: String,
 			required: false,
 			default: "",
