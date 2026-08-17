@@ -135,6 +135,12 @@ export default {
 			switch_accounts: "Switch to account",
 			avatar_alt_text: "%s's avatar",
 		},
+		changelog: {
+			title: "What's new?",
+			previous: "Previous changelog",
+			next: "Next changelog",
+			follow_us: "Follow us!",
+		},
 		emitting_image: {
 			fullscreen: "Open in full screen",
 			delete: "Remove image",

@@ -26,6 +26,7 @@ import NavFooter from "@components/nav-footer.vue";
 import SnackbarStatus from "@components/snackbar-status.vue";
 import LoadingPage from "@layouts/loading-page.vue";
 import MissingPage from "./pages/404/index.vue";
+import ChangelogPopup from "@components/changelog-popup.vue";
 
 Vue.config.devtools = import.meta.env.MODE === "development";
 Vue.use(Vuetify);
@@ -110,6 +111,7 @@ const app = new Vue({
 		NavAppBar,
 		NavSidebar,
 		NavFooter,
+		ChangelogPopup,
 		SnackbarStatus,
 		LoadingPage,
 	},
