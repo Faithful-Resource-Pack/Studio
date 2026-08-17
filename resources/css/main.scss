@@ -385,26 +385,27 @@ img.texture-img {
 }
 
 // stylized pill button paths
-.v-list-item__action.merged-actions {
+.merged-actions {
 	margin-top: 4px;
 	margin-bottom: 4px;
-	flex-direction: row;
+	display: flex;
+	flex-flow: row nowrap;
 	align-self: center;
 }
 
-.v-list-item__action.merged-actions .v-btn {
+.merged-actions .v-btn {
 	border-radius: 0;
 }
-.v-list-item__action.merged-actions .v-btn:first-child {
+.merged-actions .v-btn:first-child {
 	border-top-left-radius: 50%;
 	border-bottom-left-radius: 50%;
 }
-.v-list-item__action.merged-actions .v-btn:last-child {
+.merged-actions .v-btn:last-child {
 	border-top-right-radius: 50%;
 	border-bottom-right-radius: 50%;
 }
 
-.theme--dark .v-list-item__action.merged-actions .v-btn {
+.theme--dark .merged-actions .v-btn {
 	background: #272727;
 }
 .v-dialog {

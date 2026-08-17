@@ -14,7 +14,7 @@
 							v-if="data[status] !== undefined"
 							:key="status"
 							cols="12"
-							:sm="{ 3: $root.isAdmin }"
+							:sm="$root.isAdmin && 3"
 						>
 							<dashboard-stat
 								:label="$root.lang().review.titles[status]"
