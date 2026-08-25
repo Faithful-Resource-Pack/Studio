@@ -42,7 +42,7 @@
 						v-for="i in skeletonCount"
 						:key="`skeleton-status-${i}`"
 						cols="12"
-						:sm="{ 3: $root.isAdmin }"
+						:sm="$root.isAdmin && 3"
 					>
 						<div
 							class="dashboard-stat mb-0 flex-grow-1 rounded-lg pa-2 d-flex align-center paragraph-loader"
