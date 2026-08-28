@@ -665,6 +665,7 @@ export default {
 				id: "Texture ID",
 				name: "Texture name",
 				tags: "Texture tags",
+				recompute_tag_list: "Regenerate tags using path data",
 			},
 			uses: {
 				title: "Uses",

@@ -40,18 +40,30 @@
 				clearable
 				:label="$root.lang().database.textures.modal.name"
 			/>
-			<v-combobox
-				v-model="formData.tags"
-				:color="color"
-				:item-color="color"
-				required
-				multiple
-				deletable-chips
-				small-chips
-				:items="tags"
-				:label="$root.lang().database.textures.modal.tags"
-				@change="updateTags(formData)"
-			/>
+			<div class="d-flex align-baseline ga-2">
+				<v-combobox
+					v-model="formData.tags"
+					class="flex-grow-1"
+					:color="color"
+					:item-color="color"
+					required
+					multiple
+					deletable-chips
+					small-chips
+					:items="tags"
+					:label="$root.lang().database.textures.modal.tags"
+					@change="onTagUpdate(formData)"
+				>
+				</v-combobox>
+				<v-btn
+					icon
+					:loading="computingTags"
+					:title="$root.lang().database.textures.modal.recompute_tag_list"
+					@click="recomputeTagList"
+				>
+					<v-icon>mdi-sync</v-icon>
+				</v-btn>
+			</div>
 
 			<h2 class="title">
 				{{ $root.lang().database.textures.uses.title }} ({{ Object.keys(formData.uses).length }})
@@ -168,6 +180,7 @@ export default {
 				open: false,
 				data: {},
 			},
+			computingTags: false,
 		};
 	},
 	methods: {
@@ -231,20 +244,24 @@ export default {
 
 			return this.$root.wrapSnackBar(promise).then(() => this.$emit("close", true));
 		},
-		updateTags(data) {
+		onTagUpdate(data) {
 			data.tags = sortTags(data.tags);
 		},
 		recomputeTagList() {
-			// compute based on existing paths and uses
+			this.computingTags = true;
 			axios
 				.get(`${this.$root.apiURL}/textures/${this.formData.id}/paths`, this.$root.apiOptions)
 				.then((res) => {
+					// compute based on existing paths and uses
 					this.formData.tags = sortTags([
 						...Object.values(this.formData.uses).map(({ edition }) => edition.toTitleCase()),
 						...(res.data || []).map((path) => formatTag(getTagFromPath(path.name))),
 					]);
 				})
-				.catch((err) => console.error(err));
+				.catch((err) => console.error(err))
+				.finally(() => {
+					this.computingTags = false;
+				});
 		},
 		getUses(textureID) {
 			axios
@@ -254,8 +271,6 @@ export default {
 						acc[cur.id] = cur;
 						return acc;
 					}, {});
-					// recompute tag list once uses are loaded
-					this.recomputeTagList();
 				})
 				.catch((err) => console.error(err));
 		},
