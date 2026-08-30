@@ -97,7 +97,7 @@ export default {
 		},
 		longReason() {
 			if (this.status === "approved") return false;
-			return this.reason.length > 150;
+			return this.reason?.length > 150;
 		},
 	},
 };

@@ -5,7 +5,7 @@
 		<v-card-title>
 			<h1 class="text-h5">
 				<a
-					v-if="addon.approval.status === 'approved'"
+					v-if="addon.approval?.status === 'approved'"
 					class="text--primary hover-underline"
 					:href="`https://faithfulpack.net/addons/${addon.slug}`"
 					target="blank"
@@ -41,15 +41,15 @@
 					</h2>
 					<div class="text--secondary mb-4">
 						<div>
-							<v-icon small>{{ checked(addon.options.tags.includes("Java")) }}</v-icon>
+							<v-icon small>{{ checked(addon.options?.tags.includes("Java")) }}</v-icon>
 							Java Edition
 						</div>
 						<div>
-							<v-icon small>{{ checked(addon.options.tags.includes("Bedrock")) }}</v-icon>
+							<v-icon small>{{ checked(addon.options?.tags.includes("Bedrock")) }}</v-icon>
 							Bedrock Edition
 						</div>
 						<div>
-							<v-icon small>{{ checked(addon.options.optifine) }}</v-icon>
+							<v-icon small>{{ checked(addon.options?.optifine) }}</v-icon>
 							{{ $root.lang().review.addon.labels.optifine }}
 						</div>
 					</div>
@@ -188,11 +188,11 @@ export default {
 			return this.$root.lang().review.addon.titles[key];
 		},
 		authorTitle() {
-			const key = this.addon.authors.length === 1 ? "author_singular" : "author_plural";
+			const key = this.addon.authors?.length === 1 ? "author_singular" : "author_plural";
 			return this.$root.lang().review.addon.titles[key];
 		},
 		addonAuthors() {
-			return this.addon.authors.map((id) => this.authors.find((c) => c.id === id));
+			return this.addon.authors?.map((id) => this.authors.find((c) => c.id === id)) || [];
 		},
 	},
 };
