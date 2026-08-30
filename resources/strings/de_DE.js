@@ -246,11 +246,11 @@ export default {
 			search_failed: "Suche fehlgeschlagen",
 		},
 		category: {
-			search: "Suchen",
-			tag: "Tag",
-			mc_version: "Minecraft-Version",
-			edition: "Edition",
 			pack: "Pack",
+			edition: "Edition",
+			mc_version: "Minecraft-Version",
+			tag: "Tag",
+			search: "Suchen",
 		},
 		sort: {
 			name_asc: "Name (A → Z)",

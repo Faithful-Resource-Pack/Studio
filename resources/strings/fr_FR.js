@@ -303,11 +303,10 @@ export default {
 			contribution_not_found: "Aucune contribution trouvée dans la base de donnée!",
 		},
 		category: {
-			search: "Rechercher",
-			tags: "Étiquettes",
-			mc_version: "Versions Minecraft",
 			edition: "Édition",
-			resolution: "Résolution",
+			mc_version: "Versions Minecraft",
+			tags: "Étiquettes",
+			search: "Rechercher",
 		},
 		modal: {
 			tabs: {

@@ -459,11 +459,11 @@ export default {
 			contribution_not_found: "¡No se encontraron contribuciones en la base de datos!",
 		},
 		category: {
-			search: "Buscar",
-			tag: "Etiqueta",
-			mc_version: "Versión de Minecraft",
-			edition: "Edición",
 			pack: "Pack",
+			edition: "Edición",
+			mc_version: "Versión de Minecraft",
+			tag: "Etiqueta",
+			search: "Buscar",
 		},
 		sort: {
 			name_asc: "Nombre (A → Z)",

@@ -294,11 +294,10 @@ export default {
 			contribution_not_found: "V databázi nebyli nalezeni žádní autoři!",
 		},
 		category: {
-			search: "Vyhledat",
-			tags: "Kategorie",
-			mc_version: "Minecraft verze",
 			edition: "Edice",
-			resolution: "Rozlišení",
+			mc_version: "Minecraft verze",
+			tags: "Kategorie",
+			search: "Vyhledat",
 		},
 		all: "vše",
 		modal: {

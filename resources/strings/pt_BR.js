@@ -265,11 +265,11 @@ export default {
 			search_failed: "Falha ao pesquisar",
 		},
 		category: {
-			search: "Buscar",
-			tag: "Tags",
-			mc_version: "Versão do Minecraft",
-			edition: "Edição",
 			pack: "Pacote",
+			edition: "Edição",
+			mc_version: "Versão do Minecraft",
+			tag: "Tags",
+			search: "Buscar",
 		},
 		sort: {
 			name_asc: "Nome (A → Z)",
