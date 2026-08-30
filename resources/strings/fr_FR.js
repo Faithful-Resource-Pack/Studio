@@ -162,7 +162,6 @@ export default {
 			pending: "Il n'y a actuellement aucun add-on en attente !",
 			denied: "Il n'y a actuellement aucun add-on refusé !",
 			archived: "Il n'y a actuellement aucun add-on archivé !",
-			load_approved: "Charger les add-on approuvés",
 		},
 		addon: {
 			titles: {

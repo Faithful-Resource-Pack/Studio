@@ -477,7 +477,6 @@ export default {
 			denied: "Não há nenhum addon negado no momento!",
 			archived: "Não há nenhum addon arquivado no momento!",
 			approved: "Não há nenhum addon aprovado no momento!",
-			load_approved: "Carregar addons aprovados",
 		},
 		addon: {
 			titles: {

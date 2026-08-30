@@ -224,11 +224,10 @@ export default {
 			rule: "Cualquier razón puede ser dada",
 		},
 		labels: {
-			pending: "Actualmente no hay complementos pendientes!",
-			denied: "Actualmente no hay complementos denegados!",
-			archived: "Actualmente no hay complementos archivados!",
+			pending: "¡Actualmente no hay complementos pendientes!",
+			denied: "¡Actualmente no hay complementos denegados!",
+			archived: "¡Actualmente no hay complementos archivados!",
 			approved: "¡Actualmente no hay complementos aprobados!",
-			load_approved: "Cargar complementos aprobados",
 		},
 		addon: {
 			titles: {

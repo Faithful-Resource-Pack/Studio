@@ -153,7 +153,6 @@ export default {
 		labels: {
 			pending: "Momentálně nejsou žádné doplňky čekající na schválení!",
 			denied: "Momentálně nejsou žádné zamítnuté doplňky!",
-			load_approved: "Načíst schválené doplňky",
 		},
 		addon: {
 			titles: {

@@ -1,14 +1,36 @@
 <template>
-	<v-card class="main-container review-list overflow-y-auto">
-		<!-- workaround to prevent the navigation list styles incorrectly applying -->
-		<router-link v-for="(item, i) in items" :key="item.key" :to="addonURL(item.key)">
-			<v-list-item tabindex="-1" two-line :class="classes[i]" @click="$emit('input', item.key)">
-				<v-list-item-content>
-					<v-list-item-title>{{ item.primary }}</v-list-item-title>
-					<v-list-item-subtitle>{{ item.secondary }}</v-list-item-subtitle>
-				</v-list-item-content>
-			</v-list-item>
-		</router-link>
+	<v-card class="main-container d-flex flex-column">
+		<!-- if you don't wrap this in a div the vertical alignment gets messed up for some reason -->
+		<div class="pa-4">
+			<!-- remove the billion pixels of top padding and sticky position above list -->
+			<v-text-field
+				ref="reviewSearch"
+				v-model="search"
+				class="mt-n1 pt-0"
+				style="position: sticky; top: 0; z-index: 3"
+				:placeholder="$root.lang().review.labels.search"
+				:color="activeColor"
+				autofocus
+				clearable
+				hide-details
+				prepend-inner-icon="mdi-magnify"
+			/>
+		</div>
+		<div v-if="filteredItems.length" class="overflow-y-auto">
+			<!-- workaround to prevent the navigation list styles incorrectly applying -->
+			<router-link v-for="(item, i) in filteredItems" :key="item.key" :to="addonURL(item.key)">
+				<v-list-item tabindex="-1" two-line :class="classes[i]" @click="$emit('input', item.key)">
+					<v-list-item-content>
+						<v-list-item-title>{{ item.primary }}</v-list-item-title>
+						<v-list-item-subtitle>{{ item.secondary }}</v-list-item-subtitle>
+					</v-list-item-content>
+				</v-list-item>
+			</router-link>
+		</div>
+		<div v-else class="d-flex flex-column align-center justify-center" style="height: 100%">
+			<v-icon size="128px">mdi-alert-circle-outline</v-icon>
+			<p class="text-h6 my-3">{{ $root.lang().global.no_results }}</p>
+		</div>
 	</v-card>
 </template>
 
@@ -32,6 +54,11 @@ export default {
 		},
 	},
 	emits: ["input"],
+	data() {
+		return {
+			search: null,
+		};
+	},
 	methods: {
 		addonURL(id) {
 			return `/addons/review?status=${this.$route.query.status}&id=${id}`;
@@ -39,9 +66,22 @@ export default {
 	},
 	computed: {
 		classes() {
-			return this.items.map(({ key }) =>
+			return this.filteredItems.map(({ key }) =>
 				key === this.value ? `${this.activeColor} selected` : "",
 			);
+		},
+		filteredItems() {
+			if (!this.search) return this.items;
+			return this.items.filter((item) =>
+				item.primary.toLowerCase().includes(this.search.toLowerCase()),
+			);
+		},
+	},
+	watch: {
+		// focus and reset search
+		items() {
+			this.search = null;
+			this.$refs.reviewSearch?.focus();
 		},
 	},
 };

@@ -476,7 +476,7 @@ export default {
 			denied: "There are currently no denied add-ons!",
 			archived: "There are currently no archived add-ons!",
 			approved: "There are currently no approved add-ons!",
-			load_approved: "Load approved add-ons",
+			search: "Search add-ons",
 		},
 		addon: {
 			titles: {

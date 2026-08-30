@@ -447,7 +447,6 @@ export default {
 			denied: "Es gibt derzeit keine abgelehnten Add-ons!",
 			archived: "Es gibt derzeit keine archivierten Add-ons!",
 			approved: "Es gibt derzeit keine genehmigten Add-ons!",
-			load_approved: "Genehmigte Add-ons laden",
 		},
 		addon: {
 			titles: {
