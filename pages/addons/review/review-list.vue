@@ -16,17 +16,28 @@
 				prepend-inner-icon="mdi-magnify"
 			/>
 		</div>
-		<div v-if="filteredItems.length" class="overflow-y-auto">
+		<v-list
+			v-if="filteredItems.length"
+			nav
+			class="overflow-y-auto pa-0"
+			style="background: transparent"
+		>
 			<!-- workaround to prevent the navigation list styles incorrectly applying -->
 			<router-link v-for="(item, i) in filteredItems" :key="item.key" :to="addonURL(item.key)">
-				<v-list-item tabindex="-1" two-line :class="classes[i]" @click="$emit('input', item.key)">
+				<v-list-item
+					tabindex="-1"
+					two-line
+					class="px-4"
+					:class="classes[i]"
+					@click="$emit('input', item.key)"
+				>
 					<v-list-item-content>
 						<v-list-item-title>{{ item.primary }}</v-list-item-title>
 						<v-list-item-subtitle>{{ item.secondary }}</v-list-item-subtitle>
 					</v-list-item-content>
 				</v-list-item>
 			</router-link>
-		</div>
+		</v-list>
 		<div v-else class="d-flex flex-column align-center justify-center" style="height: 100%">
 			<v-icon size="128px">mdi-alert-circle-outline</v-icon>
 			<p class="text-h6 my-3">{{ $root.lang().global.no_results }}</p>
