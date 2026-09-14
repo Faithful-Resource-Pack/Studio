@@ -450,9 +450,6 @@ export default {
 							this.$root
 								.lang()
 								.addons.general.slug.rules.too_small.replace("%s", this.form.slug.counter.min),
-						(input) =>
-							/^[a-zA-Z0-9\-]+$/.test(input) ||
-							this.$root.lang().addons.general.slug.rules.incorrect_format,
 					],
 					counter: {
 						min: 3,
