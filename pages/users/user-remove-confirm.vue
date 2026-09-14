@@ -35,80 +35,40 @@
 			</v-list-item>
 			<v-divider v-if="transferredAddons.length || deletedAddons.length" class="my-5" />
 		</v-sheet>
-		<template v-if="transferredAddons.length || deletedAddons.length">
-			<h2 class="title">{{ addonDeleteTitle }}</h2>
-			<template v-if="deletedAddons.length">
-				<h3 class="subtitle-1 mb-n1 mt-3">
+		<div v-if="deletedAddons.length || transferredAddons.length">
+			<h2 class="title my-2">{{ addonDeleteTitle }}</h2>
+			<!-- also serves as a subtitle if there's only one tab -->
+			<v-tabs v-model="tab" grow>
+				<v-tab v-if="deletedAddons.length">
 					{{ $root.lang().profile.delete.addons.deleted }} ({{ deletedAddons.length }})
-				</h3>
-				<v-list>
-					<v-list-item v-for="addon in deletedAddons" :key="addon.id">
-						<v-list-item-content>
-							<v-list-item-title>
-								{{ addon.name }}
-							</v-list-item-title>
-							<v-list-item-subtitle>
-								<v-badge dot inline :color="colors[addon.approval.status]" />
-								{{ $root.lang().addons.status[addon.approval.status] }}
-								<v-btn
-									v-if="addon.approval.status === 'approved'"
-									color="blue"
-									:href="`https://faithfulpack.net/addons/${addon.slug}`"
-									target="_blank"
-									rel="noopener noreferrer"
-									:title="$root.lang().addons.general.go_to_addon"
-									icon
-									small
-								>
-									<v-icon small>mdi-open-in-new</v-icon>
-								</v-btn>
-							</v-list-item-subtitle>
-						</v-list-item-content>
-					</v-list-item>
-				</v-list>
-			</template>
-			<template v-if="transferredAddons.length">
-				<h3 class="subtitle-1 mb-n1 mt-3">
+				</v-tab>
+				<v-tab v-if="transferredAddons.length">
 					{{ $root.lang().profile.delete.addons.transferred }} ({{ transferredAddons.length }})
-				</h3>
-				<v-list>
-					<v-list-item v-for="addon in transferredAddons" :key="addon.id">
-						<v-list-item-content>
-							<v-list-item-title>
-								{{ addon.name }}
-							</v-list-item-title>
-							<v-list-item-subtitle>
-								<v-badge dot inline :color="colors[addon.approval.status]" />
-								{{ $root.lang().addons.status[addon.approval.status] }}
-								<v-btn
-									v-if="addon.approval.status === 'approved'"
-									color="blue"
-									:href="`https://faithfulpack.net/addons/${addon.slug}`"
-									target="_blank"
-									rel="noopener noreferrer"
-									:title="$root.lang().addons.general.go_to_addon"
-									icon
-									small
-								>
-									<v-icon small>mdi-open-in-new</v-icon>
-								</v-btn>
-							</v-list-item-subtitle>
-						</v-list-item-content>
-					</v-list-item>
-				</v-list>
-			</template>
-		</template>
+				</v-tab>
+			</v-tabs>
+			<v-tabs-items v-model="tab">
+				<!-- always sync up number/type of tabs with tab items -->
+				<v-tab-item v-if="deletedAddons.length">
+					<user-addon-list :addons="deletedAddons" />
+				</v-tab-item>
+				<v-tab-item v-if="transferredAddons.length">
+					<user-addon-list :addons="transferredAddons" />
+				</v-tab-item>
+			</v-tabs-items>
+		</div>
 	</modal-form>
 </template>
 
 <script>
 import axios from "axios";
 import ModalForm from "@layouts/modal-form.vue";
+import UserAddonList from "./user-addon-list.vue";
 
 export default {
 	name: "user-remove-confirm",
 	components: {
 		ModalForm,
+		UserAddonList,
 	},
 	props: {
 		value: {
@@ -129,14 +89,9 @@ export default {
 	data() {
 		return {
 			modalOpened: false,
-			colors: {
-				approved: "green",
-				pending: "yellow",
-				denied: "red",
-				archived: "grey",
-			},
 			transferredAddons: [],
 			deletedAddons: [],
+			tab: null,
 		};
 	},
 	methods: {
@@ -152,6 +107,7 @@ export default {
 			axios
 				.get(`${this.$root.apiURL}/users/${this.data.id}/addons`, this.$root.apiOptions)
 				.then((res) => {
+					this.tab = null;
 					this.transferredAddons = res.data.filter((a) => a.authors.length > 1);
 					this.deletedAddons = res.data.filter((a) => a.authors.length === 1);
 				});
