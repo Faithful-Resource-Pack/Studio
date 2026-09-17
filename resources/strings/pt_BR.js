@@ -1,5 +1,5 @@
 export default {
-	credits: ["pure_shadow."],
+	credits: "pure_shadow.",
 	global: {
 		name: "Faithful",
 		login: "Entrar",
@@ -56,17 +56,19 @@ export default {
 			submit_and_approve: "Enviar e aprovar",
 			cancel: "Cancelar",
 			close: "Fechar",
+			copy: "Copiar",
 			save: "Salvar",
 			edit: "Editar",
 			delete: "Excluir",
 			ok: "OK",
 			yes: "Sim",
 			deny: "Negar",
+			confirm: "Confirmar",
 			approve: "Aprovar",
 			archive: "Arquivar",
 			load_more: "Carregar mais",
 			reset: "Redefinir formulário",
-			confirm: "Confirmar",
+			report: "Reportar",
 			publish: "Publicar",
 			save_draft: "Salvar como rascunho",
 		},
@@ -356,7 +358,7 @@ export default {
 			},
 			reason: {
 				title: "Motivo da atualização",
-				text: "Por favor, conte-nos o que você atualizou para tornar a análise do seu addon mais fácil!",
+				text: "Por favor, seja o mais específico possível para facilitar a análise do seu addon!",
 				required: "Uma razão para atualizar é necessária",
 				bounds: "Motivo da atualização deve ter entre %s e %s caracteres",
 			},
@@ -469,14 +471,15 @@ export default {
 		reason_modal: {
 			deny_title: "Negar addon",
 			archive_title: "Arquivar add-on",
+			warning: "Todos os autores dos addons podem ver esse motivo!",
 			label: "Escreva um motivo…",
-			rule: "Qualquer motivo pode ser dado",
 		},
 		labels: {
 			pending: "Não há nenhum addon pendente no momento!",
 			denied: "Não há nenhum addon negado no momento!",
 			archived: "Não há nenhum addon arquivado no momento!",
 			approved: "Não há nenhum addon aprovado no momento!",
+			search: "Procurar addons",
 		},
 		addon: {
 			titles: {
@@ -559,6 +562,8 @@ export default {
 			remove_category: "Remover categoria de histórico de mudanças",
 			remove_item: "Remover item do histórico de mudanças",
 			import_json: "Importar JSON",
+			open_category: "Abrir categoria de histórico de mudanças",
+			close_category: "Fechar categoria de histórico de mudanças",
 			form_levels: {
 				primary: "Categoria primária",
 				secondary: "Categoria secundária",
@@ -663,6 +668,7 @@ export default {
 				id: "ID da textura",
 				name: "Nome da textura",
 				tags: "Tags da textura",
+				recompute_tag_list: "Regenerar tags usando dados de caminho",
 			},
 			uses: {
 				title: "Usos",
