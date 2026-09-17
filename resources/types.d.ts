@@ -27,12 +27,17 @@ declare module "vue/types/vue" {
 		anonymous: boolean;
 	}
 
+	/** Used for both makeJsonSnackbar and showSnackBar */
 	type SnackbarCallback = (
+		/** snackbar text to format */
 		message: string | AxiosResponse,
-		color?: string, // can be vuetify color also
+		/** anything vuetify accepts */
+		color?: string,
+		/** how long to display the snackbar for */
 		timeout?: number,
-		json?: unknown, // any json-encodable object
-	) => void;
+		/** any json-encodable object */
+		json?: unknown,
+	) => `${string}-${string}-${string}-${string}-${string}`;
 
 	// add public method/getter types
 	interface Vue {

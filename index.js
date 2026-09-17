@@ -160,7 +160,9 @@ const app = new Vue({
 		},
 		showSnackbar(message, color = "", timeout = undefined, json = undefined) {
 			// can surgically remove keys without affecting other indices so we use a record
-			this.$set(this.snackbars, crypto.randomUUID(), { message, color, timeout, json });
+			const key = crypto.randomUUID();
+			this.$set(this.snackbars, key, { message, color, timeout, json });
+			return key;
 		},
 		closeSnackbar(id) {
 			this.$delete(this.snackbars, id);
