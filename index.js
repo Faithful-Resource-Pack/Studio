@@ -123,16 +123,10 @@ const app = new Vue({
 				? localStorage.getItem(SIDEBAR_OPEN_KEY) === "true"
 				: !this.$vuetify.breakpoint.mobile,
 			badgeData: {},
+			snackbars: {},
 			settingsLoaded: false,
 			loginResolved: false,
 			showActions: false,
-			snackbar: {
-				show: false,
-				message: "",
-				color: "",
-				timeout: 4000,
-				json: undefined,
-			},
 		};
 	},
 	methods: {
@@ -165,11 +159,11 @@ const app = new Vue({
 			};
 		},
 		showSnackBar(message, color = "", timeout = undefined, json = undefined) {
-			this.snackbar.show = true;
-			this.snackbar.message = message;
-			this.snackbar.color = color;
-			this.snackbar.timeout = timeout;
-			this.snackbar.json = json;
+			// can surgically remove keys without affecting other indices so we use a record
+			this.$set(this.snackbars, crypto.randomUUID(), { message, color, timeout, json });
+		},
+		closeSnackBar(id) {
+			this.$delete(this.snackbars, id);
 		},
 		// this is such a common operation it should really be a macro
 		async wrapSnackBar(promise, successMessage = "") {

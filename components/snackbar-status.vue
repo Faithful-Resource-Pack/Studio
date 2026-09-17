@@ -3,39 +3,53 @@
 		v-model="snackbarShown"
 		class="snackbar-status"
 		:class="{ 'extended-snackbar': split.submessage || json }"
+		transition="slide-x-reverse-transition"
 		:timeout="timeout"
 		:color="snackbar.color"
 		text
-		bottom
-		right
+		@input="close"
 	>
-		<div class="d-flex justify-space-between" :class="json ? 'align-start' : 'align-center'">
-			<div>
-				<h3 class="snackbar-title">{{ split.message }}</h3>
-				<pre v-if="split.submessage && split.pre" class="mt-2 mb-0">{{ split.submessage }}</pre>
-				<p v-else-if="split.submessage" class="mt-2 mb-0">{{ split.submessage }}</p>
-			</div>
-			<!-- this is such a stupid workaround for showing it only on errors -->
-			<div v-if="snackbar.color === 'error'" class="d-flex flex-nowrap ml-5">
-				<v-btn text class="btn-square-icon" @click="copyMessage">
-					<v-icon color="error" class="snackbar-accent">{{ copyIcon }}</v-icon>
-				</v-btn>
-				<v-btn
-					text
-					class="btn-square-icon"
-					:href="reportURL"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					<v-icon color="error">mdi-flag-variant</v-icon>
-				</v-btn>
-			</div>
-		</div>
+		<!-- for persistent snackbars or to get useless ones out of the way if you're impatient -->
+		<v-btn
+			style="position: absolute; right: 12px; top: 12px"
+			icon
+			small
+			:title="$root.lang().global.btn.close"
+			@click="close"
+		>
+			<v-icon :color="snackbar.color" class="snackbar-accent">mdi-close</v-icon>
+		</v-btn>
+
+		<h3 class="snackbar-title">{{ split.message }}</h3>
+		<pre v-if="split.submessage && split.pre" class="mt-2 mb-0">{{ split.submessage }}</pre>
+		<p v-else-if="split.submessage" class="mt-2 mb-0">{{ split.submessage }}</p>
 
 		<div v-if="json" class="json-editor snackbar-json pa-3 mt-2">
 			<!-- eslint-disable-next-line vue/no-v-html -->
 			<pre v-html="sanitize(highlighter(JSON.stringify(json, null, 2)))"></pre>
 		</div>
+
+		<v-row v-if="snackbar.color === 'error'" dense class="mt-2 mb-n2">
+			<v-col>
+				<v-btn block text :color="snackbar.color" @click="copyMessage">
+					<v-icon left>{{ copyIcon }}</v-icon>
+					{{ $root.lang().global.btn.copy }}
+				</v-btn>
+			</v-col>
+			<v-col>
+				<v-btn
+					block
+					text
+					:color="snackbar.color"
+					:href="reportURL"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					<v-icon left>mdi-flag-variant</v-icon>
+					{{ $root.lang().global.btn.report }}
+				</v-btn>
+			</v-col>
+		</v-row>
 	</v-snackbar>
 </template>
 
@@ -43,19 +57,18 @@
 import DOMPurify from "dompurify";
 import Prism from "prismjs";
 
+// delay between snackbar closing and component destruction (to let animation fully play)
+const ANIMATION_DELAY_MS = 250;
+
 export default {
 	name: "snackbar-status",
 	props: {
-		value: {
-			type: Boolean,
-			required: true,
-		},
 		snackbar: {
 			type: Object,
 			required: true,
 		},
 	},
-	emits: ["input"],
+	emits: ["close"],
 	data() {
 		return {
 			snackbarShown: false,
@@ -78,11 +91,15 @@ export default {
 			formatted += `\n\nCreated: ${new Date().toString()}`;
 			navigator.clipboard.writeText(formatted);
 
-			// snackbar is already visible so we just replace the button icon for a second
+			// showing a snackbar for the snackbar would be insane so we just use an icon for feedback
 			this.copyIcon = "mdi-check";
 			setTimeout(() => {
 				this.copyIcon = "mdi-content-copy";
 			}, 1000);
+		},
+		close() {
+			this.snackbarShown = false;
+			setTimeout(() => this.$emit("close"), ANIMATION_DELAY_MS);
 		},
 	},
 	computed: {
@@ -147,22 +164,22 @@ export default {
 			return 5000;
 		},
 	},
-	watch: {
-		value: {
-			handler(newValue) {
-				this.snackbarShown = newValue;
-			},
-			immediate: true,
-		},
-		snackbarShown(newValue) {
-			this.$emit("input", newValue);
-		},
+	mounted() {
+		this.snackbarShown = true;
 	},
 };
 </script>
 
 <style lang="scss">
+// undo snackbar positioning weirdness, reimplemented in .snackbar-container parent
+.snackbar-status {
+	height: initial !important;
+	position: relative !important;
+	top: 0 !important;
+}
+
 .snackbar-status .v-snack__wrapper {
+	margin: 0 !important;
 	// accent color, same width as discord embed accent
 	border-left: 4px solid hsla(0, 0%, 100%, 0.12);
 }

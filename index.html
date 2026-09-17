@@ -120,8 +120,17 @@
 					<nav-footer></nav-footer>
 				</v-main>
 			</template>
-			<!-- snackbar doesn't depend on loading status (can help diagnose errors) -->
-			<snackbar-status v-model="snackbar.show" :snackbar="snackbar"></snackbar-status>
+
+			<div class="snackbar-container">
+				<!-- snackbar doesn't depend on loading status (can help diagnose errors) -->
+				<snackbar-status
+					v-for="(snackbar, id, i) in snackbars"
+					:key="id"
+					:snackbar="snackbar"
+					:style="{ bottom: `${i * 100}px` }"
+					@close="closeSnackBar(id)"
+				></snackbar-status>
+			</div>
 		</v-app>
 
 		<!-- main script -->

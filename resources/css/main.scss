@@ -124,6 +124,17 @@ html.theme--light,
 	}
 }
 
+// less insane reimplementation for vuetify snackbar positioning
+.snackbar-container {
+	position: fixed;
+	// set to show at bottom right, can be changed pretty easily
+	bottom: 16px;
+	right: 16px;
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 8px;
+}
+
 .icon-discord::before {
 	content: url(/resources/icons/discord_white.svg);
 	width: 100%;
