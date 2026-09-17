@@ -1,5 +1,5 @@
 export default {
-	credits: ["RobertR11"],
+	credits: "RobertR11",
 	global: {
 		name: "Faithful",
 		login: "Anmelden",

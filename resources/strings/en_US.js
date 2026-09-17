@@ -1,7 +1,6 @@
 export default {
-	credits: [
+	credits:
 		"DO NOT TRANSLATE THIS STRING! Instead, delete all the text in it and replace it with your name. This is how you will be credited for your translation.",
-	],
 	global: {
 		name: "Faithful",
 		login: "Log in",

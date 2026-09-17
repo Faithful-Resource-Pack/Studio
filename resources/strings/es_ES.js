@@ -1,5 +1,5 @@
 export default {
-	credits: ["Zesuelpro"],
+	credits: "Zeuselpro",
 	global: {
 		name: "Faithful",
 		login: "Iniciar sesión",

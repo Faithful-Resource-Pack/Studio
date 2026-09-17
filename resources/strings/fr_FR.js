@@ -1,5 +1,5 @@
 export default {
-	credits: ["Juknum"],
+	credits: "Juknum",
 	global: {
 		name: "Faithful",
 		logout: "Déconnexion",
