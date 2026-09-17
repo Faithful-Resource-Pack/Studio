@@ -36,7 +36,7 @@
 				<v-btn text color="error darken-1" @click="openDeleteModal">
 					{{ $root.lang().profile.delete.btn }}
 				</v-btn>
-				<v-btn text color="darken-1" :disabled="!canSubmit" @click="send">
+				<v-btn text color="darken-1" :loading="sending" :disabled="!canSubmit" @click="send">
 					{{ $root.lang().profile.save_changes }}
 				</v-btn>
 			</v-card-actions>
@@ -81,6 +81,7 @@ export default {
 					),
 			],
 			deleteModalOpened: false,
+			sending: false,
 		};
 	},
 	methods: {
@@ -96,6 +97,7 @@ export default {
 			return msg.toString();
 		},
 		send() {
+			this.sending = true;
 			if (!this.$root.isLoggedIn) return;
 
 			// fix if new user
@@ -107,9 +109,13 @@ export default {
 				media: this.cleanedMedia,
 			};
 
-			return this.$root.wrapSnackBar(
-				axios.post(`${this.$root.apiURL}/users/profile/`, data, this.$root.apiOptions),
-			);
+			return this.$root
+				.wrapSnackBar(
+					axios.post(`${this.$root.apiURL}/users/profile/`, data, this.$root.apiOptions),
+				)
+				.finally(() => {
+					this.sending = false;
+				});
 		},
 		openDeleteModal() {
 			this.deleteModalOpened = true;
