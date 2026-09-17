@@ -52,8 +52,8 @@ export default defineStore("auth", {
 				);
 
 				Promise.all([
-					this.loadDiscordProfile(access_token).catch((err) => app.showSnackBar(err, "error")),
-					this.loadFaithfulProfile(access_token).catch((err) => app.showSnackBar(err, "error")),
+					this.loadDiscordProfile(access_token).catch((err) => app.showSnackbar(err, "error")),
+					this.loadFaithfulProfile(access_token).catch((err) => app.showSnackbar(err, "error")),
 				]).then(() => {
 					app.loginResolved = true;
 				});
@@ -67,7 +67,7 @@ export default defineStore("auth", {
 				return;
 			}
 
-			await discordToken.authenticate(authMethod).catch((err) => app.showSnackBar(err, "error"));
+			await discordToken.authenticate(authMethod).catch((err) => app.showSnackbar(err, "error"));
 
 			// https://stackoverflow.com/a/41061471/20327257
 			if (new URLSearchParams(location.search).has("access_token"))
@@ -83,7 +83,7 @@ export default defineStore("auth", {
 			try {
 				await discordTokenStore().authenticate(auth);
 			} catch (err) {
-				this.app.showSnackBar(err, "error");
+				this.app.showSnackbar(err, "error");
 				console.error(err);
 			}
 		},
@@ -104,7 +104,7 @@ export default defineStore("auth", {
 			const nextAccountCandidate = accounts.find(([id]) => id !== currentId);
 			if (nextAccountCandidate) {
 				return discordToken.authenticate(nextAccountCandidate[1]).catch((err) => {
-					this.app.showSnackBar(err, "error");
+					this.app.showSnackbar(err, "error");
 					console.error("err");
 				});
 			}

@@ -214,7 +214,7 @@ export default {
 				})
 				.catch((err) => {
 					console.error(err);
-					this.$root.showSnackBar(err, "error");
+					this.$root.showSnackbar(err, "error");
 				});
 		},
 		closeUseModal() {
@@ -242,7 +242,7 @@ export default {
 						this.$root.apiOptions,
 					);
 
-			return this.$root.wrapSnackBar(promise).then(() => this.$emit("close", true));
+			return this.$root.wrapSnackbar(promise).then(() => this.$emit("close", true));
 		},
 		onTagUpdate(data) {
 			data.tags = sortTags(data.tags);

@@ -38,7 +38,7 @@ export default {
 	methods: {
 		deleteAddon() {
 			this.$root
-				.wrapSnackBar(
+				.wrapSnackbar(
 					axios.delete(`${this.$root.apiURL}/addons/${this.data.id}`, this.$root.apiOptions),
 				)
 				.then(() => this.$emit("close", true));

@@ -135,7 +135,7 @@ export default {
 				})
 				.catch((err) => {
 					console.error(err);
-					this.$root.showSnackBar(err, "error");
+					this.$root.showSnackbar(err, "error");
 				});
 		},
 		packURL(tag) {
@@ -179,7 +179,7 @@ export default {
 			})
 			.catch((err) => {
 				console.error(err);
-				this.$root.showSnackBar(err, "error");
+				this.$root.showSnackbar(err, "error");
 			});
 		this.startSearch();
 		this.pageStyles = generatePageStyles(this.pageColor);

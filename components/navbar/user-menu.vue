@@ -76,7 +76,7 @@ export default {
 	methods: {
 		copyID() {
 			navigator.clipboard.writeText(this.$root.user.id);
-			this.$root.showSnackBar(this.$root.lang().global.navbar.profile.copied, "success");
+			this.$root.showSnackbar(this.$root.lang().global.navbar.profile.copied, "success");
 		},
 	},
 	computed: {

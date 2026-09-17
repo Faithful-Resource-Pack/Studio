@@ -235,7 +235,7 @@ export default {
 			});
 
 			if (!Object.keys(data.github).length)
-				return this.$root.showSnackBar(
+				return this.$root.showSnackbar(
 					this.$root.lang().database.packs.modal.github.length_notice,
 					"error",
 				);
@@ -253,7 +253,7 @@ export default {
 					? axios.post(`${this.$root.apiURL}/packs`, data, this.$root.apiOptions)
 					: axios.put(`${this.$root.apiURL}/packs/${data.id}`, data, this.$root.apiOptions);
 
-			this.$root.wrapSnackBar(requestPromise).then(() => this.$emit("close", true));
+			this.$root.wrapSnackbar(requestPromise).then(() => this.$emit("close", true));
 		},
 		createNewGithub(edition) {
 			this.formData.github[edition] = {

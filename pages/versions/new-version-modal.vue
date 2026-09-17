@@ -86,13 +86,13 @@ export default {
 			axios
 				.post(`${this.$root.apiURL}/versions`, data, this.$root.apiOptions)
 				.then(() => {
-					this.$root.showSnackBar(this.$root.lang().database.versions.add.success, "success");
+					this.$root.showSnackbar(this.$root.lang().database.versions.add.success, "success");
 					this.$root.reloadSettings();
 					this.$emit("close");
 				})
 				.catch((err) => {
 					console.error(err);
-					this.$root.showSnackBar(err, "error");
+					this.$root.showSnackbar(err, "error");
 				});
 		},
 	},

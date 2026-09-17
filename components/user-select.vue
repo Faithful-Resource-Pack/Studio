@@ -135,7 +135,7 @@ export default {
 					});
 				})
 				.catch((err) => {
-					this.$root.showSnackBar(err, "error");
+					this.$root.showSnackbar(err, "error");
 					console.error(err);
 				})
 				.finally(() => {

@@ -42,7 +42,7 @@ export default {
 	methods: {
 		deletePost() {
 			this.$root
-				.wrapSnackBar(
+				.wrapSnackbar(
 					axios.delete(`${this.$root.apiURL}/posts/${this.post.id}`, this.$root.apiOptions),
 				)
 				.then(() => this.$emit("close"));

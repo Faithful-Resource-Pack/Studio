@@ -97,7 +97,7 @@ export default {
 	methods: {
 		deleteUser() {
 			this.$root
-				.wrapSnackBar(
+				.wrapSnackbar(
 					// apiOptions works for self-deletion as well
 					axios.delete(`${this.$root.apiURL}/users/${this.data.id}`, this.$root.apiOptions),
 				)

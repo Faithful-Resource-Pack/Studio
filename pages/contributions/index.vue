@@ -271,7 +271,7 @@ export default {
 						return c;
 					});
 			} catch (err) {
-				this.$root.showSnackBar(err, "error");
+				this.$root.showSnackbar(err, "error");
 			} finally {
 				this.loading = false;
 			}

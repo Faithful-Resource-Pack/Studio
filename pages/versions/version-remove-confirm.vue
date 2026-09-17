@@ -42,7 +42,7 @@ export default {
 	methods: {
 		deleteVersion() {
 			this.$root
-				.wrapSnackBar(
+				.wrapSnackbar(
 					axios.delete(`${this.$root.apiURL}/versions/${this.data.version}`, this.$root.apiOptions),
 				)
 				.then(() => this.$emit("close", true));

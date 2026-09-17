@@ -109,7 +109,7 @@ export default {
 				.join(" ");
 
 			navigator.clipboard.writeText(authorString);
-			this.$root.showSnackBar(this.$root.lang().gallery.authors_copied_to_clipboard, "success");
+			this.$root.showSnackbar(this.$root.lang().gallery.authors_copied_to_clipboard, "success");
 		},
 		getContributions(pack) {
 			return this.contributions

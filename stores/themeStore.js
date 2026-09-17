@@ -90,7 +90,7 @@ export default defineStore("theme", {
 
 			this.$patch({ isDark: this.getDark(theme) });
 			const notificationString = app.lang().global.themes.notification;
-			app.showSnackBar(
+			app.showSnackbar(
 				notificationString.replace("%s", app.lang().global.themes.options[theme]),
 				"success",
 				2000,

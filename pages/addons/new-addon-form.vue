@@ -40,7 +40,7 @@ export default {
 	methods: {
 		async handleSubmit(data) {
 			if (!this.header)
-				return this.$root.showSnackBar(
+				return this.$root.showSnackbar(
 					this.$root.lang().addons.images.header.rules.image_required,
 					"error",
 				);
@@ -78,11 +78,11 @@ export default {
 					);
 				}
 
-				this.$root.showSnackBar(this.$root.lang().global.success_message, "success");
+				this.$root.showSnackbar(this.$root.lang().global.success_message, "success");
 				this.$router.push("/addons/submissions");
 			} catch (err) {
 				console.error(err);
-				this.$root.showSnackBar(err, "error");
+				this.$root.showSnackbar(err, "error");
 			} finally {
 				this.submitting = false;
 			}

@@ -150,7 +150,7 @@ export default {
 
 			const data = { status, reason };
 			this.$root
-				.wrapSnackBar(
+				.wrapSnackbar(
 					axios.put(`${this.$root.apiURL}/addons/${id}/review`, data, this.$root.apiOptions),
 				)
 				.then(() => {
@@ -265,7 +265,7 @@ export default {
 
 		Promise.all([this.getAuthors(), this.getPacks(), this.getAddons()]).catch((err) => {
 			console.error(err);
-			this.$root.showSnackBar(err, "error");
+			this.$root.showSnackbar(err, "error");
 		});
 	},
 };

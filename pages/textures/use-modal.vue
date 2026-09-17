@@ -220,7 +220,7 @@ export default {
 				? axios.post(`${this.$root.apiURL}/uses/${formData.texture}`, data, this.$root.apiOptions)
 				: axios.put(`${this.$root.apiURL}/uses/${formData.id}`, data, this.$root.apiOptions);
 
-			return this.$root.wrapSnackBar(requestPromise).then(() => this.$emit("close", true));
+			return this.$root.wrapSnackbar(requestPromise).then(() => this.$emit("close", true));
 		},
 		getPaths(useId) {
 			if (!useId) return;

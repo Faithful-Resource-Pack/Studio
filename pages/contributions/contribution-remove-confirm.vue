@@ -96,7 +96,7 @@ export default {
 	methods: {
 		deleteContribution() {
 			this.$root
-				.wrapSnackBar(
+				.wrapSnackbar(
 					axios.delete(`${this.$root.apiURL}/contributions/${this.data.id}`, this.$root.apiOptions),
 				)
 				.then(() => {

@@ -177,13 +177,13 @@ export default {
 			const finalContributions = [];
 			// can't use map since errors can be thrown
 			for (const contrib of this.contribs) {
-				const showSnackBar = this.$root.makeJsonSnackBar(contrib);
+				const showSnackbar = this.$root.makeJsonSnackbar(contrib);
 
 				// convert ranges into actual texture IDs
 				const generatedRange = generateRange(contrib.texture);
 
 				if (!generatedRange.length) {
-					showSnackBar(
+					showSnackbar(
 						this.$root.lang().database.contributions.modal.id_field_errors.one_required,
 						"error",
 					);
@@ -192,7 +192,7 @@ export default {
 				}
 
 				if (contrib.authors.length === 0) {
-					showSnackBar(this.$root.lang().database.contributions.authorless, "error");
+					showSnackbar(this.$root.lang().database.contributions.authorless, "error");
 					console.error(contrib);
 					success = false;
 				}
@@ -211,13 +211,13 @@ export default {
 			// all contributions must be valid
 			if (!success) return;
 
-			return this.$root.wrapSnackBar(
+			return this.$root.wrapSnackbar(
 				axios.post(`${this.$root.apiURL}/contributions`, finalContributions, this.$root.apiOptions),
 			);
 		},
 		async editContribution() {
 			const contrib = this.contribs[0];
-			return this.$root.wrapSnackBar(
+			return this.$root.wrapSnackbar(
 				axios.put(
 					`${this.$root.apiURL}/contributions/${contrib.id}`,
 					{

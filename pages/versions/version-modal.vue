@@ -70,7 +70,7 @@ export default {
 		},
 		send() {
 			this.$root
-				.wrapSnackBar(
+				.wrapSnackbar(
 					axios.put(
 						`${this.$root.apiURL}/versions/rename/${this.data.version}/${this.formData.version}`,
 						null,

@@ -166,7 +166,7 @@ export default {
 		copyShareURL(id) {
 			const url = this.makeShareURL(id);
 			navigator.clipboard.writeText(url);
-			this.$root.showSnackBar(this.$root.lang().gallery.share_link_copied_to_clipboard, "success");
+			this.$root.showSnackbar(this.$root.lang().gallery.share_link_copied_to_clipboard, "success");
 		},
 		openModalInNewTab(id) {
 			const url = this.makeShareURL(id);
@@ -240,7 +240,7 @@ export default {
 		},
 		clearCache() {
 			this.$root
-				.wrapSnackBar(axios.get(`${this.$root.apiURL}/gallery/cache/purge`, this.$root.apiOptions))
+				.wrapSnackbar(axios.get(`${this.$root.apiURL}/gallery/cache/purge`, this.$root.apiOptions))
 				// prevents stale results, also makes it seem like something actually happened
 				.then(() => this.searchGallery());
 		},

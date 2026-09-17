@@ -93,7 +93,7 @@ export default {
 			e.preventDefault();
 			const files = e.dataTransfer.files;
 			if (!Array.from(files).every((file) => this.accept.includes(file.type))) {
-				this.$root.showSnackBar(
+				this.$root.showSnackbar(
 					`${this.$root.lang().addons.images.header.rules.jpeg}\n${this.$root.lang().addons.images.header.rules.compress}`,
 					"error",
 				);

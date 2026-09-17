@@ -27,7 +27,7 @@ declare module "vue/types/vue" {
 		anonymous: boolean;
 	}
 
-	type SnackBarCallback = (
+	type SnackbarCallback = (
 		message: string | AxiosResponse,
 		color?: string, // can be vuetify color also
 		timeout?: number,
@@ -50,9 +50,9 @@ declare module "vue/types/vue" {
 		lang(): Readonly<typeof strings>;
 		lang(key: string, raw?: false): string;
 		lang(key: string, raw: true): any;
-		makeJsonSnackBar(json: unknown): SnackBarCallback;
-		showSnackBar: SnackBarCallback;
-		wrapSnackBar<T>(prom: T | Awaited<T>, successMessage?: string): Promise<Awaited<T>>;
+		makeJsonSnackbar(json: unknown): SnackbarCallback;
+		showSnackbar: SnackbarCallback;
+		wrapSnackbar<T>(prom: T | Awaited<T>, successMessage?: string): Promise<Awaited<T>>;
 		compileMarkdown(rawText: string): string;
 		formatDate(date: number | string | Date, format?: DateTimeFormatOptions): string;
 		reloadSettings(): Promise<void>;

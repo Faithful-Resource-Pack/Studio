@@ -65,7 +65,7 @@ export default {
 		},
 		save() {
 			return this.$root
-				.wrapSnackBar(
+				.wrapSnackbar(
 					axios.post(`${this.$root.apiURL}/settings/raw`, this.json, this.$root.apiOptions),
 				)
 				.then(() => this.$root.reloadSettings());
@@ -97,7 +97,7 @@ export default {
 			})
 			.catch((err) => {
 				console.error(err);
-				this.$root.showSnackBar(err, "error");
+				this.$root.showSnackbar(err, "error");
 			});
 	},
 	mounted() {

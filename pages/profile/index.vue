@@ -110,7 +110,7 @@ export default {
 			};
 
 			return this.$root
-				.wrapSnackBar(
+				.wrapSnackbar(
 					axios.post(`${this.$root.apiURL}/users/profile/`, data, this.$root.apiOptions),
 				)
 				.finally(() => {
@@ -148,7 +148,7 @@ export default {
 				})
 				.catch((err) => {
 					console.error(err);
-					this.$root.showSnackBar(err, "error");
+					this.$root.showSnackbar(err, "error");
 				});
 		},
 		update() {

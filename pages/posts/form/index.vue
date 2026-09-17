@@ -96,7 +96,7 @@ export default {
 				);
 			}
 
-			return this.$root.wrapSnackBar(prom);
+			return this.$root.wrapSnackbar(prom);
 		},
 		convertDownloadsToArray(obj) {
 			return Object.entries(obj).map(([category, items]) => {

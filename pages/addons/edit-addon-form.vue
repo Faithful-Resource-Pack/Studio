@@ -122,11 +122,11 @@ export default {
 
 			try {
 				// update no matter what then approve if manager selected
-				await this.$root.wrapSnackBar(
+				await this.$root.wrapSnackbar(
 					axios.patch(`${this.$root.apiURL}/addons/${this.id}`, data, this.$root.apiOptions),
 				);
 				if (approve === true)
-					await this.$root.wrapSnackBar(
+					await this.$root.wrapSnackbar(
 						axios.put(
 							`${this.$root.apiURL}/addons/${this.id}/review`,
 							{ status: "approved", reason: "Manager edit" },
@@ -161,7 +161,7 @@ export default {
 
 			const messages = this.$root.lang().addons.images.header.status;
 			return this.$root
-				.wrapSnackBar(promise, remove ? messages.remove : messages.upload)
+				.wrapSnackbar(promise, remove ? messages.remove : messages.upload)
 				.then(() => this.getHeader())
 				.finally(() => {
 					this.headerDisabled = false;
@@ -200,7 +200,7 @@ export default {
 
 			const messages = this.$root.lang().addons.images.screenshots.status;
 			return this.$root
-				.wrapSnackBar(promise, remove ? messages.remove : messages.upload)
+				.wrapSnackbar(promise, remove ? messages.remove : messages.upload)
 				.then(() => this.getScreens());
 		},
 		getHeader() {
@@ -256,7 +256,7 @@ export default {
 			})
 			.catch((err) => {
 				console.error(err);
-				this.$root.showSnackBar(err, "error");
+				this.$root.showSnackbar(err, "error");
 			});
 	},
 };

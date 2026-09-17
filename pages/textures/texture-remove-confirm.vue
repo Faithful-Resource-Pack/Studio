@@ -234,7 +234,7 @@ export default {
 					this.rawPaths = res.data;
 				})
 				.catch((err) => {
-					this.$root.showSnackBar(err, "error");
+					this.$root.showSnackbar(err, "error");
 					console.error(err);
 				});
 		},
@@ -244,17 +244,17 @@ export default {
 			switch (this.type) {
 				case "texture":
 					return this.$root
-						.wrapSnackBar(
+						.wrapSnackbar(
 							axios.delete(`${this.$root.apiURL}/textures/${id}`, this.$root.apiOptions),
 						)
 						.then(() => this.$emit("close", true));
 				case "use":
 					return this.$root
-						.wrapSnackBar(axios.delete(`${this.$root.apiURL}/uses/${id}`, this.$root.apiOptions))
+						.wrapSnackbar(axios.delete(`${this.$root.apiURL}/uses/${id}`, this.$root.apiOptions))
 						.then(() => this.$emit("close", true));
 				case "path":
 					return this.$root
-						.wrapSnackBar(axios.delete(`${this.$root.apiURL}/paths/${id}`, this.$root.apiOptions))
+						.wrapSnackbar(axios.delete(`${this.$root.apiURL}/paths/${id}`, this.$root.apiOptions))
 						.then(() => this.$emit("close", true));
 			}
 		},

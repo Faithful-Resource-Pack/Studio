@@ -154,7 +154,7 @@ export default {
 							this.$root.apiOptions,
 						);
 
-			return this.$root.wrapSnackBar(request).then(() => this.$emit("close", true));
+			return this.$root.wrapSnackbar(request).then(() => this.$emit("close", true));
 		},
 	},
 	watch: {

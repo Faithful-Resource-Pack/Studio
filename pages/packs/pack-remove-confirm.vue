@@ -88,7 +88,7 @@ export default {
 		},
 		deletePack() {
 			this.$root
-				.wrapSnackBar(
+				.wrapSnackbar(
 					axios.delete(`${this.$root.apiURL}/${this.type}/${this.data.id}`, this.$root.apiOptions),
 				)
 				.then(() => this.$emit("close", true));

@@ -148,33 +148,33 @@ const app = new Vue({
 			// since it's recursive you don't need setInterval
 			return setTimeout(() => this.loadBadge(cb, key), 30000);
 		},
-		// reverse curried version of showSnackBar with json first
-		makeJsonSnackBar(json = undefined) {
+		// reverse curried version of showSnackbar with json first
+		makeJsonSnackbar(json = undefined) {
 			return (...allArgs) => {
 				if (allArgs.length < 2) allArgs.push("");
 				if (allArgs.length < 3) allArgs.push(4000);
 				allArgs.push(json);
 
-				return this.showSnackBar(...allArgs);
+				return this.showSnackbar(...allArgs);
 			};
 		},
-		showSnackBar(message, color = "", timeout = undefined, json = undefined) {
+		showSnackbar(message, color = "", timeout = undefined, json = undefined) {
 			// can surgically remove keys without affecting other indices so we use a record
 			this.$set(this.snackbars, crypto.randomUUID(), { message, color, timeout, json });
 		},
-		closeSnackBar(id) {
+		closeSnackbar(id) {
 			this.$delete(this.snackbars, id);
 		},
 		// this is such a common operation it should really be a macro
-		async wrapSnackBar(promise, successMessage = "") {
+		async wrapSnackbar(promise, successMessage = "") {
 			try {
 				const result = await promise;
-				this.showSnackBar(successMessage || this.lang().global.success_message, "success");
+				this.showSnackbar(successMessage || this.lang().global.success_message, "success");
 				// so it can still be used
 				return result;
 			} catch (err) {
 				console.error(err);
-				this.showSnackBar(err, "error");
+				this.showSnackbar(err, "error");
 				// re-throw so it doesn't accidentally trigger the .then handler
 				throw err;
 			}
@@ -200,7 +200,7 @@ const app = new Vue({
 				window.settings = await axios.get(`${window.apiURL}/settings/raw`).then((res) => res.data);
 				this.settingsLoaded = true;
 			} catch (err) {
-				this.showSnackBar(err, "error");
+				this.showSnackbar(err, "error");
 			}
 		},
 	},

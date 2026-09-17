@@ -523,7 +523,7 @@ export default {
 					if (this.addonNew) this.$emit("header", undefined, true);
 					// if not addon new will delete file
 
-					this.$root.showSnackBar(error.message, "error");
+					this.$root.showSnackbar(error.message, "error");
 				})
 				.finally(() => {
 					this.headerValidating = false;
@@ -551,7 +551,7 @@ export default {
 				})
 				.catch((error) => {
 					console.error(error);
-					this.$root.showSnackBar(error, "error");
+					this.$root.showSnackbar(error, "error");
 				});
 		},
 		removeScreenshot(_item, index, id) {

@@ -66,7 +66,7 @@ export default {
 				this.jsonData = this.initialValue;
 			} catch (err) {
 				console.error(err);
-				this.$root.showSnackBar(err, "error");
+				this.$root.showSnackbar(err, "error");
 			}
 		},
 		closeModal() {

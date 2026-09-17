@@ -187,7 +187,7 @@ export default {
 		copyData() {
 			const data = JSON.stringify(this.cleanedData, null, 2);
 			navigator.clipboard.writeText(data);
-			this.$root.showSnackBar(this.$root.lang().database.textures.modal.copy_json_data, "success");
+			this.$root.showSnackbar(this.$root.lang().database.textures.modal.copy_json_data, "success");
 		},
 		resetModal() {
 			this.textures = [emptyTexture()];
@@ -197,12 +197,12 @@ export default {
 			axios
 				.post(`${this.$root.apiURL}/textures/multiple`, this.cleanedData, this.$root.apiOptions)
 				.then(() => {
-					this.$root.showSnackBar(this.$root.lang().database.textures.add_success, "success");
+					this.$root.showSnackbar(this.$root.lang().database.textures.add_success, "success");
 					if (!this.persistOnSave) this.resetModal();
 				})
 				.catch((err) => {
 					console.error(err);
-					this.$root.showSnackBar(err, "error");
+					this.$root.showSnackbar(err, "error");
 				})
 				.finally(() => {
 					this.loading = false;

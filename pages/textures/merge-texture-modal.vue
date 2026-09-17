@@ -99,7 +99,7 @@ export default {
 		send() {
 			// /textures/merge/{source}/{destination}
 			this.$root
-				.wrapSnackBar(
+				.wrapSnackbar(
 					axios.put(
 						`${this.$root.apiURL}/textures/merge/${this.srcTextureID}/${this.destTextureID}`,
 						null,

@@ -108,7 +108,7 @@ export default {
 		},
 		copyData() {
 			navigator.clipboard.writeText(this.outputData);
-			this.$root.showSnackBar(this.$root.lang().database.textures.modal.copy_json_data, "success");
+			this.$root.showSnackbar(this.$root.lang().database.textures.modal.copy_json_data, "success");
 		},
 		getData() {
 			return Promise.all([
@@ -119,13 +119,13 @@ export default {
 				axios.get(`${this.$root.apiURL}/textures/raw`).then((res) => res.data),
 			]).catch((err) => {
 				this.loading = false;
-				this.$root.showSnackBar(err, "error");
+				this.$root.showSnackbar(err, "error");
 				return [null, null];
 			});
 		},
 		mergeContribution(texture, contribution) {
 			if (!texture) {
-				this.$root.showSnackBar(
+				this.$root.showSnackbar(
 					`Texture [#${texture.id}] doesn't exist anymore! (${contribution.id})`,
 					"error",
 				);
@@ -189,7 +189,7 @@ export default {
 			const formatted = this.categorizeAndFormat(allContributions, Object.values(finalData));
 			this.outputData = JSON.stringify(formatted, null, 2);
 			this.loading = false;
-			this.$root.showSnackBar(this.$root.lang().global.success_message, "success");
+			this.$root.showSnackbar(this.$root.lang().global.success_message, "success");
 		},
 	},
 	computed: {
