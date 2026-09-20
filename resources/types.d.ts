@@ -27,7 +27,6 @@ declare module "vue/types/vue" {
 		anonymous: boolean;
 	}
 
-	/** Used for both makeJsonSnackbar and showSnackBar */
 	type SnackbarCallback = (
 		/** snackbar text to format */
 		message: string | AxiosResponse,
@@ -55,7 +54,6 @@ declare module "vue/types/vue" {
 		lang(): Readonly<typeof strings>;
 		lang(key: string, raw?: false): string;
 		lang(key: string, raw: true): any;
-		makeJsonSnackbar(json: unknown): SnackbarCallback;
 		showSnackbar: SnackbarCallback;
 		wrapSnackbar<T>(prom: T | Awaited<T>, successMessage?: string): Promise<Awaited<T>>;
 		compileMarkdown(rawText: string): string;

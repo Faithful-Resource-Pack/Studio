@@ -173,43 +173,14 @@ export default {
 			return result.then(() => this.closeOnSubmit && this.$emit("close", true));
 		},
 		async postContributions() {
-			let success = true;
-			const finalContributions = [];
-			// can't use map since errors can be thrown
-			for (const contrib of this.contribs) {
-				const showSnackbar = this.$root.makeJsonSnackbar(contrib);
-
-				// convert ranges into actual texture IDs
-				const generatedRange = generateRange(contrib.texture);
-
-				if (!generatedRange.length) {
-					showSnackbar(
-						this.$root.lang().database.contributions.modal.id_field_errors.one_required,
-						"error",
-					);
-					console.error(contrib);
-					success = false;
-				}
-
-				if (contrib.authors.length === 0) {
-					showSnackbar(this.$root.lang().database.contributions.authorless, "error");
-					console.error(contrib);
-					success = false;
-				}
-
-				finalContributions.push(
-					// sanitizes + removes key
-					...generatedRange.map((textureID) => ({
-						date: new Date(contrib.date).getTime(),
-						pack: contrib.pack,
-						authors: contrib.authors,
-						texture: Number(textureID),
-					})),
-				);
-			}
-
-			// all contributions must be valid
-			if (!success) return;
+			const finalContributions = this.contribs.flatMap((contrib) =>
+				generateRange(contrib.texture).map((id) => ({
+					date: new Date(contrib.date).getTime(),
+					pack: contrib.pack,
+					authors: contrib.authors,
+					texture: Number(id),
+				})),
+			);
 
 			return this.$root.wrapSnackbar(
 				axios.post(`${this.$root.apiURL}/contributions`, finalContributions, this.$root.apiOptions),

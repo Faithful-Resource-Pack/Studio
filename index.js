@@ -148,16 +148,6 @@ const app = new Vue({
 			// since it's recursive you don't need setInterval
 			return setTimeout(() => this.loadBadge(cb, key), 30000);
 		},
-		// reverse curried version of showSnackbar with json first
-		makeJsonSnackbar(json = undefined) {
-			return (...allArgs) => {
-				if (allArgs.length < 2) allArgs.push("");
-				if (allArgs.length < 3) allArgs.push(4000);
-				allArgs.push(json);
-
-				return this.showSnackbar(...allArgs);
-			};
-		},
 		showSnackbar(message, color = "", timeout = undefined, json = undefined) {
 			// can surgically remove keys without affecting other indices so we use a record
 			const key = crypto.randomUUID();
