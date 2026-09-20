@@ -2,7 +2,7 @@
 // https://v2.vuejs.org/v2/guide/typescript.html#Augmenting-Types-for-Use-with-Plugins
 
 import Vue from "vue";
-import type { AxiosRequestConfig, AxiosResponse } from "axios";
+import type { AxiosRequestConfig, AxiosError } from "axios";
 import type { RouteConfig } from "vue-router";
 import { DateTimeFormatOptions } from "luxon";
 
@@ -44,7 +44,7 @@ declare module "vue/types/vue" {
 		lang(key: string, raw?: false): string;
 		lang(key: string, raw: true): any;
 		showSnackbar(
-			message: string | Error | AxiosResponse,
+			message: string | Error | AxiosError,
 			type: "success" | "info" | "warning" | "error" | string,
 			options?: { timeout?: number; icon?: string },
 		): `${string}-${string}-${string}-${string}-${string}`;
@@ -82,7 +82,7 @@ declare global {
 	}
 
 	interface ObjectConstructor {
-		isObject(arg: any): arg is Object;
+		isObject(arg: unknown): arg is Object;
 		/** Deep merge two objects (used for lang) */
 		merge(target: Object, ...sources: Object[]): Object;
 		/** Check if two objects are exactly equal */

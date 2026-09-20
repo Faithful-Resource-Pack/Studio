@@ -29,8 +29,14 @@
 		}}</pre>
 
 		<!-- all other message types -->
-		<p v-else-if="split.secondary" class="my-0" :class="textColor">{{ split.secondary }}</p>
+		<p v-else-if="split.secondary" class="my-0 text-pre-line" :class="textColor">
+			{{ split.secondary }}
+		</p>
 
+		<!--
+			gh issue templates don't support url param prefill yet so we need separate copy/report buttons
+			https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/adding-and-managing-issue-fields
+		-->
 		<v-row v-if="snackbar.type === 'error'" dense class="mt-2 mb-n2">
 			<v-col>
 				<v-btn block text :color="snackbar.type" @click="copyError">
@@ -56,6 +62,8 @@
 </template>
 
 <script>
+import { isAxiosError } from "axios";
+
 // delay between snackbar closing and component destruction (to let animation fully play)
 const ANIMATION_DELAY_MS = 250;
 
@@ -79,16 +87,12 @@ export default {
 			this.snackbarShown = false;
 			setTimeout(() => this.$emit("close"), ANIMATION_DELAY_MS);
 		},
-		// this is really ugly inline even though it's only used once
-		wrapJSON(jsonLike) {
-			return `\`\`\`json\n${JSON.stringify(jsonLike, null, 4)}\n\`\`\``;
-		},
 		copyError() {
-			// more is better than less, entire json error as markdown if not just a regular string
+			// give as much information as possible (entire axios response if available)
 			const error =
 				typeof this.snackbar.message === "string"
 					? this.snackbar.message
-					: `Message data:\n${this.wrapJSON(this.snackbar.message)}`;
+					: `JSON error data:\n\`\`\`json\n${this.stringifiedError}\n\`\`\``;
 
 			navigator.clipboard.writeText(`${error}\nCreated: ${new Date().toString()}`);
 
@@ -107,6 +111,24 @@ export default {
 				this.$root.theme.isDark ? "text--lighten-4" : "text--darken-3",
 			];
 		},
+		// used for copying
+		stringifiedError() {
+			const error = this.snackbar.message;
+			if (!error || typeof error === "string") return error;
+
+			if (isAxiosError(error))
+				return JSON.stringify(
+					// for some reason axios responses aren't included in toJSON by default?
+					this.snackbar.message.response
+						? { ...this.snackbar.message, response: this.snackbar.message.response }
+						: this.snackbar.message,
+					null,
+					4,
+				);
+
+			// JSON.stringify doesn't work on regular js errors for some reason, needs this weird hack
+			return JSON.stringify(this.snackbar.message, Object.getOwnPropertyNames(error), 4);
+		},
 		split() {
 			const base = this.snackbar.message;
 
@@ -120,17 +142,29 @@ export default {
 				};
 			}
 
-			// AxiosError with response (incorrect data, permission issue, etc)
-			const extractedMessage = base?.message;
-			if (base.response?.data) {
-				return {
-					primary: extractedMessage,
-					secondary: base.response.data.error || base.response.data.message,
-				};
-			}
+			if (isAxiosError(base)) {
+				const extractedMessage = base.message;
 
-			// AxiosError with no response (network issue, malformed url, etc)
-			if (base.config) {
+				// AxiosError with tsoa validation payload (excess/missing properties)
+				if (base.response?.data?.details) {
+					return {
+						primary: base.response.data.message,
+						secondary: Object.values(base.response.data.details)
+							.map((d) => `${d.message || d}`)
+							.join("\n"),
+						pre: true,
+					};
+				}
+
+				// AxiosError with response (request went through)
+				if (base.response?.data) {
+					return {
+						primary: extractedMessage,
+						secondary: base.response.data.error || base.response.data.message,
+					};
+				}
+
+				// AxiosError with no response (request couldn't go through)
 				return {
 					primary: extractedMessage,
 					// just show endpoint and hope for the best lol
