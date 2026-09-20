@@ -44,9 +44,9 @@ export default {
 			dark_sidebar: "Tmavý postranní panel",
 			title: "Motivy",
 			options: {
-				light: "světlý",
-				dark: "tmavý",
-				system: "systémový",
+				light: "Světlý",
+				dark: "Tmavý",
+				system: "Systémový",
 			},
 		},
 		btn: {
@@ -284,7 +284,7 @@ export default {
 			mojang: "Mojang Studios",
 			ignored: "Ignorovaná textura",
 		},
-		all: "vše",
+		all: "Vše",
 		latest: "Nejnovější",
 		clear_cache: "Smazat mezipaměť galerie",
 		result_stats_singular: "%COUNT% textura nalezena za %SECONDS% sekund",
