@@ -18,7 +18,7 @@
 		"luxon": "^3.7.2",
 		"marked": "^18.0.13",
 		"pinia": "^2.3.1",
-		"prettier": "^3.9.7",
+		"prettier": "^3.9.8",
 		"prismjs": "^1.30.0",
 		"sass": "^1.104.1",
 		"vite": "^7.3.6",
@@ -34,7 +34,7 @@
 		"@types/d3": "^7.4.3",
 		"@types/luxon": "^3.7.5",
 		"@types/prismjs": "^1.26.6",
-		"eslint": "^10.10.0",
+		"eslint": "^10.11.0",
 		"eslint-plugin-vue": "^10.11.0",
 		"nodemon": "^3.1.14"
 	},

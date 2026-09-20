@@ -561,7 +561,7 @@ export default {
 				texture_ids: "Textur-IDs",
 				id_field_errors: {
 					one_required: "Mindestens eine Textur-ID oder ein ID-Bereich sind erforderlich",
-					incorrect_value: "Falsche Textur %value% ID oder ID-Bereich",
+					incorrect_value: "Falsche Textur %VALUE% ID oder ID-Bereich",
 				},
 			},
 		},
@@ -609,7 +609,7 @@ export default {
 				plural: "Verwendung(en)",
 				add_use: "Neue Verwendung hinzufügen",
 				edit_use: "Verwendung bearbeiten",
-				add_edition_use: "Automatische %edition% Verwendung hinzufügen",
+				add_edition_use: "Automatische %EDITION% Verwendung hinzufügen",
 				no_use_found: "Keine Verwendungen für diese Textur gefunden",
 				id_hint: "Das Ändern der Verwendungs-ID kann alles kaputt machen",
 				id: "Verwendungs-ID",

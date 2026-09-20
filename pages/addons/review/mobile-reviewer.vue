@@ -75,7 +75,7 @@ export default {
 			if (this.$route.query.id === id)
 				return this.$router.push({ query: { ...this.$route.query, id: undefined } });
 
-			// opened panel, switch param and get files
+			// opened panel so switch param and get files
 			this.$router.push({ query: { ...this.$route.query, id } });
 			this.getFiles(id);
 		},

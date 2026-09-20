@@ -36,7 +36,7 @@ export default {
 		},
 		footer: {
 			credits: "Este site foi feito usando o framework de componente %Vuetify%.",
-			source: "Veja o código-fonte %here%!",
+			source: "Veja o código-fonte %aqui%!",
 			copyright: "© %d Faithful Resource Pack",
 		},
 		themes: {
@@ -144,7 +144,7 @@ export default {
 		title: "Você está perdido no Fim?",
 		description: "Infelizmente, a página que você solicitou não existe!",
 		main_page:
-			"Tente verificar a ortografia ou ir para a página %main % para encontrar o que estava procurando.",
+			"Tente verificar a ortografia ou ir para a %página principal% para encontrar o que estava procurando.",
 	},
 	dashboard: {
 		welcome: "Bem-vindo ao Faithful Studio!",
@@ -618,7 +618,7 @@ export default {
 				decrement_texture: "Diminuir ID da textura",
 				id_field_errors: {
 					one_required: "Pelo menos um ID de textura ou um intervalo de identificação é necessário",
-					incorrect_value: "ID ou ID do %value% de textura incorretos",
+					incorrect_value: "ID ou ID do %VALUE% de textura incorretos",
 				},
 			},
 		},
@@ -676,7 +676,7 @@ export default {
 				plural: "Usos",
 				add_use: "Adicionar novo uso",
 				edit_use: "Editar uso",
-				add_edition_use: "Adicionar uso automático de %edition%",
+				add_edition_use: "Adicionar uso automático de %EDITION%",
 				no_use_found: "Nenhum uso encontrado para essa textura.",
 				id_hint: "Alterar o ID do uso pode quebrar tudo",
 				id: "ID do uso",

@@ -617,7 +617,7 @@ export default {
 				decrement_texture: "Dekrementovat ID textury",
 				id_field_errors: {
 					one_required: "Je vyžadováno alespoň jedno ID textury nebo rozsah ID",
-					incorrect_value: "Nesprávné ID textury %value% nebo rozsah ID",
+					incorrect_value: "Nesprávné ID textury %VALUE% nebo rozsah ID",
 				},
 			},
 		},
@@ -675,7 +675,7 @@ export default {
 				plural: "Použití",
 				add_use: "Přidat nové využití",
 				edit_use: "Upravit využití",
-				add_edition_use: "Přidat automatické použití %edition%",
+				add_edition_use: "Přidat automatické použití %EDITION%",
 				no_use_found: "Pro tuto texturu nebyla nalezena žádná použití",
 				id_hint: "Změna ID využití může všechno rozbít!",
 				id: "ID využití",

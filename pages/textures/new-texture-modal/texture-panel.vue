@@ -277,7 +277,7 @@ export default {
 			const newEdition = this.getCorrespondingEdition(uses[0].edition);
 			return this.$root
 				.lang()
-				.database.textures.uses.add_edition_use.replace("%edition%", newEdition.toTitleCase());
+				.database.textures.uses.add_edition_use.replace("%EDITION%", newEdition.toTitleCase());
 		},
 	},
 	watch: {

@@ -79,7 +79,7 @@ export default {
 			this.snackbarShown = false;
 			setTimeout(() => this.$emit("close"), ANIMATION_DELAY_MS);
 		},
-		// this is really ugly inline even though it's only used nonce
+		// this is really ugly inline even though it's only used once
 		wrapJSON(jsonLike) {
 			return `\`\`\`json\n${JSON.stringify(jsonLike, null, 4)}\n\`\`\``;
 		},

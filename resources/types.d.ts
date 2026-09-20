@@ -27,19 +27,6 @@ declare module "vue/types/vue" {
 		anonymous: boolean;
 	}
 
-	type SnackbarCallback = (
-		/** snackbar text to format */
-		message: string | AxiosResponse,
-		/** can also be a color to override type behavior */
-		type: "success" | "info" | "warning" | "error" | string,
-		options: {
-			/** how long to display the snackbar for */
-			timeout?: number;
-			/** override icon */
-			icon?: string;
-		},
-	) => `${string}-${string}-${string}-${string}-${string}`;
-
 	// add public method/getter types
 	interface Vue {
 		readonly auth: ReturnType<typeof authStore>;
@@ -56,7 +43,11 @@ declare module "vue/types/vue" {
 		lang(): Readonly<typeof strings>;
 		lang(key: string, raw?: false): string;
 		lang(key: string, raw: true): any;
-		showSnackbar: SnackbarCallback;
+		showSnackbar(
+			message: string | Error | AxiosResponse,
+			type: "success" | "info" | "warning" | "error" | string,
+			options?: { timeout?: number; icon?: string },
+		): `${string}-${string}-${string}-${string}-${string}`;
 		wrapSnackbar<T>(prom: T | Awaited<T>, successMessage?: string): Promise<Awaited<T>>;
 		compileMarkdown(rawText: string): string;
 		formatDate(date: number | string | Date, format?: DateTimeFormatOptions): string;

@@ -37,8 +37,8 @@ export default {
 			type: Object,
 			required: false,
 			default: () => ({
-				one_required: "One value required",
-				incorrect_value: "%value% value incorrect",
+				one_required: "At least one texture ID or an ID range is required",
+				incorrect_value: "Incorrect texture %VALUE% ID or ID range",
 			}),
 		},
 	},
@@ -94,7 +94,7 @@ export default {
 						if (!correct) incorrectValue = s;
 					}
 					return incorrectValue
-						? this.errors.incorrect_value.replace("%value%", incorrectValue)
+						? this.errors.incorrect_value.replace("%VALUE%", incorrectValue)
 						: true;
 				},
 			];

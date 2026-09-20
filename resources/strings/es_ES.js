@@ -127,7 +127,7 @@ export default {
 			add_new_texture: "Agregar nueva textura",
 			add_new_path: "Agregar nueva ruta",
 			add_new_use: "Agregar nuevo uso",
-			add_edition_use: "Agregar uso automático de %edition%",
+			add_edition_use: "Agregar uso automático de %EDITION%",
 			add_texture: "Agregar nuevas texturas",
 			add_mc_version: "Agregar nueva versión de Minecraft",
 			ask_deletion: "¿Desea eliminar %s (%d)?",
@@ -180,7 +180,7 @@ export default {
 			new_mc_version: "Nueva versión de MC",
 			id_field_errors: {
 				one_required: "Se requiere al menos un ID de textura o un rango de ID",
-				incorrect_value: "Textura incorrecta %value% ID o rango de ID",
+				incorrect_value: "Textura incorrecta %VALUE% ID o rango de ID",
 			},
 			use_singular: "Uso",
 			use_plural: "Usos",

@@ -290,7 +290,7 @@ export default {
 			const newEdition = this.getCorrespondingEdition(Object.values(this.formData.uses)[0].edition);
 			return this.$root
 				.lang()
-				.database.textures.uses.add_edition_use.replace("%edition%", newEdition.toTitleCase());
+				.database.textures.uses.add_edition_use.replace("%EDITION%", newEdition.toTitleCase());
 		},
 		isValid() {
 			return (

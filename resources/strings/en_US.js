@@ -616,7 +616,7 @@ export default {
 				decrement_texture: "Decrement texture ID",
 				id_field_errors: {
 					one_required: "At least one texture ID or an ID range is required",
-					incorrect_value: "Incorrect texture %value% ID or ID range",
+					incorrect_value: "Incorrect texture %VALUE% ID or ID range",
 				},
 			},
 		},
@@ -674,7 +674,7 @@ export default {
 				plural: "Uses",
 				add_use: "Add new use",
 				edit_use: "Edit use",
-				add_edition_use: "Add automatic %edition% use",
+				add_edition_use: "Add automatic %EDITION% use",
 				no_use_found: "No uses found for this texture",
 				id_hint: "Changing the use ID can break everything!",
 				id: "Use ID",

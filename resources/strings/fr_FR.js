@@ -130,7 +130,7 @@ export default {
 			new_mc_version: "Nouvelle version MC",
 			id_field_errors: {
 				one_required: "Au moins un ID ou une plage d'IDs de textures requis",
-				incorrect_value: 'ID ou plage d\'IDs "%value%" incorrecte',
+				incorrect_value: 'ID ou plage d\'IDs "%VALUE%" incorrecte',
 			},
 		},
 		hints: {

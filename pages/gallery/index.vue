@@ -130,11 +130,11 @@ export default {
 				start: null,
 				end: null,
 			},
-			// result
+			// current results
 			textures: [],
 			// loaded contributors
 			authors: {},
-			// whether modal is opened
+			// whether modal is open
 			modalOpen: false,
 			// object of pack id -> pack display name
 			packToName: {},
