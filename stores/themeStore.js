@@ -93,7 +93,6 @@ export default defineStore("theme", {
 			app.showSnackbar(
 				notificationString.replace("%s", app.lang().global.themes.options[theme]),
 				"success",
-				2000,
 			);
 		},
 	},

@@ -121,13 +121,12 @@
 				</v-main>
 			</template>
 
+			<!-- snackbars are independent of loading status, can help diagnose login issues etc -->
 			<div class="snackbar-container">
-				<!-- snackbar doesn't depend on loading status (can help diagnose errors) -->
 				<snackbar-status
-					v-for="(snackbar, id, i) in snackbars"
+					v-for="(snackbar, id) in snackbars"
 					:key="id"
 					:snackbar="snackbar"
-					:style="{ bottom: `${i * 100}px` }"
 					@close="closeSnackbar(id)"
 				></snackbar-status>
 			</div>

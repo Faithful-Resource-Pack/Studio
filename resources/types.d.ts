@@ -30,12 +30,14 @@ declare module "vue/types/vue" {
 	type SnackbarCallback = (
 		/** snackbar text to format */
 		message: string | AxiosResponse,
-		/** anything vuetify accepts */
-		color?: string,
-		/** how long to display the snackbar for */
-		timeout?: number,
-		/** any json-encodable object */
-		json?: unknown,
+		/** can also be a color to override type behavior */
+		type: "success" | "info" | "warning" | "error" | string,
+		options: {
+			/** how long to display the snackbar for */
+			timeout?: number;
+			/** override icon */
+			icon?: string;
+		},
 	) => `${string}-${string}-${string}-${string}-${string}`;
 
 	// add public method/getter types

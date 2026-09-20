@@ -133,6 +133,12 @@ html.theme--light,
 	display: flex;
 	flex-flow: column nowrap;
 	gap: 12px;
+	z-index: 999;
+}
+
+.v-snack {
+	// change to start to align left
+	justify-content: end;
 }
 
 .icon-discord::before {

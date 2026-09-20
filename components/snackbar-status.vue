@@ -2,36 +2,38 @@
 	<v-snackbar
 		v-model="snackbarShown"
 		class="snackbar-status"
-		:class="{ 'extended-snackbar': split.submessage || json }"
 		transition="slide-x-reverse-transition"
+		:color="snackbar.type"
 		:timeout="timeout"
-		:color="snackbar.color"
 		text
 		@input="close"
 	>
-		<!-- for persistent snackbars or to get useless ones out of the way if you're impatient -->
-		<v-btn
-			style="position: absolute; right: 12px; top: 12px"
-			icon
-			small
-			:title="$root.lang().global.btn.close"
-			@click="close"
-		>
-			<v-icon :color="snackbar.color" class="snackbar-accent">mdi-close</v-icon>
-		</v-btn>
+		<h3 class="text--primary mb-1 d-flex flex-row align-center">
+			<v-icon v-if="icon" left class="text--primary">{{ icon }}</v-icon>
+			{{ split.primary }}
+			<v-spacer class="mx-2" />
+			<v-btn
+				icon
+				x-small
+				:color="snackbar.type"
+				:title="$root.lang().global.btn.close"
+				@click="close"
+			>
+				<v-icon>mdi-close</v-icon>
+			</v-btn>
+		</h3>
 
-		<h3 class="snackbar-title">{{ split.message }}</h3>
-		<pre v-if="split.submessage && split.pre" class="mt-2 mb-0">{{ split.submessage }}</pre>
-		<p v-else-if="split.submessage" class="mt-2 mb-0">{{ split.submessage }}</p>
+		<!-- for stack traces where alignment/newlines matter -->
+		<pre v-if="split.secondary && split.pre" class="my-0 text-pre-wrap" :class="textColor">{{
+			split.secondary
+		}}</pre>
 
-		<div v-if="json" class="json-editor snackbar-json pa-3 mt-2">
-			<!-- eslint-disable-next-line vue/no-v-html -->
-			<pre v-html="sanitize(highlighter(JSON.stringify(json, null, 2)))"></pre>
-		</div>
+		<!-- all other message types -->
+		<p v-else-if="split.secondary" class="my-0" :class="textColor">{{ split.secondary }}</p>
 
-		<v-row v-if="snackbar.color === 'error'" dense class="mt-2 mb-n2">
+		<v-row v-if="snackbar.type === 'error'" dense class="mt-2 mb-n2">
 			<v-col>
-				<v-btn block text :color="snackbar.color" @click="copyMessage">
+				<v-btn block text :color="snackbar.type" @click="copyError">
 					<v-icon left>{{ copyIcon }}</v-icon>
 					{{ $root.lang().global.btn.copy }}
 				</v-btn>
@@ -40,8 +42,8 @@
 				<v-btn
 					block
 					text
-					:color="snackbar.color"
-					:href="reportURL"
+					:color="snackbar.type"
+					href="https://github.com/Faithful-Resource-Pack/Studio/issues/new?template=bug_report.yml"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
@@ -54,9 +56,6 @@
 </template>
 
 <script>
-import DOMPurify from "dompurify";
-import Prism from "prismjs";
-
 // delay between snackbar closing and component destruction (to let animation fully play)
 const ANIMATION_DELAY_MS = 250;
 
@@ -72,24 +71,26 @@ export default {
 	data() {
 		return {
 			snackbarShown: false,
-			reportURL:
-				"https://github.com/Faithful-Resource-Pack/Studio/issues/new?template=bug_report.yml",
 			copyIcon: "mdi-content-copy",
 		};
 	},
 	methods: {
-		highlighter(code) {
-			return Prism.highlight(code, Prism.languages.js, "json");
+		close() {
+			this.snackbarShown = false;
+			setTimeout(() => this.$emit("close"), ANIMATION_DELAY_MS);
 		},
-		sanitize(text) {
-			return DOMPurify.sanitize(text);
+		// this is really ugly inline even though it's only used nonce
+		wrapJSON(jsonLike) {
+			return `\`\`\`json\n${JSON.stringify(jsonLike, null, 4)}\n\`\`\``;
 		},
-		copyMessage() {
-			const { message, submessage } = this.split;
-			let formatted = `${message}:\n${submessage}`;
-			if (this.json) formatted += `\n\n\`\`\`json\n${JSON.stringify(this.json, null, 4)}\n\`\`\``;
-			formatted += `\n\nCreated: ${new Date().toString()}`;
-			navigator.clipboard.writeText(formatted);
+		copyError() {
+			// more is better than less, entire json error as markdown if not just a regular string
+			const error =
+				typeof this.snackbar.message === "string"
+					? this.snackbar.message
+					: `Message data:\n${this.wrapJSON(this.snackbar.message)}`;
+
+			navigator.clipboard.writeText(`${error}\nCreated: ${new Date().toString()}`);
 
 			// showing a snackbar for the snackbar would be insane so we just use an icon for feedback
 			this.copyIcon = "mdi-check";
@@ -97,81 +98,90 @@ export default {
 				this.copyIcon = "mdi-content-copy";
 			}, 1000);
 		},
-		close() {
-			this.snackbarShown = false;
-			setTimeout(() => this.$emit("close"), ANIMATION_DELAY_MS);
-		},
 	},
 	computed: {
+		textColor() {
+			return [
+				`${this.snackbar.type}--text`,
+				// todo: only works on vuetify colors, try procedurally brightening with css filters?
+				this.$root.theme.isDark ? "text--lighten-4" : "text--darken-3",
+			];
+		},
 		split() {
-			// default values
-			const message = this.snackbar.message;
-			const submessage = "";
+			const base = this.snackbar.message;
 
-			if (typeof this.snackbar.message === "string") {
-				const newline = message.indexOf("\n");
-				if (newline === -1) return { message, submessage };
+			if (typeof base === "string") {
+				// first line becomes title, everything else description
+				const newline = base.indexOf("\n");
+				if (newline === -1) return { primary: base, secondary: "" };
 				return {
-					message: message.substring(0, newline),
-					submessage: message.substring(newline + 1),
-				};
-			}
-			// check for AxiosError
-			const extractedMessage = message?.message;
-			if (message.response?.data) {
-				return {
-					message: extractedMessage,
-					submessage: message.response.data.error || message.response.data.message,
+					primary: base.substring(0, newline),
+					secondary: base.substring(newline + 1),
 				};
 			}
 
-			// couldn't parse response, show which endpoint failed at least
-			if (message.config) {
+			// AxiosError with response (incorrect data, permission issue, etc)
+			const extractedMessage = base?.message;
+			if (base.response?.data) {
 				return {
-					message: extractedMessage,
-					submessage: `${message.config.method.toUpperCase()} ${message.config.url}`,
+					primary: extractedMessage,
+					secondary: base.response.data.error || base.response.data.message,
 				};
 			}
 
-			if (message.stack) {
+			// AxiosError with no response (network issue, malformed url, etc)
+			if (base.config) {
 				return {
-					message: extractedMessage,
-					submessage: message.stack,
+					primary: extractedMessage,
+					// just show endpoint and hope for the best lol
+					secondary: `${base.config.method.toUpperCase()} ${base.config.url}`,
+				};
+			}
+
+			// some other type of error object (TypeError, assertion, etc)
+			if (base.stack) {
+				// errName is better than extractedMessage in most cases
+				const [errName, ...trace] = base.stack.split("\n");
+				return {
+					primary: errName,
+					secondary: trace.join("\n"),
 					pre: true,
 				};
 			}
 
-			return {
-				message: extractedMessage,
-				submessage,
-			};
-		},
-		json() {
-			// if something is explicitly provided that takes precedence
-			if (this.snackbar.json) return this.snackbar.json;
-			const message = this.snackbar.message;
-			// validation error json can be shown
-			if (message.response?.data && message.response.data.details)
-				return message.response.data.details;
-			return null;
+			return { primary: extractedMessage, secondary: "" };
 		},
 		timeout() {
 			if (this.snackbar.timeout) return this.snackbar.timeout;
-			// success status lasts for less time since there's nothing useful there
-			if (this.snackbar.color === "success") return 2500;
 
-			// anything else takes longer to go away so you can copy it
-			return 5000;
+			// errors might need to be copied so should be shown for longer
+			return this.snackbar.type === "error" ? 5000 : 2500;
+		},
+		icon() {
+			if (this.snackbar.icon) return this.snackbar.icon;
+			switch (this.snackbar.type) {
+				case "success":
+					return "mdi-check-circle-outline";
+				case "info":
+					return "mdi-information-outline";
+				case "warning":
+					return "mdi-alert-circle-outline";
+				case "error":
+					return "mdi-close-circle-outline";
+			}
+			// icon isn't required
+			return null;
 		},
 	},
 	mounted() {
+		// wait until mount so the element exists when the animation plays
 		this.snackbarShown = true;
 	},
 };
 </script>
 
 <style lang="scss">
-// undo snackbar positioning weirdness, reimplemented in .snackbar-container parent
+// undo snackbar positioning weirdness; reimplemented in .snackbar-container parent
 .snackbar-status {
 	height: initial !important;
 	position: relative !important;
@@ -179,39 +189,27 @@ export default {
 }
 
 .snackbar-status .v-snack__wrapper {
+	// use flex gap in container for margin to avoid doubling issues
 	margin: 0 !important;
-	// accent color, same width as discord embed accent
-	border-left: 4px solid hsla(0, 0%, 100%, 0.12);
+
+	// nice accent color line
+	border-left: 4px solid rgba(white, 0.12);
+
+	// for some reason the non-solid background theme removes this (???)
+	box-shadow:
+		0 3px 5px -1px rgba(0, 0, 0, 0.2),
+		0 6px 10px 0 rgba(0, 0, 0, 0.14),
+		0 1px 18px 0 rgba(0, 0, 0, 0.12) !important;
 }
 
 .snackbar-status .v-snack__content {
-	// 16px horizontal padding - 4px left border
-	padding-right: 12px;
+	// for some reason the amount of horizontal padding is insane by default
+	padding-right: 4px;
+	padding-left: 12px;
 }
 
 .snackbar-status .v-snack__wrapper.theme--dark {
 	// makes text more legible in dark mode
-	background-color: rgb(25, 25, 25);
-}
-
-// since the color can change we just lighten it directly
-.theme--dark .snackbar-accent,
-.theme--dark .extended-snackbar .snackbar-title {
-	filter: brightness(2.25) saturate(0.7);
-}
-
-.theme--light .snackbar-accent,
-.theme--light .extended-snackbar .snackbar-title {
-	filter: brightness(0.7);
-}
-
-.snackbar-json {
-	border-radius: 4px;
-}
-
-.btn-square-icon {
-	min-width: 36px !important;
-	width: 36px;
-	height: 36px;
+	background-color: #191919;
 }
 </style>

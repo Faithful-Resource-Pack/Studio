@@ -167,10 +167,10 @@ export default {
 		addNewUsers(users) {
 			this.searchedContributors = users;
 		},
-		handleSubmit() {
+		async handleSubmit() {
 			// the code is different enough for adding/creating it's worth having two functions
-			const result = this.add ? this.postContributions() : this.editContribution();
-			return result.then(() => this.closeOnSubmit && this.$emit("close", true));
+			this.add ? await this.postContributions() : await this.editContribution();
+			if (this.closeOnSubmit) this.$emit("close", true);
 		},
 		async postContributions() {
 			const finalContributions = this.contribs.flatMap((contrib) =>
