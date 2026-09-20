@@ -1,6 +1,6 @@
 <template>
 	<modal-form
-		v-model="modalOpened"
+		v-model="modalOpen"
 		:title="title"
 		:disabled="!isValid"
 		max-width="800"
@@ -123,7 +123,7 @@ export default {
 	emits: ["input", "close"],
 	data() {
 		return {
-			modalOpened: false,
+			modalOpen: false,
 			// need to initialize to prevent contribution-form reading empty array
 			contribs: [emptyContrib()],
 			selectedContrib: 0,
@@ -160,9 +160,6 @@ export default {
 
 			// if we deleted the opened form, change it to the previous one
 			if (this.contribs.length === this.selectedContrib) --this.selectedContrib;
-		},
-		changeOpenedForm(index) {
-			this.selectedContrib = index;
 		},
 		addNewUsers(users) {
 			this.searchedContributors = users;
@@ -223,9 +220,9 @@ export default {
 	},
 	watch: {
 		value(newValue) {
-			this.modalOpened = newValue;
+			this.modalOpen = newValue;
 		},
-		modalOpened(newValue) {
+		modalOpen(newValue) {
 			this.$nextTick(() => {
 				// prevent reading stale state before unmount (causes a billion console errors)
 				if (!newValue) return;

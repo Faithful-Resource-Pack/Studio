@@ -1,6 +1,6 @@
 <template>
 	<modal-form
-		v-model="modalOpened"
+		v-model="modalOpen"
 		danger
 		:title="$root.lang().database.confirm_deletion"
 		@close="$emit('close')"
@@ -36,7 +36,7 @@ export default {
 	emits: ["input", "close"],
 	data() {
 		return {
-			modalOpened: false,
+			modalOpen: false,
 		};
 	},
 	methods: {
@@ -50,9 +50,9 @@ export default {
 	},
 	watch: {
 		value(newValue) {
-			this.modalOpened = newValue;
+			this.modalOpen = newValue;
 		},
-		modalOpened(newValue) {
+		modalOpen(newValue) {
 			this.$emit("input", newValue);
 		},
 	},

@@ -1,6 +1,6 @@
 <template>
 	<modal-form
-		v-model="modalOpened"
+		v-model="modalOpen"
 		danger
 		scrollable
 		:title="$root.lang().database.users.modal.delete_user"
@@ -88,7 +88,7 @@ export default {
 	emits: ["input", "close"],
 	data() {
 		return {
-			modalOpened: false,
+			modalOpen: false,
 			transferredAddons: [],
 			deletedAddons: [],
 			tab: null,
@@ -122,9 +122,9 @@ export default {
 	},
 	watch: {
 		value(newValue) {
-			this.modalOpened = newValue;
+			this.modalOpen = newValue;
 		},
-		modalOpened(newValue) {
+		modalOpen(newValue) {
 			this.$emit("input", newValue);
 		},
 		"data.id"() {

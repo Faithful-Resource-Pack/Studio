@@ -1,6 +1,6 @@
 <template>
 	<modal-form
-		v-model="modalOpened"
+		v-model="modalOpen"
 		:title="title"
 		:disabled="!reason || !reason.length"
 		danger
@@ -46,13 +46,13 @@ export default {
 	emits: ["input", "close"],
 	data() {
 		return {
-			modalOpened: false,
+			modalOpen: false,
 			reason: "",
 		};
 	},
 	methods: {
 		interacted(submit = false) {
-			this.modalOpened = false;
+			this.modalOpen = false;
 			this.$emit("close", submit, this.reason);
 			// reset modal
 			if (submit) this.reason = "";
@@ -73,9 +73,9 @@ export default {
 	},
 	watch: {
 		value(newValue) {
-			this.modalOpened = newValue;
+			this.modalOpen = newValue;
 		},
-		modalOpened(newValue) {
+		modalOpen(newValue) {
 			this.$emit("input", newValue);
 		},
 	},

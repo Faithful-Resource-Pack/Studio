@@ -1,6 +1,6 @@
 <template>
 	<modal-form
-		v-model="modalOpened"
+		v-model="modalOpen"
 		max-width="800"
 		:disabled="!isValid"
 		:title="modalTitle"
@@ -153,7 +153,7 @@ export default {
 	emits: ["input", "close"],
 	data() {
 		return {
-			modalOpened: false,
+			modalOpen: false,
 			formData: {
 				edition: "",
 				id: "",
@@ -253,9 +253,9 @@ export default {
 	},
 	watch: {
 		value(newValue) {
-			this.modalOpened = newValue;
+			this.modalOpen = newValue;
 		},
-		modalOpened(newValue) {
+		modalOpen(newValue) {
 			this.$nextTick(() => {
 				this.$refs.form.reset();
 				for (const [k, v] of Object.entries(this.data)) {

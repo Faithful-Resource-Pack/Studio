@@ -1,6 +1,6 @@
 <template>
 	<v-dialog
-		v-model="modalOpened"
+		v-model="modalOpen"
 		fullscreen
 		hide-overlay
 		content-class="colored"
@@ -66,13 +66,13 @@ export default {
 	emits: ["close", "input"],
 	data() {
 		return {
-			modalOpened: false,
+			modalOpen: false,
 			pageStyles: "",
 		};
 	},
 	methods: {
 		closeModal() {
-			this.modalOpened = false;
+			this.modalOpen = false;
 			this.$emit("close");
 		},
 	},
@@ -82,12 +82,12 @@ export default {
 	watch: {
 		value: {
 			handler(n) {
-				this.modalOpened = n;
+				this.modalOpen = n;
 			},
 			// has issues if the modal is open on page load otherwise
 			immediate: true,
 		},
-		modalOpened(n) {
+		modalOpen(n) {
 			this.$emit("input", n);
 		},
 	},

@@ -1,6 +1,6 @@
 <template>
 	<modal-form
-		v-model="modalOpened"
+		v-model="modalOpen"
 		:title="$root.lang().database.textures.merge_textures.title"
 		:disabled="formIncomplete"
 		danger
@@ -66,7 +66,7 @@ export default {
 	emits: ["input", "close"],
 	data() {
 		return {
-			modalOpened: false,
+			modalOpen: false,
 			srcTextureID: null,
 			srcData: null,
 			destTextureID: null,
@@ -122,9 +122,9 @@ export default {
 	},
 	watch: {
 		value(newValue) {
-			this.modalOpened = newValue;
+			this.modalOpen = newValue;
 		},
-		modalOpened(newValue) {
+		modalOpen(newValue) {
 			this.$emit("input", newValue);
 		},
 	},

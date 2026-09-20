@@ -61,7 +61,7 @@
 		</v-card>
 
 		<gallery-modal
-			v-model="modalOpened"
+			v-model="modalOpen"
 			:textureID="modalTextureID"
 			:discordIDtoName="discordIDtoName"
 			:packToName="packToName"
@@ -135,7 +135,7 @@ export default {
 			// loaded contributors
 			authors: {},
 			// whether modal is opened
-			modalOpened: false,
+			modalOpen: false,
 			// object of pack id -> pack display name
 			packToName: {},
 			// for legacy url support
@@ -313,7 +313,7 @@ export default {
 		"$route.query.show": {
 			handler(params, prev) {
 				if (!params || JSON.stringify(params) === JSON.stringify(prev)) return;
-				this.modalOpened = true;
+				this.modalOpen = true;
 			},
 			immediate: true,
 		},

@@ -1,6 +1,6 @@
 <template>
 	<fullscreen-modal
-		v-model="modalOpened"
+		v-model="modalOpen"
 		:loading="loading"
 		:title="title"
 		:subtitle="subtitle"
@@ -118,7 +118,7 @@ export default {
 			error: null,
 			errorCode: undefined,
 			selectedTab: null,
-			modalOpened: false,
+			modalOpen: false,
 		};
 	},
 	methods: {
@@ -203,12 +203,12 @@ export default {
 		},
 		value: {
 			handler(n) {
-				this.modalOpened = n;
+				this.modalOpen = n;
 			},
 			// has issues if the modal is open on page load otherwise
 			immediate: true,
 		},
-		modalOpened(n) {
+		modalOpen(n) {
 			this.$emit("input", n);
 		},
 	},

@@ -1,6 +1,6 @@
 <template>
 	<fullscreen-modal
-		v-model="modalOpened"
+		v-model="modalOpen"
 		:title="$root.lang().database.textures.add_multiple"
 		:pageColor="color"
 		@close="$emit('close')"
@@ -22,7 +22,7 @@
 				<v-icon>{{ persistOnSave ? "mdi-content-save" : "mdi-content-save-off" }}</v-icon>
 			</v-btn>
 		</template>
-		<json-modal v-model="jsonModalOpened" :color="color" initialValue="[]" @data="parseJSON" />
+		<json-modal v-model="jsonmodalOpen" :color="color" initialValue="[]" @data="parseJSON" />
 		<div class="px-10 py-5">
 			<v-row>
 				<!-- texture form part -->
@@ -135,11 +135,11 @@ export default {
 	emits: ["input", "close"],
 	data() {
 		return {
-			modalOpened: false,
+			modalOpen: false,
 			selectedTab: null,
 			textures: [emptyTexture()],
 			loading: false,
-			jsonModalOpened: false,
+			jsonmodalOpen: false,
 			persistOnSave: localStorage.getItem(PERSIST_ON_SAVE_KEY) === "true",
 		};
 	},
@@ -157,7 +157,7 @@ export default {
 			if (!this.textures.length) this.addTexture();
 		},
 		openJSONModal() {
-			this.jsonModalOpened = true;
+			this.jsonmodalOpen = true;
 		},
 		parseJSON(data) {
 			if (typeof data === "object" && !Array.isArray(data)) data = [data];
@@ -182,7 +182,7 @@ export default {
 				return tex;
 			});
 			this.textures = cleaned;
-			this.jsonModalOpened = false;
+			this.jsonmodalOpen = false;
 		},
 		copyData() {
 			const data = JSON.stringify(this.cleanedData, null, 2);
@@ -229,9 +229,9 @@ export default {
 	},
 	watch: {
 		value(n) {
-			this.modalOpened = n;
+			this.modalOpen = n;
 		},
-		modalOpened(n) {
+		modalOpen(n) {
 			this.$emit("input", n);
 		},
 		persistOnSave(n) {

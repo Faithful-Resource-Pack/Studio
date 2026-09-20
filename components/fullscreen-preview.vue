@@ -1,5 +1,5 @@
 <template>
-	<v-dialog v-model="previewOpened" :width="`${aspectRatio * 90}vh`" height="90vh">
+	<v-dialog v-model="previewOpen" :width="`${aspectRatio * 90}vh`" height="90vh">
 		<v-card>
 			<v-img :style="styles" :src="src" :alt="alt" :aspectRatio="aspectRatio" contain />
 			<v-card
@@ -47,12 +47,12 @@ export default {
 	emits: ["input"],
 	data() {
 		return {
-			previewOpened: false,
+			previewOpen: false,
 		};
 	},
 	methods: {
 		close() {
-			this.previewOpened = false;
+			this.previewOpen = false;
 		},
 	},
 	computed: {
@@ -62,9 +62,9 @@ export default {
 	},
 	watch: {
 		value(newValue) {
-			this.previewOpened = newValue;
+			this.previewOpen = newValue;
 		},
-		previewOpened(newValue) {
+		previewOpen(newValue) {
 			this.$emit("input", newValue);
 		},
 	},

@@ -4,7 +4,7 @@
 		<div class="styles" v-html="pageStyles" />
 
 		<reason-modal
-			v-model="reasonModalOpened"
+			v-model="reasonmodalOpen"
 			:type="reasonType"
 			:color="pageColor"
 			@close="closeReasonModal"
@@ -127,7 +127,7 @@ export default {
 			loading: true,
 			authors: [],
 			packs: {},
-			reasonModalOpened: false,
+			reasonmodalOpen: false,
 			reasonModalId: {},
 			reasonType: "denied",
 			status: "pending",
@@ -162,7 +162,7 @@ export default {
 		},
 		openReasonModal(addon, reasonType = "denied") {
 			this.reasonType = reasonType;
-			this.reasonModalOpened = true;
+			this.reasonmodalOpen = true;
 			this.reasonModalId = addon;
 		},
 		closeReasonModal(success = false, reason) {

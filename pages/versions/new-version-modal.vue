@@ -1,6 +1,6 @@
 <template>
 	<modal-form
-		v-model="modalOpened"
+		v-model="modalOpen"
 		:title="$root.lang().database.versions.add.title"
 		:disabled="!isValid"
 		danger
@@ -59,7 +59,7 @@ export default {
 	data() {
 		const defaultEdition = settings.editions[0];
 		return {
-			modalOpened: false,
+			modalOpen: false,
 			editions: settings.editions,
 			rules: [(input) => !this.versionExists(input) || this.$root.lang().database.versions.exists],
 			form: {
@@ -109,9 +109,9 @@ export default {
 	},
 	watch: {
 		value(newValue) {
-			this.modalOpened = newValue;
+			this.modalOpen = newValue;
 		},
-		modalOpened(newValue) {
+		modalOpen(newValue) {
 			this.$emit("input", newValue);
 		},
 	},

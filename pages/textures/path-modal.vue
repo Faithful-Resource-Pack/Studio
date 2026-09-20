@@ -1,6 +1,6 @@
 <template>
 	<modal-form
-		v-model="modalOpened"
+		v-model="modalOpen"
 		:title="modalTitle"
 		:disabled="!isValid"
 		@close="$emit('close')"
@@ -101,7 +101,7 @@ export default {
 	emits: ["input", "close", "pathAdded"],
 	data() {
 		return {
-			modalOpened: false,
+			modalOpen: false,
 			formData: {
 				id: "",
 				use: "",
@@ -160,9 +160,9 @@ export default {
 	},
 	watch: {
 		value(newValue) {
-			this.modalOpened = newValue;
+			this.modalOpen = newValue;
 		},
-		modalOpened(newValue) {
+		modalOpen(newValue) {
 			this.$nextTick(() => {
 				if (this.add) {
 					this.$refs.form.reset();

@@ -43,7 +43,7 @@
 		</v-card>
 
 		<user-remove-confirm
-			v-model="deleteModalOpened"
+			v-model="deletemodalOpen"
 			:data="localUser"
 			profile
 			@close="deleteClosed"
@@ -80,7 +80,7 @@ export default {
 						this.$root.lang().profile.general.bio.rules.length.replace("%d", this.bioMaxLength),
 					),
 			],
-			deleteModalOpened: false,
+			deletemodalOpen: false,
 			sending: false,
 		};
 	},
@@ -118,7 +118,7 @@ export default {
 				});
 		},
 		openDeleteModal() {
-			this.deleteModalOpened = true;
+			this.deletemodalOpen = true;
 		},
 		deleteClosed(success = false) {
 			// user deleted, sign them out and put them on the dashboard

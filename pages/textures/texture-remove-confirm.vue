@@ -1,6 +1,6 @@
 <template>
 	<modal-form
-		v-model="modalOpened"
+		v-model="modalOpen"
 		:max-width="type === 'texture' ? '1000' : '600'"
 		danger
 		:title="title"
@@ -182,7 +182,7 @@ export default {
 	emits: ["input", "close"],
 	data() {
 		return {
-			modalOpened: false,
+			modalOpen: false,
 			deletePaths: true,
 			uses: [],
 			rawPaths: [],
@@ -284,9 +284,9 @@ export default {
 	},
 	watch: {
 		value(newValue) {
-			this.modalOpened = newValue;
+			this.modalOpen = newValue;
 		},
-		modalOpened(newValue) {
+		modalOpen(newValue) {
 			this.uses = [];
 			this.rawPaths = [];
 			this.contributions = [];

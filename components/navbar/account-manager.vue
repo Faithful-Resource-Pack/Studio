@@ -1,5 +1,5 @@
 <template>
-	<modal-form v-model="modalOpened" :title="$root.lang().global.account_manager.title" hide-actions>
+	<modal-form v-model="modalOpen" :title="$root.lang().global.account_manager.title" hide-actions>
 		<v-list>
 			<v-list-item v-for="profile in profiles" :key="profile.id" class="px-0">
 				<v-list-item-avatar style="border-radius: 0 !important">
@@ -65,7 +65,7 @@ export default {
 	emits: ["input"],
 	data() {
 		return {
-			modalOpened: false,
+			modalOpen: false,
 			accounts: [],
 			profiles: [],
 		};
@@ -75,7 +75,7 @@ export default {
 			this.accounts = Object.keys(JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY) || "{}") || {});
 		},
 		closeModal() {
-			this.modalOpened = false;
+			this.modalOpen = false;
 		},
 		getAvatarAlt(username) {
 			return this.$root.lang().global.account_manager.avatar_alt_text.replace("%s", username);
@@ -83,9 +83,9 @@ export default {
 	},
 	watch: {
 		value(newValue) {
-			this.modalOpened = newValue;
+			this.modalOpen = newValue;
 		},
-		modalOpened(newValue) {
+		modalOpen(newValue) {
 			this.$emit("input", newValue);
 		},
 		accounts: {

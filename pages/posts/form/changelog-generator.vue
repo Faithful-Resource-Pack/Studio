@@ -1,6 +1,6 @@
 <template>
 	<modal-form
-		v-model="modalOpened"
+		v-model="modalOpen"
 		max-width="800"
 		:title="$root.lang().posts.changelog_generator.heading"
 		hide-actions
@@ -88,7 +88,7 @@ export default {
 	emits: ["input"],
 	data() {
 		return {
-			modalOpened: false,
+			modalOpen: false,
 			date: "",
 			selectedPack: "",
 			packs: [],
@@ -104,7 +104,7 @@ export default {
 			return Prism.highlight(code, Prism.languages.js, "json");
 		},
 		closeModal() {
-			this.modalOpened = false;
+			this.modalOpen = false;
 		},
 		copyData() {
 			navigator.clipboard.writeText(this.outputData);
@@ -208,9 +208,9 @@ export default {
 	},
 	watch: {
 		value(newValue) {
-			this.modalOpened = newValue;
+			this.modalOpen = newValue;
 		},
-		modalOpened(newValue) {
+		modalOpen(newValue) {
 			this.$emit("input", newValue);
 		},
 		// done in a watcher since you have to revoke the old url before creating a new one

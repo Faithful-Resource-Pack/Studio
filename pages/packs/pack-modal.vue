@@ -1,5 +1,5 @@
 <template>
-	<modal-form v-model="modalOpened" :title="modalTitle" @close="$emit('close')" @submit="send">
+	<modal-form v-model="modalOpen" :title="modalTitle" @close="$emit('close')" @submit="send">
 		<submission-modal
 			v-model="submissionOpen"
 			:color="color"
@@ -156,7 +156,7 @@ export default {
 	emits: ["input", "close"],
 	data() {
 		return {
-			modalOpened: false,
+			modalOpen: false,
 			formData: {
 				id: null,
 				name: null,
@@ -272,9 +272,9 @@ export default {
 	},
 	watch: {
 		value(newValue) {
-			this.modalOpened = newValue;
+			this.modalOpen = newValue;
 		},
-		modalOpened(newValue) {
+		modalOpen(newValue) {
 			this.$nextTick(() => {
 				if (this.add) this.$refs.form.reset();
 				else {

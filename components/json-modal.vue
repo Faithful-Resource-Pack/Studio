@@ -1,6 +1,6 @@
 <template>
 	<modal-form
-		v-model="modalOpened"
+		v-model="modalOpen"
 		max-width="800"
 		:title="$root.lang().global.json_editor.import_data"
 		basic
@@ -49,7 +49,7 @@ export default {
 	emits: ["input", "data"],
 	data() {
 		return {
-			modalOpened: false,
+			modalOpen: false,
 			// you can access props from data
 			jsonData: this.initialValue,
 		};
@@ -62,7 +62,7 @@ export default {
 			try {
 				this.$emit("data", JSON.parse(this.jsonData));
 				// reset modal only if emitted correctly (user can fix typos without form clearing randomly)
-				this.modalOpened = false;
+				this.modalOpen = false;
 				this.jsonData = this.initialValue;
 			} catch (err) {
 				console.error(err);
@@ -70,14 +70,14 @@ export default {
 			}
 		},
 		closeModal() {
-			this.modalOpened = false;
+			this.modalOpen = false;
 		},
 	},
 	watch: {
 		value(newValue) {
-			this.modalOpened = newValue;
+			this.modalOpen = newValue;
 		},
-		modalOpened(newValue) {
+		modalOpen(newValue) {
 			this.$emit("input", newValue);
 		},
 	},

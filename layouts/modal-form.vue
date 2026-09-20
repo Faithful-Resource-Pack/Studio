@@ -1,5 +1,5 @@
 <template>
-	<v-dialog v-model="modalOpened" content-class="colored" :max-width="maxWidth" v-bind="$attrs">
+	<v-dialog v-model="modalOpen" content-class="colored" :max-width="maxWidth" v-bind="$attrs">
 		<v-card>
 			<v-card-title class="justify-space-between">
 				<div>
@@ -91,11 +91,11 @@ export default {
 	emits: ["submit", "close"],
 	methods: {
 		closeModal() {
-			this.modalOpened = false;
+			this.modalOpen = false;
 			this.$emit("close");
 		},
 		submitModal() {
-			if (!this.persistent) this.modalOpened = false;
+			if (!this.persistent) this.modalOpen = false;
 			this.$emit("submit");
 		},
 	},
@@ -110,16 +110,16 @@ export default {
 	},
 	data() {
 		return {
-			modalOpened: false,
+			modalOpen: false,
 			dangerColor: "error darken-1",
 			normalColor: "darken-1",
 		};
 	},
 	watch: {
 		value(newValue) {
-			this.modalOpened = newValue;
+			this.modalOpen = newValue;
 		},
-		modalOpened(newValue) {
+		modalOpen(newValue) {
 			this.$emit("input", newValue);
 		},
 	},
