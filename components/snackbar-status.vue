@@ -91,10 +91,10 @@ export default {
 			// give as much information as possible (entire axios response if available)
 			const error =
 				typeof this.snackbar.message === "string"
-					? this.snackbar.message
-					: `JSON error data:\n\`\`\`json\n${this.stringifiedError}\n\`\`\``;
+					? `**Error message:**\n\n\`\`\`\n${this.snackbar.message}\n\`\`\``
+					: `**JSON error data:**\n\n\`\`\`json\n${this.stringifiedError}\n\`\`\``;
 
-			navigator.clipboard.writeText(`${error}\nCreated: ${new Date().toString()}`);
+			navigator.clipboard.writeText(`${error}\n\n**Created:** ${new Date().toString()}`);
 
 			// showing a snackbar for the snackbar would be insane so we just use an icon for feedback
 			this.copyIcon = "mdi-check";

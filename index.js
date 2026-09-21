@@ -160,8 +160,8 @@ const app = new Vue({
 			this.showSnackbar(
 				"Custom title\nLorem ipsum dolor sit amet, consectetur adipiscing elit.",
 				"purple",
-				{ timeout: -1, icon: "mdi-star-circle-outline" }
-			)
+				{ timeout: -1, icon: "mdi-star-circle-outline" },
+			);
 		},
 		async loadBadge(cb, key) {
 			if (!this.isAdmin) return;

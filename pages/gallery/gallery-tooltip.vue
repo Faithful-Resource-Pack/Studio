@@ -156,7 +156,6 @@ export default {
 .gallery-tooltip-id,
 .encased {
 	background-color: #272727;
-	-webkit-box-shadow: 2px 2px 8px 2px rgba(0, 0, 0, 0.4);
 	box-shadow: 2px 2px 8px 2px rgba(0, 0, 0, 0.4);
 }
 
