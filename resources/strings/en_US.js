@@ -478,6 +478,7 @@ export default {
 			archived: "There are currently no archived add-ons!",
 			approved: "There are currently no approved add-ons!",
 			search: "Search add-ons",
+			public_page: "Go to all public add-ons",
 		},
 		addon: {
 			titles: {

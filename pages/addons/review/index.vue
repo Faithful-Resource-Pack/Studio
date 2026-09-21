@@ -1,18 +1,27 @@
 <template>
-	<v-container id="addonReviewPage">
+	<v-container>
 		<!-- eslint-disable-next-line vue/no-v-html -->
 		<div class="styles" v-html="pageStyles" />
 
 		<reason-modal
-			v-model="reasonmodalOpen"
+			v-model="reasonModalOpen"
 			:type="reasonType"
 			:color="pageColor"
 			@close="closeReasonModal"
 		/>
 
-		<h1 class="text-h4 py-4">
-			{{ $root.lang().review.titles.addons }}
-		</h1>
+		<div class="d-flex flex-wrap align-center justify-space-between my-4 ga-4">
+			<h1 class="text-h4">{{ $root.lang().review.titles.addons }}</h1>
+			<v-btn
+				color="secondary"
+				href="https://faithfulpack.net/addons"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				<v-icon left>mdi-open-in-new</v-icon>
+				{{ $root.lang().review.labels.public_page }}
+			</v-btn>
+		</div>
 
 		<review-categories v-model="status" :activeColor="pageColor" :categories="categories" />
 		<div
@@ -127,7 +136,7 @@ export default {
 			loading: true,
 			authors: [],
 			packs: {},
-			reasonmodalOpen: false,
+			reasonModalOpen: false,
 			reasonModalId: {},
 			reasonType: "denied",
 			status: "pending",
@@ -162,7 +171,7 @@ export default {
 		},
 		openReasonModal(addon, reasonType = "denied") {
 			this.reasonType = reasonType;
-			this.reasonmodalOpen = true;
+			this.reasonModalOpen = true;
 			this.reasonModalId = addon;
 		},
 		closeReasonModal(success = false, reason) {

@@ -22,7 +22,7 @@
 				<v-icon>{{ persistOnSave ? "mdi-content-save" : "mdi-content-save-off" }}</v-icon>
 			</v-btn>
 		</template>
-		<json-modal v-model="jsonmodalOpen" :color="color" initialValue="[]" @data="parseJSON" />
+		<json-modal v-model="jsonModalOpen" :color="color" initialValue="[]" @data="parseJSON" />
 		<div class="px-10 py-5">
 			<v-row>
 				<!-- texture form part -->
@@ -139,7 +139,7 @@ export default {
 			selectedTab: null,
 			textures: [emptyTexture()],
 			loading: false,
-			jsonmodalOpen: false,
+			jsonModalOpen: false,
 			persistOnSave: localStorage.getItem(PERSIST_ON_SAVE_KEY) === "true",
 		};
 	},
@@ -157,7 +157,7 @@ export default {
 			if (!this.textures.length) this.addTexture();
 		},
 		openJSONModal() {
-			this.jsonmodalOpen = true;
+			this.jsonModalOpen = true;
 		},
 		parseJSON(data) {
 			if (typeof data === "object" && !Array.isArray(data)) data = [data];
@@ -182,7 +182,7 @@ export default {
 				return tex;
 			});
 			this.textures = cleaned;
-			this.jsonmodalOpen = false;
+			this.jsonModalOpen = false;
 		},
 		copyData() {
 			const data = JSON.stringify(this.cleanedData, null, 2);
