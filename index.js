@@ -135,10 +135,33 @@ const app = new Vue({
 			const cleaned = structuredClone(objs);
 			console.log(cleaned);
 		},
-		/** For debugging in sub-components */
-		checkPermissions() {
-			console.log(this.$route);
-			console.log(this.$router.options.routes);
+		/** for debugging snackbars */
+		testSnackbars() {
+			this.showSnackbar(
+				"Success title\nLorem ipsum dolor sit amet, consectetur adipiscing elit.",
+				"success",
+				{ timeout: -1 },
+			);
+			this.showSnackbar(
+				"Info title\nLorem ipsum dolor sit amet, consectetur adipiscing elit.",
+				"info",
+				{ timeout: -1 },
+			);
+			this.showSnackbar(
+				"Warning title\nLorem ipsum dolor sit amet, consectetur adipiscing elit.",
+				"warning",
+				{ timeout: -1 },
+			);
+			this.showSnackbar(
+				"Error title\nLorem ipsum dolor sit amet, consectetur adipiscing elit.",
+				"error",
+				{ timeout: -1 },
+			);
+			this.showSnackbar(
+				"Custom title\nLorem ipsum dolor sit amet, consectetur adipiscing elit.",
+				"purple",
+				{ timeout: -1, icon: "mdi-star-circle-outline" }
+			)
 		},
 		async loadBadge(cb, key) {
 			if (!this.isAdmin) return;

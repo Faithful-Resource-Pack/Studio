@@ -8,9 +8,9 @@
 		text
 		@input="close"
 	>
-		<h3 class="text--primary mb-1 d-flex flex-row align-center">
+		<div class="d-flex flex-row align-center mb-1">
 			<v-icon v-if="icon" left class="text--primary">{{ icon }}</v-icon>
-			{{ split.primary }}
+			<h3 class="text--primary">{{ split.primary }}</h3>
 			<v-spacer class="mx-2" />
 			<v-btn
 				icon
@@ -21,7 +21,7 @@
 			>
 				<v-icon>mdi-close</v-icon>
 			</v-btn>
-		</h3>
+		</div>
 
 		<!-- for stack traces where alignment/newlines matter -->
 		<pre v-if="split.secondary && split.pre" class="my-0 text-pre-wrap" :class="textColor">{{
@@ -226,24 +226,24 @@ export default {
 	// use flex gap in container for margin to avoid doubling issues
 	margin: 0 !important;
 
-	// nice accent color line
-	border-left: 4px solid rgba(white, 0.12);
+	// discord-styled accent color strip
+	border-left: 4px solid white;
 
 	// for some reason the non-solid background theme removes this (???)
 	box-shadow:
 		0 3px 5px -1px rgba(0, 0, 0, 0.2),
 		0 6px 10px 0 rgba(0, 0, 0, 0.14),
 		0 1px 18px 0 rgba(0, 0, 0, 0.12) !important;
+
+	// hide translucent background, use regular card color
+	&::before {
+		background-color: transparent;
+	}
 }
 
+// for some reason the amount of horizontal padding is insane by default
 .snackbar-status .v-snack__content {
-	// for some reason the amount of horizontal padding is insane by default
 	padding-right: 4px;
 	padding-left: 12px;
-}
-
-.snackbar-status .v-snack__wrapper.theme--dark {
-	// makes text more legible in dark mode
-	background-color: #191919;
 }
 </style>
