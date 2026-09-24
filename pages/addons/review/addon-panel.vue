@@ -4,24 +4,26 @@
 		<fullscreen-preview v-model="previewOpen" :src="header" />
 		<v-card-title>
 			<h1 class="text-h5">
-				<a
-					v-if="addon.approval?.status === 'approved'"
-					class="text--primary hover-underline"
-					:href="`https://faithfulpack.net/addons/${addon.slug}`"
-					target="blank"
-					rel="noopener noreferrer"
-				>
-					{{ addon.name }}
-				</a>
-				<span v-else>
-					{{ addon.name }}
-				</span>
+				{{ addon.name }}
 				<span class="text--secondary font-weight-light">{{ `#${addon.id}` }}</span>
 			</h1>
 			<v-spacer />
-			<v-btn icon :title="$root.lang().global.btn.edit" :to="`/addons/edit/${addon.id}`">
-				<v-icon>mdi-pencil</v-icon>
-			</v-btn>
+			<v-list-item-action class="my-0 merged-actions">
+				<!-- I'm used to the pencil on the left, could probably be argued in either direction -->
+				<v-btn :to="`/addons/edit/${addon.id}`" :title="$root.lang().global.btn.edit" icon>
+					<v-icon>mdi-pencil</v-icon>
+				</v-btn>
+				<v-btn
+					:href="`https://faithfulpack.net/addons/${addon.slug}`"
+					target="_blank"
+					rel="noopener noreferrer"
+					:disabled="addon.approval.status !== 'approved'"
+					:title="$root.lang().addons.general.go_to_addon"
+					icon
+				>
+					<v-icon color="blue">mdi-open-in-new</v-icon>
+				</v-btn>
+			</v-list-item-action>
 		</v-card-title>
 		<v-card-subtitle>{{ date }}</v-card-subtitle>
 		<v-card-text>
