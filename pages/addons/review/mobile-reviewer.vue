@@ -2,17 +2,17 @@
 	<!-- vuetify 2 doesn't support using values and v-model so we have to do it manually -->
 	<v-expansion-panels v-model="selectedIndex" accordion>
 		<v-expansion-panel
-			v-for="item in items"
-			:key="item.key"
-			:ref="`panel-${item.key}`"
+			v-for="{ primary, secondary, key } in items"
+			:key="key"
+			:ref="`panel-${key}`"
 			class="review-expansion-panel"
 			rounded
-			@change="onSelect(item.key)"
+			@change="onSelect(key)"
 		>
 			<v-expansion-panel-header expand-icon="mdi-menu-down">
 				<v-list-item class="flex-column align-start px-0" style="min-height: 0px">
-					<v-list-item-title class="align-self-start">{{ item.primary }}</v-list-item-title>
-					<v-list-item-subtitle>{{ item.secondary }}</v-list-item-subtitle>
+					<v-list-item-title class="align-self-start">{{ primary }}</v-list-item-title>
+					<v-list-item-subtitle>{{ secondary }}</v-list-item-subtitle>
 				</v-list-item>
 			</v-expansion-panel-header>
 			<v-expansion-panel-content>
@@ -47,7 +47,7 @@ export default {
 		addon: {
 			type: Object,
 			required: false,
-			default: () => ({}),
+			default: undefined,
 		},
 		items: {
 			type: Array, // { primary: string, secondary: string, key: number }[]
@@ -86,20 +86,19 @@ export default {
 			});
 		},
 		scrollPanel(id) {
-			this.$refs[`panel-${id}`][0].$el.scrollIntoView({
-				behavior: "smooth",
-				block: "center",
-			});
+			this.$refs[`panel-${id}`][0].$el.scrollIntoView({ behavior: "smooth", block: "center" });
 		},
 	},
 	watch: {
 		items: {
 			handler(items) {
 				const selectedId = this.$route.query.id;
-				if (selectedId === undefined) return;
+				const selectedIndex = items.findIndex((a) => a.key === selectedId);
+
+				if (selectedId === undefined || selectedIndex === -1) return;
 
 				// programmatically open panel using vuetify v-model and fetch files
-				this.selectedIndex = items.findIndex((a) => a.key === selectedId);
+				this.selectedIndex = selectedIndex;
 				this.getFiles(selectedId);
 				setTimeout(() => this.scrollPanel(selectedId), 200);
 			},
