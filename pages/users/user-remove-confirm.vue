@@ -39,19 +39,18 @@
 			<h2 class="title my-2">{{ addonDeleteTitle }}</h2>
 			<!-- also serves as a subtitle if there's only one tab -->
 			<v-tabs v-model="tab" grow>
-				<v-tab v-if="deletedAddons.length">
+				<v-tab :disabled="!deletedAddons.length">
 					{{ $root.lang().profile.delete.addons.deleted }} ({{ deletedAddons.length }})
 				</v-tab>
-				<v-tab v-if="transferredAddons.length">
+				<v-tab :disabled="!transferredAddons.length">
 					{{ $root.lang().profile.delete.addons.transferred }} ({{ transferredAddons.length }})
 				</v-tab>
 			</v-tabs>
 			<v-tabs-items v-model="tab">
-				<!-- always sync up number/type of tabs with tab items -->
-				<v-tab-item v-if="deletedAddons.length">
+				<v-tab-item>
 					<user-addon-list :addons="deletedAddons" />
 				</v-tab-item>
-				<v-tab-item v-if="transferredAddons.length">
+				<v-tab-item>
 					<user-addon-list :addons="transferredAddons" />
 				</v-tab-item>
 			</v-tabs-items>
