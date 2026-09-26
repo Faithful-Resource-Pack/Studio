@@ -1,9 +1,6 @@
+.DS_Store
 node_modules
 .env
-.DS_Store
-
-# puppeteer
-.cache/
 
 # vite build folder
 dist/
