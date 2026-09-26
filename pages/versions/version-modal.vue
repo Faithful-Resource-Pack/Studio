@@ -14,18 +14,22 @@
 		</v-alert>
 		<v-form ref="form" class="pt-2">
 			<v-text-field
-				v-model="formData.edition"
-				:color="color"
-				disabled
-				:label="$root.lang().database.versions.modal.edition"
-			/>
-			<v-text-field
 				v-model="formData.version"
 				:color="color"
 				:autofocus="!$vuetify.breakpoint.mobile"
 				required
 				:label="$root.lang().database.versions.modal.name"
 				:rules="rules"
+			/>
+			<v-select
+				v-model="formData.edition"
+				:color="color"
+				:item-color="color"
+				:label="$root.lang().database.versions.modal.edition"
+				:items="editionList"
+				item-text="label"
+				item-value="value"
+				disabled
 			/>
 		</v-form>
 	</modal-form>
@@ -89,6 +93,9 @@ export default {
 			// cannot rename to an existing version, completely bricks the db (lol)
 			if (this.versionExists(this.formData.version)) return false;
 			return true;
+		},
+		editionList() {
+			return settings.editions.map((e) => ({ label: e.toTitleCase(), value: e }));
 		},
 	},
 	watch: {
