@@ -71,8 +71,8 @@ export default {
 	methods: {
 		onChange() {
 			const files = this.multiple ? Array.from(this.$refs.file.files) : this.$refs.file.files[0];
-			this.$emit("change", files);
 			this.$emit("input", files);
+			this.$nextTick(() => this.$emit("change", files));
 		},
 		dragover(e) {
 			if (this.disabled) return;
