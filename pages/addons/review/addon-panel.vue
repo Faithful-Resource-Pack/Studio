@@ -25,7 +25,7 @@
 				</v-btn>
 			</v-list-item-action>
 		</v-card-title>
-		<v-card-subtitle>{{ date }}</v-card-subtitle>
+		<v-card-subtitle class="text--secondary">{{ date }}</v-card-subtitle>
 		<v-card-text>
 			<v-row>
 				<v-col cols="12" sm="8">
