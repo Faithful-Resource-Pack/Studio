@@ -26,7 +26,7 @@
 			</v-list-item>
 			<v-divider class="my-5" />
 		</v-sheet>
-		<h2 class="title mb-3">
+		<h2 class="text-h6 mb-3">
 			{{ $root.lang().database.contributions.contributors }} ({{ formattedAuthors.length }})
 		</h2>
 		<v-row>

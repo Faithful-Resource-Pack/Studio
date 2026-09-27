@@ -21,7 +21,7 @@
 					</v-list-item-content>
 				</v-list-item>
 				<v-divider class="my-5" />
-				<h2 class="title">
+				<h2 class="text-h6">
 					{{ $root.lang().database.textures.delete_modal.affected_uses }} ({{ uses.length }})
 				</h2>
 				<v-list v-if="uses.length">
@@ -44,7 +44,7 @@
 				<!-- vuetify pads an inner element so we have to undo it instead of just override -->
 				<v-skeleton-loader v-else type="list-item-avatar-two-line" class="mx-n4" />
 				<v-divider class="my-5" />
-				<h2 class="title">
+				<h2 class="text-h6">
 					{{ $root.lang().database.textures.delete_modal.affected_paths }} ({{ paths.length }})
 				</h2>
 				<v-list v-if="paths.length">
@@ -61,7 +61,7 @@
 			</v-col>
 
 			<v-col cols="12" md="6">
-				<h2 class="title">
+				<h2 class="text-h6">
 					{{ $root.lang().database.textures.delete_modal.affected_contributions }}
 					({{ contributions.length }})
 				</h2>
@@ -122,7 +122,7 @@
 				</v-list-item-content>
 			</v-list-item>
 			<v-divider class="my-5" />
-			<h2 class="title">
+			<h2 class="text-h6">
 				{{ $root.lang().database.textures.delete_modal.affected_paths }} ({{ paths.length }})
 			</h2>
 			<v-list v-if="paths.length">

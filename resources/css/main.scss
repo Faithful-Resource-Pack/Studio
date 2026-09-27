@@ -294,6 +294,14 @@ img.texture-img {
 	align-self: center;
 }
 
+// fix subtitles in modals using text color
+.theme--dark .v-card .text-h6 {
+	color: white;
+}
+.theme--light .v-card .text-h6 {
+	color: rgba(0, 0, 0, 0.87);
+}
+
 .selector .v-btn--active::before {
 	opacity: 0;
 }

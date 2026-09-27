@@ -54,7 +54,7 @@
 					/>
 				</v-col>
 			</v-row>
-			<h2 class="title">{{ $root.lang().database.packs.submissions.channels.title }}</h2>
+			<h2 class="text-h6">{{ $root.lang().database.packs.submissions.channels.title }}</h2>
 			<p class="text-caption">{{ $root.lang().database.packs.submissions.channels.title_hint }}</p>
 			<v-row>
 				<v-col>

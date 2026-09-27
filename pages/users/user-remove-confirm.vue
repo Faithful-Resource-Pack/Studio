@@ -36,7 +36,7 @@
 			<v-divider v-if="transferredAddons.length || deletedAddons.length" class="my-5" />
 		</v-sheet>
 		<div v-if="deletedAddons.length || transferredAddons.length">
-			<h2 class="title my-2">{{ addonDeleteTitle }}</h2>
+			<h2 class="text-h6 my-2">{{ addonDeleteTitle }}</h2>
 			<!-- also serves as a subtitle if there's only one tab -->
 			<v-tabs v-model="tab" grow>
 				<v-tab :disabled="!deletedAddons.length">

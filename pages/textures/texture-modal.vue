@@ -65,7 +65,7 @@
 				</v-btn>
 			</div>
 
-			<h2 class="title">
+			<h2 class="text-h6">
 				{{ $root.lang().database.textures.uses.title }} ({{ Object.keys(formData.uses).length }})
 			</h2>
 			<v-list v-if="Object.keys(formData.uses).length">

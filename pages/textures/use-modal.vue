@@ -61,7 +61,7 @@
 				:items="editions"
 				:label="$root.lang().database.textures.uses.edition"
 			/>
-			<h2 class="title">
+			<h2 class="text-h6">
 				{{ $root.lang().database.textures.paths.title }} ({{ Object.keys(formData.paths).length }})
 			</h2>
 			<v-list v-if="Object.keys(formData.paths).length">

@@ -67,7 +67,7 @@
 				class="d-flex flex-row-reverse justify-center my-3"
 				style="max-width: 100%"
 			/>
-			<h2 class="title">{{ $root.lang().database.packs.modal.github.title }}</h2>
+			<h2 class="text-h6">{{ $root.lang().database.packs.modal.github.title }}</h2>
 			<p class="text-caption">{{ $root.lang().database.packs.modal.github.title_hint }}</p>
 			<div v-for="edition in editions" :key="edition">
 				<p class="text-body-1">{{ edition.toTitleCase() }}</p>
@@ -88,7 +88,7 @@
 					</v-col>
 				</v-row>
 			</div>
-			<h2 class="title mb-2">{{ $root.lang().database.packs.submissions.title }}</h2>
+			<h2 class="text-h6 mb-2">{{ $root.lang().database.packs.submissions.title }}</h2>
 			<v-row v-if="Object.keys(formData.submission).length" dense>
 				<v-col>
 					<v-btn block color="secondary" @click="openSubmissionModal(formData, false)">

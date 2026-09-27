@@ -25,7 +25,7 @@
 		</v-list-item>
 		<template v-if="type === 'packs'">
 			<v-divider class="my-5" />
-			<h2 class="title">{{ $root.lang().database.packs.modal.github.title }}</h2>
+			<h2 class="text-h6">{{ $root.lang().database.packs.modal.github.title }}</h2>
 			<v-list>
 				<v-list-item v-for="({ org, repo }, edition) in data.github" :key="edition" class="px-0">
 					<v-list-item-content>
