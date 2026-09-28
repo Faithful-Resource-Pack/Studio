@@ -184,7 +184,7 @@ export default {
 			packs: {},
 			textures: {},
 			loading: false,
-			search: "",
+			search: null,
 			contributions: [],
 			modalOpen: false,
 			modalAdd: false,
@@ -317,7 +317,7 @@ export default {
 			const url = new URL(`${this.$root.apiURL}/contributions/search`);
 			url.searchParams.set("packs", this.selectedPackKeys.join("-"));
 			url.searchParams.set("users", this.selectedContributors.join("-"));
-			url.searchParams.set("search", this.search.replace(/ /g, "_"));
+			url.searchParams.set("search", (this.search || "").replace(/ /g, "_"));
 			return url.toString();
 		},
 	},
@@ -335,7 +335,7 @@ export default {
 		this.getTextures();
 		this.getPacks();
 		this.getAuthors();
-		this.search = this.$route.params.name || "";
+		this.search = this.$route.params.name || null;
 		this.$nextTick(() => this.startSearch());
 	},
 	mounted() {
