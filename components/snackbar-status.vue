@@ -132,6 +132,12 @@ export default {
 		split() {
 			const base = this.snackbar.message;
 
+			if (!base)
+				return {
+					primary: "No snackbar message was provided!",
+					secondary: "If you're seeing this, something has probably gone wrong.",
+				};
+
 			if (typeof base === "string") {
 				// first line becomes title, everything else description
 				const newline = base.indexOf("\n");
@@ -183,7 +189,7 @@ export default {
 				};
 			}
 
-			return { primary: extractedMessage, secondary: "" };
+			return { primary: base, secondary: "" };
 		},
 		timeout() {
 			if (this.snackbar.timeout) return this.snackbar.timeout;
