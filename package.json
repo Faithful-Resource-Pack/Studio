@@ -20,7 +20,7 @@
 		"pinia": "^2.3.1",
 		"prettier": "^3.9.9",
 		"prismjs": "^1.30.0",
-		"sass": "^1.105.0",
+		"sass": "^1.105.1",
 		"vite": "^7.3.6",
 		"vue": "^2.7.16",
 		"vue-calendar-heatmap": "0.8.4",
@@ -32,7 +32,7 @@
 	},
 	"devDependencies": {
 		"@types/d3": "^7.4.3",
-		"@types/luxon": "^3.7.5",
+		"@types/luxon": "^3.7.6",
 		"@types/prismjs": "^1.26.6",
 		"eslint": "^10.11.0",
 		"eslint-plugin-vue": "^10.11.1",

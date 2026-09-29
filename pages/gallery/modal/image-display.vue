@@ -15,12 +15,7 @@
 						:ref="`image-${pack.name}`"
 						modal
 						:src="pack.image"
-						:alt="
-							$root
-								.lang()
-								.gallery.modal.image_alt_text.replace('%NAME%', textureObj.texture.name)
-								.replace('%PACK%', pack.name)
-						"
+						:alt="partialImageAlt.replace('%PACK%', pack.name)"
 						:textureID="textureObj.texture.id"
 						:ignoreList="ignoreList"
 						:animated="animated"
@@ -135,6 +130,11 @@ export default {
 					image: this.textureObj.urls[pack],
 				})),
 			);
+		},
+		// static portion of image alt text (replace %PACK% inline)
+		partialImageAlt() {
+			const base = this.$root.lang().gallery.modal.image_alt_text;
+			return base.replace("%NAME%", this.textureObj.texture.name);
 		},
 	},
 };
