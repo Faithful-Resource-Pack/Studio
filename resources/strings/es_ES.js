@@ -3,7 +3,7 @@ export default {
 	global: {
 		name: "Faithful",
 		login: "Iniciar sesión",
-		logout: "Cerrar Sesión",
+		logout: "Cerrar sesión",
 		success_message: "Completado con éxito",
 		loading: "Cargando, por favor espere…",
 		no_results: "No se encontraron resultados",
@@ -588,7 +588,7 @@ export default {
 	database: {
 		search: "Buscar",
 		anonymous: "Anónimo",
-		nameless: "Sin Nombre",
+		nameless: "Sin nombre",
 		summary: "Resumen",
 		confirm_deletion: "Confirmar eliminación",
 		ask_deletion: "¿Desea eliminar %s (%d)?",
