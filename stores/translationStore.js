@@ -11,13 +11,13 @@ export default defineStore("translation", {
 	state: () => ({
 		/** @type {Record<string, import("../resources/types").LangMetadata>} all languages */
 		availableLangs: Object.entries(import.meta.glob("/resources/strings/*.js"))
-			.map(([path, loadAsImport]) => {
+			.map(([path, importFile]) => {
 				const name = path.split("/").pop().split(".")[0];
 				return {
 					id: name,
 					display: name.includes("en") ? "en" : name.slice(-2).toLowerCase(),
 					// automatically fetch default import
-					load: () => loadAsImport().then((res) => res.default),
+					load: () => importFile().then((res) => res.default),
 					bcp47: name.replace("_", "-"),
 					file: path,
 					iso3166: name.split("_")[1].toLowerCase(),
@@ -79,7 +79,6 @@ export default defineStore("translation", {
 			if (!langObj || this.loadedLangs[id]) return;
 
 			const strings = await langObj.load();
-
 			this.$patch((store) => {
 				store.loadedLangs[langObj.id] = Object.merge({}, defaultLang, strings || {});
 			});

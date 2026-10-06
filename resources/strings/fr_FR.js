@@ -1,5 +1,5 @@
 export default {
-	credits: "Juknum, TheRolf",
+	credits: "Juknum, TheRolf, Moringouin",
 	global: {
 		name: "Faithful",
 		login: "Se connecter",

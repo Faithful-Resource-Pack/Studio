@@ -116,7 +116,7 @@ interface LangMetadata {
 	id: string;
 	display: string;
 	// automatically fetch default import
-	load: () => Readonly<Partial<typeof strings>>;
+	load: () => Promise<Readonly<Partial<typeof strings>>>;
 	bcp47: string;
 	file: string;
 	iso3166: string;
