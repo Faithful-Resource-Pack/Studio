@@ -59,6 +59,8 @@
 				:color="color"
 				:item-color="color"
 				:items="editions"
+				item-text="label"
+				item-value="value"
 				:label="$root.lang().database.textures.uses.edition"
 			/>
 			<h2 class="text-h6">
@@ -135,11 +137,6 @@ export default {
 			type: Object,
 			required: true,
 		},
-		editions: {
-			type: Array,
-			required: false,
-			default: () => settings.editions,
-		},
 		textureID: {
 			type: String,
 			required: true,
@@ -178,6 +175,9 @@ export default {
 		},
 		isValid() {
 			return this.formData.edition && this.formData.texture !== "" && this.formData.paths.length;
+		},
+		editions() {
+			return settings.editions.map((e) => ({ label: e.toTitleCase(), value: e }));
 		},
 	},
 	methods: {

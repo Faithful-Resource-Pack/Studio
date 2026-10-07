@@ -33,7 +33,7 @@ export function verifyImage(file, isValid, errorMessage) {
 		});
 
 		// failed to even start reading the file
-		reader.onerror = () => reject("Failed to read file contents!.");
+		reader.onerror = () => reject("Failed to read file contents");
 
 		// start file reading process after handlers are registered
 		reader.readAsDataURL(file);

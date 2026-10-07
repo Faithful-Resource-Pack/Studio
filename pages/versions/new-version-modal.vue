@@ -13,6 +13,8 @@
 				:color="color"
 				:item-color="color"
 				:items="editions"
+				item-text="label"
+				item-value="value"
 				:label="$root.lang().database.versions.add.new_edition"
 				@change="(e) => onEditionChange(e)"
 			/>
@@ -60,7 +62,6 @@ export default {
 		const defaultEdition = settings.editions[0];
 		return {
 			modalOpen: false,
-			editions: settings.editions,
 			rules: [(input) => !this.versionExists(input) || this.$root.lang().database.versions.exists],
 			form: {
 				edition: defaultEdition,
@@ -99,6 +100,9 @@ export default {
 	computed: {
 		availableTemplateVersions() {
 			return ["None", ...settings.versions[this.form.edition]];
+		},
+		editions() {
+			return settings.editions.map((e) => ({ label: e.toTitleCase(), value: e }));
 		},
 		isValid() {
 			if (!this.form.version) return false;

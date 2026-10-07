@@ -26,7 +26,7 @@
 						:item-color="color"
 						required
 						:hint="$root.lang().database.packs.submissions.reference_hint"
-						:items="computePacks"
+						:items="packList"
 						item-text="label"
 						item-value="value"
 						:label="$root.lang().database.packs.submissions.reference_pack"
@@ -162,7 +162,7 @@ export default {
 				? this.$root.lang().database.packs.submissions.add_submission
 				: this.$root.lang().database.packs.submissions.edit_submission;
 		},
-		computePacks() {
+		packList() {
 			return this.packs.map((p) => ({ label: p.name, value: p.id }));
 		},
 	},
