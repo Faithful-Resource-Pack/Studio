@@ -453,12 +453,6 @@ export default {
 				rule: "La URL debe ser válida.",
 			},
 		},
-		status: {
-			approved: "Aprobado",
-			denied: "Denegado",
-			pending: "Pendiente",
-			archived: "Archivado",
-		},
 	},
 	review: {
 		titles: {
