@@ -1,6 +1,7 @@
 name: Translation issue
 description: File a translation issue report
 title: "[Translation] "
+type: bug
 labels: ["translation"]
 body:
   - type: markdown
