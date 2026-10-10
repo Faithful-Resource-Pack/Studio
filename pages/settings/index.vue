@@ -35,6 +35,8 @@ import Prism from "prismjs";
 import { PrismEditor } from "vue-prism-editor";
 import { generatePageStyles } from "@helpers/colors";
 
+const JSON_SPACES = 4;
+
 export default {
 	name: "settings-page",
 	components: {
@@ -63,21 +65,20 @@ export default {
 		highlighter(code) {
 			return Prism.highlight(code, Prism.languages.js, "json");
 		},
-		save() {
-			return this.$root
-				.wrapSnackbar(
-					axios.post(`${this.$root.apiURL}/settings/raw`, this.json, this.$root.apiOptions),
-				)
-				.then(() => this.$root.reloadSettings());
+		async save() {
+			await this.$root.wrapSnackbar(
+				axios.post(`${this.$root.apiURL}/settings/raw`, this.json, this.$root.apiOptions),
+			);
+			return this.$root.reloadSettings();
 		},
 	},
 	watch: {
 		json(n, o) {
-			//* update if content different
-			const newStringified = JSON.stringify(n, null, 2);
-			if (newStringified !== JSON.stringify(o, null, 2)) {
+			// update if content different
+			const newStringified = JSON.stringify(n, null, JSON_SPACES);
+			if (newStringified !== JSON.stringify(o, null, JSON_SPACES)) {
 				//* update if text content is updated : new line, new space, the text must not be adapted if same content
-				if (newStringified !== JSON.stringify(JSON.parse(this.jsonText), null, 2)) {
+				if (newStringified !== JSON.stringify(JSON.parse(this.jsonText), null, JSON_SPACES)) {
 					this.jsonText = newStringified;
 				}
 			}
@@ -86,7 +87,7 @@ export default {
 			try {
 				const parsed = JSON.parse(n);
 				this.json = parsed;
-			} catch (_ignore) {}
+			} catch {}
 		},
 	},
 	created() {
