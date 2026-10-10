@@ -451,12 +451,6 @@ export default {
 				rule: "URL must be valid",
 			},
 		},
-		status: {
-			approved: "Approved",
-			denied: "Denied",
-			pending: "Pending",
-			archived: "Archived",
-		},
 	},
 	review: {
 		titles: {

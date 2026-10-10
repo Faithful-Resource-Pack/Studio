@@ -54,7 +54,7 @@
 					<v-list-item dense style="flex: unset; min-height: 0" class="px-2">
 						<v-list-item-content class="py-0">
 							<v-list-item-title>
-								{{ $root.lang().addons.status[addon.approval.status] }}
+								{{ addonStatus(addon).replace("%s", addonReviewer(addon)) }}
 							</v-list-item-title>
 							<v-list-item-subtitle
 								v-if="addon.approval.status !== 'approved'"
@@ -99,6 +99,7 @@ export default {
 	data() {
 		return {
 			addons: [],
+			authors: [],
 			remove: {
 				open: false,
 				data: {},
@@ -139,6 +140,11 @@ export default {
 					this.loading = false;
 				});
 		},
+		getAuthors() {
+			axios.get(`${this.$root.apiURL}/users/names`).then((res) => {
+				this.authors = res.data;
+			});
+		},
 		addonHeader(addon) {
 			return `${this.$root.apiURL}/addons/${addon.id}/header?discord=${this.$root.user.access_token}&t=${this.timestamp}`;
 		},
@@ -147,10 +153,33 @@ export default {
 			const formatted = this.$root.formatDate(date);
 			return this.$root.lang().review.addon.titles.last_updated.replace("%s", formatted);
 		},
+		addonStatus(addon) {
+			switch (addon.approval.status) {
+				case "pending":
+					return this.$root.lang().review.titles.pending;
+				case "approved":
+					return this.$root.lang().review.addon.labels.approved_by;
+				case "denied":
+					return this.$root.lang().review.addon.labels.denied_by;
+				case "archived":
+					return this.$root.lang().review.addon.labels.archived_by;
+			}
+			return this.$root
+				.lang()
+				.review.addon.labels.unknown_status.replace("%s", addon.approval.status);
+		},
+		addonReviewer(addon) {
+			// straight up doesn't exist
+			if (!addon.approval || !addon.approval.author) return "Herobrine";
+			const author = this.authors.find((c) => c.id === addon.approval.author);
+			if (author.username) return author.username;
+			return `${this.$root.lang().database.anonymous} (${addon.approval.author})`;
+		},
 	},
 	mounted() {
 		this.$root.auth.addChangeListener(() => this.getAddons());
 		this.getAddons();
+		this.getAuthors();
 	},
 };
 </script>

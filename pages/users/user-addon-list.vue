@@ -13,7 +13,7 @@
 				</v-list-item-title>
 				<v-list-item-subtitle>
 					<v-badge dot inline :color="colors[addon.approval.status]" />
-					{{ $root.lang().addons.status[addon.approval.status] }}
+					{{ $root.lang().review.titles[addon.approval.status] }}
 				</v-list-item-subtitle>
 			</v-list-item-content>
 			<v-list-item-action class="merged-actions">
