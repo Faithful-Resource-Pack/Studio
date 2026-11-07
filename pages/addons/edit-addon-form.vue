@@ -249,6 +249,7 @@ export default {
 					...addon,
 					downloads,
 				};
+				delete loadedAddon.created;
 				delete loadedAddon.last_updated;
 				delete loadedAddon.approval;
 				delete loadedAddon.id;
