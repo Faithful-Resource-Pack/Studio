@@ -169,10 +169,6 @@ export default {
 			login_notice: "Log in to access more features!",
 			login_button: "Log in with Discord",
 		},
-		addons: {
-			submissions: "Submissions",
-			upload: "Upload",
-		},
 		textures: {
 			total: "Textures",
 			versions: "Versions",
