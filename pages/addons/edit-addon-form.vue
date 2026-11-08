@@ -121,6 +121,12 @@ export default {
 				this.reason = "";
 			}
 
+			// prevent form spoofing by never updating const/review-related fields
+			delete data.created;
+			delete data.last_updated;
+			delete data.approval;
+			delete data.id;
+
 			try {
 				// update no matter what then approve if manager selected
 				await this.$root.wrapSnackbar(
@@ -249,11 +255,6 @@ export default {
 					...addon,
 					downloads,
 				};
-				delete loadedAddon.created;
-				delete loadedAddon.last_updated;
-				delete loadedAddon.approval;
-				delete loadedAddon.id;
-
 				this.addonData = loadedAddon;
 			})
 			.catch((err) => {
