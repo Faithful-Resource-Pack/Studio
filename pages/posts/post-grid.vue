@@ -50,7 +50,9 @@
 				</v-card-title>
 				<v-card-subtitle>{{ postTitle(post.title).subtitle }}</v-card-subtitle>
 				<v-card-text class="d-flex align-start flex-grow-1">
-					<v-badge dot inline :color="post.published ? 'green' : 'yellow'" />
+					<v-icon size="small" :color="post.published ? 'green' : 'yellow'">
+						{{ post.published ? "mdi-check-circle" : "mdi-clock" }}
+					</v-icon>
 					<!-- by default it grows to the full container -->
 					<v-list-item dense style="flex: unset; min-height: 0" class="px-2">
 						<v-list-item-content class="py-0">

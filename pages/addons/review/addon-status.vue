@@ -22,7 +22,6 @@
 				:disabled="status === button.status"
 				@click="$emit('review', button.status)"
 			>
-				<v-icon left>{{ button.icon }}</v-icon>
 				{{ $root.lang().global.btn[button.label] }}
 			</v-btn>
 		</div>
@@ -50,20 +49,17 @@ export default {
 					label: "approve",
 					status: "approved",
 					color: "green",
-					icon: "mdi-check",
 				},
 				{
 					label: "deny",
 					status: "denied",
 					color: "red",
-					icon: "mdi-cancel",
 				},
 				{
 					label: "archive",
 					status: "archived",
 					// default white/black for archive button (gray has bad text contrast)
 					color: undefined,
-					icon: "mdi-archive",
 				},
 			],
 		};
