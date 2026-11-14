@@ -32,9 +32,9 @@
 			<v-btn
 				v-for="textureTag in textureTags"
 				:key="textureTag"
-				:class="['my-1 mr-2', activeTag(textureTag)]"
+				:class="['my-1 mr-2', tagClass(textureTag)]"
 				:to="textureURL(textureTag)"
-				:exact="textureTag == 'all'"
+				:exact="textureTag === 'all'"
 			>
 				{{ textureTag }}
 			</v-btn>
@@ -84,7 +84,7 @@
 
 				<v-list-item-content>
 					<v-list-item-title>[#{{ texture.id }}] {{ texture.name }}</v-list-item-title>
-					<v-list-item-subtitle>{{ (texture.tags || []).join(", ") }}</v-list-item-subtitle>
+					<v-list-item-subtitle>{{ texture.tags.join(", ") }}</v-list-item-subtitle>
 				</v-list-item-content>
 
 				<v-list-item-action class="merged-actions">
@@ -150,20 +150,19 @@ export default {
 				open: false,
 				data: {},
 			},
-			selectTextureTag: "all",
 		};
 	},
 	methods: {
-		activeTag(t) {
+		tagClass(tag) {
 			const result = {};
 			result[`v-btn--active ${this.pageColor} ${this.textColorOnPage}`] =
-				(t === "all" && !this.tag && !!this.name) ||
-				(t && this.tag && t.toLowerCase() === this.tag.toLowerCase());
+				(tag === "all" && !this.tag && !!this.name) ||
+				(tag && this.tag && tag.toLowerCase() === this.tag.toLowerCase());
 
 			return result;
 		},
-		textureURL(t) {
-			return `/textures/${t}/${this.name || ""}`;
+		textureURL(tag) {
+			return `/textures/${tag}/${this.name || ""}`;
 		},
 		startSearch() {
 			// /whatever/ => /whatever/<search>
@@ -227,6 +226,7 @@ export default {
 			const { tag, name } = this.$route.params;
 			if (tag && tag !== "all") url.searchParams.set("tag", tag);
 			if (name) url.searchParams.set("name", name.replace(/ /g, "_"));
+
 			axios
 				.get(url.toString())
 				.then((res) => {
@@ -260,14 +260,8 @@ export default {
 		},
 	},
 	watch: {
-		$route() {
+		"$route.params.tag"() {
 			this.getTextures();
-		},
-		tag(n) {
-			this.selectTextureTag = n;
-		},
-		selectTextureTag(n) {
-			if (n) this.$router.push(this.textureURL(n)).catch(() => {});
 		},
 	},
 	mounted() {

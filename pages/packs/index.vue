@@ -37,11 +37,11 @@
 			<v-btn
 				v-for="packTag in packTags"
 				:key="packTag"
-				:class="['my-1 mr-2', activeTag(packTag)]"
+				:class="['my-1 mr-2', tagClass(packTag)]"
 				:to="packURL(packTag)"
 				:exact="packTag === 'all'"
 			>
-				{{ formatTags(packTag) }}
+				{{ packTag.toTitleCase() }}
 			</v-btn>
 		</div>
 
@@ -55,7 +55,7 @@
 				<v-list-item-content>
 					<v-list-item-title>{{ pack.name }}</v-list-item-title>
 					<v-list-item-subtitle>
-						{{ (pack.tags.map(formatTags) || []).join(", ") }}
+						{{ pack.tags.map((p) => p.toTitleCase()).join(", ") }}
 					</v-list-item-subtitle>
 				</v-list-item-content>
 
@@ -111,18 +111,25 @@ export default {
 		};
 	},
 	methods: {
-		activeTag(t) {
+		tagClass(tag) {
 			const result = {};
 			result[`v-btn--active ${this.pageColor} ${this.textColorOnPage}`] =
-				(t === "all" && !this.tag) || (t && this.tag && t.toLowerCase() === this.tag.toLowerCase());
+				(tag === "all" && !this.tag) ||
+				(tag && this.tag && tag.toLowerCase() === this.tag.toLowerCase());
 
 			return result;
+		},
+		packURL(tag) {
+			return `/packs/${tag || "all"}`;
 		},
 		startSearch() {
 			// change url to match
 			const newPath = this.packURL(this.tag);
 			if (newPath !== this.$route.path) return this.$router.push(newPath);
 
+			this.getPacks();
+		},
+		getPacks() {
 			// "all" tag searches everything
 			const url = new URL(`${this.$root.apiURL}/packs/search`);
 			if (this.tags.includes(this.$route.params.tag))
@@ -138,14 +145,20 @@ export default {
 					this.$root.showSnackbar(err, "error");
 				});
 		},
-		packURL(tag) {
-			return `/packs/${tag || "all"}`;
+		getTags() {
+			axios
+				.get(`${this.$root.apiURL}/packs/tags`)
+				.then((res) => {
+					this.tags = res.data;
+				})
+				.catch((err) => {
+					console.error(err);
+					this.$root.showSnackbar(err, "error");
+				});
 		},
-		formatTags(s) {
-			return s
-				.split("_")
-				.map((p) => (p == "progart" ? "Programmer Art" : p.toTitleCase()))
-				.join(" ");
+		update(success = true) {
+			if (success) this.getPacks();
+			this.getTags();
 		},
 		openModal(data) {
 			this.modalOpen = true;
@@ -154,9 +167,8 @@ export default {
 		},
 		close(refresh = false) {
 			this.modalOpen = false;
-			// clear form
 			this.modalData = {};
-			if (refresh) this.startSearch();
+			if (refresh) this.update();
 		},
 		askRemove(data) {
 			this.remove.data = data;
@@ -171,29 +183,14 @@ export default {
 			return this.$route.params.tag || "all";
 		},
 	},
-	mounted() {
-		axios
-			.get(`${this.$root.apiURL}/packs/tags`)
-			.then((res) => {
-				this.tags = res.data;
-			})
-			.catch((err) => {
-				console.error(err);
-				this.$root.showSnackbar(err, "error");
-			});
-		this.startSearch();
-		this.pageStyles = generatePageStyles(this.pageColor);
-	},
 	watch: {
-		"$route.params": {
-			handler(params, old) {
-				// if hash changed but not params
-				if (JSON.stringify(params) === JSON.stringify(old)) return;
-
-				// search whenever the url changes (when tag is switched)
-				this.startSearch();
-			},
+		"$route.params.tag"() {
+			this.startSearch();
 		},
+	},
+	mounted() {
+		this.update(true);
+		this.pageStyles = generatePageStyles(this.pageColor);
 	},
 };
 </script>

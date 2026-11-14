@@ -6,7 +6,7 @@
 		<new-version-modal v-model="newVersionModalOpen" :color="pageColor" />
 
 		<version-modal v-model="editModal.open" :data="editModal.data" :color="pageColor" />
-		<version-remove-confirm v-model="remove.open" :data="remove.data" @close="update" />
+		<version-remove-confirm v-model="remove.open" :data="remove.data" />
 
 		<v-row no-gutters class="py-0 mb-0" align="center">
 			<v-col cols="12" sm="6">
@@ -28,7 +28,7 @@
 			<v-btn
 				v-for="versionEdition in editions"
 				:key="versionEdition"
-				:class="['my-1 mr-2', activeEdition(versionEdition)]"
+				:class="['my-1 mr-2', editionClass(versionEdition)]"
 				:to="versionURL(versionEdition)"
 				:exact="versionEdition === 'all'"
 			>
@@ -119,11 +119,11 @@ export default {
 		};
 	},
 	methods: {
-		activeEdition(t) {
+		editionClass(edition) {
 			const result = {};
 			result[`v-btn--active ${this.pageColor} ${this.textColorOnPage}`] =
-				(t === "all" && !this.edition) ||
-				(t && this.edition && t.toLowerCase() === this.edition.toLowerCase());
+				(edition === "all" && !this.edition) ||
+				(edition && this.edition && edition.toLowerCase() === this.edition.toLowerCase());
 
 			return result;
 		},
@@ -149,10 +149,6 @@ export default {
 			this.remove.data = item;
 			this.remove.open = true;
 		},
-		update(success) {
-			this.remove.open = false;
-			if (success) this.$root.reloadSettings();
-		},
 	},
 	computed: {
 		grouped() {
@@ -165,7 +161,7 @@ export default {
 						latest: i === 0,
 					})),
 				)
-				.filter(({ edition }) => (this.edition === "all" ? true : this.edition === edition))
+				.filter(({ edition }) => this.edition === "all" || this.edition === edition)
 				.sort((a, b) => {
 					if (a.latest) return -1;
 					b.paths - a.paths;

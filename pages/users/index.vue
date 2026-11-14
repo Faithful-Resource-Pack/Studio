@@ -22,7 +22,7 @@
 			<v-btn
 				v-for="userRole in userRoles"
 				:key="userRole"
-				:class="['my-1 mr-2', activeRole(userRole)]"
+				:class="['my-1 mr-2', roleClass(userRole)]"
 				:to="userURL(userRole)"
 				:exact="userRole === 'all'"
 			>
@@ -136,16 +136,16 @@ export default {
 		};
 	},
 	methods: {
-		activeRole(t) {
+		roleClass(role) {
 			const result = {};
 			result[`v-btn--active ${this.pageColor} ${this.textColorOnPage}`] =
-				(t === "all" && !this.role && !!this.name) ||
-				(t && this.role && t.toLowerCase() === this.role.toLowerCase());
+				(role === "all" && !this.role && !!this.name) ||
+				(role && this.role && role.toLowerCase() === this.role.toLowerCase());
 
 			return result;
 		},
-		userURL(t) {
-			return `/users/${t}/${this.name || ""}`;
+		userURL(role) {
+			return `/users/${role}/${this.name || ""}`;
 		},
 		startSearch() {
 			// /whatever/ => /whatever/<search>

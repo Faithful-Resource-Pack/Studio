@@ -126,10 +126,7 @@ export default {
 			},
 			sort: localStorage.getItem(SORT_KEY) || "nameAsc",
 			// how long a request took
-			timer: {
-				start: null,
-				end: null,
-			},
+			timer: { start: null, end: null },
 			// current results
 			textures: [],
 			// loaded contributors

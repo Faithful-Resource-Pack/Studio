@@ -45,7 +45,10 @@ export default {
 				.wrapSnackbar(
 					axios.delete(`${this.$root.apiURL}/versions/${this.data.version}`, this.$root.apiOptions),
 				)
-				.then(() => this.$emit("close", true));
+				.then(() => {
+					this.$root.reloadSettings();
+					this.$emit("close", true);
+				});
 		},
 	},
 	computed: {
