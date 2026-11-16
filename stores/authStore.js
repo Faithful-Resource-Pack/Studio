@@ -67,7 +67,14 @@ export default defineStore("auth", {
 				return;
 			}
 
-			await discordToken.authenticate(authMethod).catch((err) => app.showSnackbar(err, "error"));
+			await discordToken.authenticate(authMethod).catch((err) => {
+				app.showSnackbar(err, "error");
+
+				// fix invalid auth bricking the app, you can try again as logged out
+				discordToken.$reset();
+				app.loginResolved = true;
+				this.$reset();
+			});
 
 			// https://stackoverflow.com/a/41061471/20327257
 			if (new URLSearchParams(location.search).has("access_token"))
